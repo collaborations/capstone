@@ -49,3 +49,7 @@ gem 'nokogiri'
 # Use mechanize
 gem 'mechanize'
 
+group :development do
+  gem 'capistrano', '~> 3.4.0'
+end
+

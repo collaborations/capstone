@@ -38,4 +38,14 @@ gem 'spring',        group: :development
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 
-gem "haml"
+#Use haml instead of erb
+gem 'haml'
+
+# Use nokogiri
+# Dependencies on Nokogiri
+  # Mechanize
+gem 'nokogiri'
+
+# Use mechanize
+gem 'mechanize'
+

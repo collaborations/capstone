@@ -19,5 +19,17 @@ module Capstone
     # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     # config.i18n.default_locale = :de
+
+    # Changing sass syntax
+    # config.sass.preferred_syntax = :sass
+
+    # Load models defined in subdirectories of app/models without needing require statements
+    config.autoload_paths += Dir["#{Rails.root}/app/models/[a-z]*"]
+
+    #I'm not really sure if this will work
+    config.generators do |g|
+      g.template_engine :haml
+    end
+
   end
 end

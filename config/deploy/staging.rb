@@ -6,8 +6,8 @@
 # http://capistranorb.com/documentation/getting-started/configuration/
 # Feel free to add new variables to customise your setup.
 
-set :stage, :production
-set :rails_env, :production
+set :stage, :staging
+set :rails_env, :staging
 set :deploy_to, "/home/#{fetch(:deploy_user)}/testing/#{fetch(:application)}"
 
 server 'capstone.ginoclement.com', user: 'deploy', roles: %w{web app db}, primary: true

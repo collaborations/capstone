@@ -8,10 +8,9 @@
 
 set :stage, :production
 set :rails_env, :production
-set :deploy_to, "/home/#{fetch(:deploy_user)}/app/#{fetch(:application)}"
+set :deploy_to, "/home/deploy/app/#{fetch(:application)}"
 
 server 'capstone.ginoclement.com', user: 'deploy', roles: %w{web app db}, primary: true
-
 # Custom SSH Options
 # ==================
 # You may pass any option but keep in mind that net/ssh understands a

@@ -2,7 +2,7 @@
 lock '3.4.0'
 
 set :application, 'capstone'
-set :deploy_user, 'deploy'
+# set :deploy_user, 'deploy'
 set :scm, :git
 set :repo_url, 'git@github.com:collaborations/capstone.git'
 set :branch, 'master'

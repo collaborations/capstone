@@ -22,7 +22,7 @@ set :linked_files, %w{config/database.yml config/secrets.yml}
 
 # RVM Settings
 # deploy.rb or stage file (staging.rb, production.rb or else)
-set :rvm_type, :auto
+set :rvm_type, :system                     #/usr/local/rvm
 set :rvm_ruby_version, '2.2.0'           
 # set :rvm_custom_path, '~/.myveryownrvm'  # only needed if not detected
 

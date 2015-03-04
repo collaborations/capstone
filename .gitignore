@@ -19,9 +19,6 @@ pickle-email-*.html
 
 config/initializers/secret_token.rb
 config/secrets.yml
-
-# Removing database.yml as adviced by Capistrano
-# http://capistranorb.com/documentation/getting-started/preparing-your-application/
 config/database.yml
 
 ## Environment normalisation:

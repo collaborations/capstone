@@ -20,6 +20,7 @@ pickle-email-*.html
 config/initializers/secret_token.rb
 config/secrets.yml
 config/database.yml
+config/settings.local.yml
 
 ## Environment normalisation:
 /.bundle

@@ -8,6 +8,7 @@
 
 set :stage, :production
 set :rails_env, :production
+set :deploy_user, 'deploy'
 set :deploy_to, "/home/deploy/app/#{fetch(:application)}"
 
 server 'capstone.ginoclement.com', user: 'deploy', roles: %w{web app db}, primary: true

@@ -27,6 +27,7 @@ ActiveRecord::Schema.define(version: 20150401184708) do
     t.string   "type",       null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer  "contact_id"
   end
 
   create_table "contacts", force: :cascade do |t|

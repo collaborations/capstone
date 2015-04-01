@@ -2,3 +2,6 @@
   = form_for @institution do |f|
     = render 'general', f: f
     = render 'location', f: f
+    = render 'amenities', f: f
+    = render 'restrictions', f: f
+    = f.submit "Create"

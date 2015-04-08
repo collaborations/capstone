@@ -1,0 +1,25 @@
+nav {
+	position: fixed;
+ 	top: 0px;
+ 	left: 0px;
+	width: 100%;
+	z-index: 100;
+	background-color: red;
+	overflow: hidden;
+	padding: 0
+}
+
+.logo {
+    background-image: image-url('logo.png'); 
+    background-position: center left;
+    background-repeat: no-repeat;
+    background-size: contain;
+    display: block;
+    float: left;
+    height: 2.5em;
+    width: 2.5em; // a hack based on the image dimensions
+}
+
+div#menu {
+	float: right;
+}

@@ -5,13 +5,11 @@
       %h2 = pluralize(@institution.errors.count, "error") prohibited this job from being saved:
       %ul
       = @job.errors.full_messages.each do |message|
-        %li = message 
-      = end
-    = end
+        %li= message 
+
 
     = render 'general', f: f
     = render 'location', f: f
     = render 'amenities', f: f
     = render 'restrictions', f: f
     = f.submit "Create"
-   = end

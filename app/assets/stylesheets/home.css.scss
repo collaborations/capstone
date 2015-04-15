@@ -1,14 +1,22 @@
 // Place all the styles related to the home controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
 @import 'variables';
 $category-size: 50px;
 $category-circle-size: $category-size * 2;
 
-
 #home_index {
   #logo {
     background-color: $nav-background;
+
+    .header div{
+      display: inline-block;
+    }
+
+    .statement {
+      margin-top: 100px;
+    }
   }
 
   #categories {

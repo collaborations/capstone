@@ -1,6 +1,14 @@
+@import 'variables';
+
+#content {
+  width: $content-width;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 body {
-  background-color: #fff;
-  color: #333;
+  margin-top: $nav-height + 20px;
+  background-color: $main-background;
   font-family: verdana, arial, helvetica, sans-serif;
   font-size: 13px;
   line-height: 18px;

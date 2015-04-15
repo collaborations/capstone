@@ -20,4 +20,6 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  home:
+    statement: "Helping Seattle's homeless find what they need, when they need it most"
+    search_placeholder: "Enter the name of a shelter, food bank, etc."

@@ -1,18 +1,51 @@
 // Place all the styles related to the home controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+@import 'variables';
+$category-size: 50px;
+$category-circle-size: $category-size * 2;
+
 
 #home_index {
+  #logo {
+    background-color: $nav-background;
+  }
+
   #categories {
-    margin-top: 50px;
+    background-color: $home-background;
+    padding: 60px;
+
+    .category-bg {
+      height: $category-circle-size;
+      width: $category-circle-size;
+      background-color: green;
+      -moz-border-radius: $category-circle-size; 
+      -webkit-border-radius: $category-circle-size; 
+      border-radius: $category-circle-size;
+    }
+
+    .category-img {
+      height: $category-size;
+      width: $category-size;
+      margin-top: ($category-circle-size - $category-size) / 4;
+      position: relative;
+      margin-left: auto;
+      margin-right: auto;
+      fill: white;
+    }
+
+    .category-label {
+      text-align: center;
+    }
+
+    .search-label {
+      text-align: center;
+      color: white;
+    }
   }
 
-  #categories p {
-    text-align: center;
+  p, div {
+    color: $home-text-color;
   }
 
-  .category-img {
-    height: 45px;
-    width: 45px;
-  }
 }

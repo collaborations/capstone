@@ -39,6 +39,7 @@ gem 'capistrano-rvm'
 
 #Use haml instead of erb
 gem 'haml'
+gem 'haml-rails'
 
 # Use nokogiri
 # Dependencies on Nokogiri

@@ -1,0 +1,25 @@
+%div#capacity_index
+  %h2= "Shelter Name"
+  %div#tracker
+    %div#capacity_header
+      %h3= "Capacity Tracker"
+      %h4= t('capacity.description')
+
+    %p
+      = "Total spots filled: "
+      %span#total= "0"
+    %p
+      = "Reserved spots filled: "
+      %span#reserved-total= "0"
+    %p
+      = "Standby spots filled: "
+      %span#standby-total= "0"
+      
+    %ul#capacity_controls.row
+      %li= button_tag("Reserved Spot", class: 'columns small-3', id: 'reserved')
+      %li
+        %textarea#inc= 1
+      %li= button_tag("Standby Spot", class: 'columns small-3', id: 'standby')
+
+    %div#capacity_view
+      

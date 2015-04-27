@@ -20,7 +20,12 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
+  capacity:
+    title: "Capacity"
+    description: "Use this form to track the current number of guests in the shelter"
   home:
+    title: "Step Stone"
     search_label: "Search by categories"
     search_placeholder: "Enter the name of a shelter, food bank, etc."
     statement: "Helping Seattle's homeless find what they need, when they need it most"
+

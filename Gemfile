@@ -53,6 +53,9 @@ gem 'mechanize'
 gem 'compass-rails' # you need this or you get an err
 gem 'zurb-foundation', '~> 4.0.0'
 
+# Using D3.js for data. https://github.com/logical42/d3_rails
+gem 'd3_rails'
+
 group :development do
   gem 'capistrano-rails'
   

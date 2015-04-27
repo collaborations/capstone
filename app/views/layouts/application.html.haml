@@ -22,7 +22,8 @@
   = csrf_meta_tag
 
 %body
-
-  = yield
+  = render 'shared/nav' unless @disable_nav
+  %div#content
+    = yield
 
   = javascript_include_tag "application"

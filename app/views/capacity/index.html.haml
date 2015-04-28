@@ -14,12 +14,14 @@
     %p
       = "Standby spots filled: "
       %span#standby-total= "0"
-      
-    %ul#capacity_controls.row
-      %li= button_tag("Reserved Spot", class: 'columns small-3', id: 'reserved')
-      %li
-        %textarea#inc= 1
-      %li= button_tag("Standby Spot", class: 'columns small-3', id: 'standby')
+
+    %div#capacity_controls.row.collapse
+      %div.small-3.columns
+        = button_tag("Reserved Spot", id: 'reserved')
+      %div.small-3.columns
+        %input#inc{type: "number", value: 1}
+      %div.small-3.columns
+        = button_tag("Standby Spot", id: 'standby')
 
     %div#capacity_view
-      
+      / GRAPH GETS INJECTED HERE

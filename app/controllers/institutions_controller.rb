@@ -24,6 +24,7 @@ class InstitutionsController < ApplicationController
   # POST /institutions
   # POST /institutions.json
   def create
+    Rails.logger.debug "the cur params are #{institution_params}"
     @institution = Institution.new(institution_params)
 
     respond_to do |format|
@@ -69,6 +70,6 @@ class InstitutionsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def institution_params
-      params[:institution, :location]
+      params.require(:institution).permit(:name, :desc, :instructions, locations_attributes: [:streetLine1, :streetLine2, :city, :state, :zip])
     end
 end

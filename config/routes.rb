@@ -1,7 +1,11 @@
 Rails.application.routes.draw do
 
   resources :institutions
+  
+
   resources :capacity
+  match '/capacity/get' => 'capacity#get', via: :post
+  match '/capacity/update' => 'capacity#update', via: :post
 
   root "home#index"
   # The priority is based upon order of creation: first created -> highest priority.

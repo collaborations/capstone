@@ -15,6 +15,9 @@ class InstitutionsController < ApplicationController
   # GET /institutions/new
   def new
     @institution = Institution.new
+    @institution.locations.build
+    @institution.amenities.build
+    # @institution.restrictions.build
   end
 
   # GET /institutions/1/edit
@@ -24,8 +27,8 @@ class InstitutionsController < ApplicationController
   # POST /institutions
   # POST /institutions.json
   def create
-    Rails.logger.debug "the cur params are #{institution_params}"
     @institution = Institution.new(institution_params)
+    Rails.logger.debug "the cur params are #{institution_params}"
 
     respond_to do |format|
       if @institution.save
@@ -70,6 +73,6 @@ class InstitutionsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def institution_params
-      params.require(:institution).permit(:name, :desc, :instructions, locations_attributes: [:streetLine1, :streetLine2, :city, :state, :zip])
+      params.require(:institution).permit(:name, :desc, :instructions, { :locations_attributes => [:streetLine1, :streetLine2, :city, :state, :zip]}, { :amenities_attributes => [:name, :desc]}) #{:restrictions_attributes => [:name, :desc]})
     end
 end

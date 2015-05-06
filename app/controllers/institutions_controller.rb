@@ -1,5 +1,6 @@
 class InstitutionsController < ApplicationController
   before_action :set_institution, only: [:show, :edit, :update, :destroy]
+  before_action :set_amenity, only: [:edit, :update, :new]
 
   # GET /institutions
   # GET /institutions.json
@@ -16,8 +17,7 @@ class InstitutionsController < ApplicationController
   def new
     @institution = Institution.new
     @institution.locations.build
-    @institution.amenities.build
-    # @institution.restrictions.build
+    @institution.restrictions.build
   end
 
   # GET /institutions/1/edit
@@ -28,10 +28,10 @@ class InstitutionsController < ApplicationController
   # POST /institutions.json
   def create
     @institution = Institution.new(institution_params)
-    Rails.logger.debug "the cur params are #{institution_params}"
-
+    puts params
     respond_to do |format|
       if @institution.save
+
         format.html { redirect_to @institution, notice: 'Institution was successfully created.' }
         format.json { render :show, status: :created, location: @institution }
       else
@@ -71,8 +71,13 @@ class InstitutionsController < ApplicationController
       @institution = Institution.find(params[:id])
     end
 
+    def set_amenity
+      @amenities = Amenity.all
+    end
+
     # Never trust parameters from the scary internet, only allow the white list through.
     def institution_params
-      params.require(:institution).permit(:name, :desc, :instructions, { :locations_attributes => [:streetLine1, :streetLine2, :city, :state, :zip]}, { :amenities_attributes => [:name, :desc]}) #{:restrictions_attributes => [:name, :desc]})
+      params.require(:institution).permit(:name, :desc, :instructions, { :locations_attributes => [:streetLine1, :streetLine2, :city, :state, :zip]}, { :amenity_ids => []}, {:restrictions_attributes => [:name, :desc]})
     end
 end
+  

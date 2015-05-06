@@ -1,6 +1,6 @@
 %div#restrictions
   %h2= "Restrictions"
-  = f.fields_for :amenities do |l|
+  = f.fields_for :restrictions do |l|
     %div.row
       = l.label :name, "Restriction Name"
       = l.text_field :name

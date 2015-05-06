@@ -16,7 +16,6 @@
     %ul.categories.small-block-grid-2.large-block-grid-5
       - Amenity.all.each do |cat|
         %li
-          - puts cat
           = link_to("categories/" + cat.name, title: cat.desc) do
             %div.row.category-bg
               %div.category-img= embedded_svg(cat.img, { class: "category-img", alt: cat.desc})

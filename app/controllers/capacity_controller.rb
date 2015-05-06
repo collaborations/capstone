@@ -6,29 +6,57 @@ class CapacityController < ApplicationController
   end
 
   def get
-    puts params
+    # ID should be passed in as a parameter and be the id of the institution
     id = 1
     # Should get total from the institution as the maximum number of spots allowed
     total = 50
-    # Will want to change this to return the data for the current date.
-    data = Capacity.where(id: id).first
+    
+    @data = Capacity.where("institution = ? AND created_at >= ?", id, Time.zone.now.beginning_of_day).first
+    if !@data.present?
+      @data = Capacity.new(institution: id)
+      @data.save
+    end
+
     render json: [
-                  {
-                    type: "reserved",
-                    value: data.reserved
-                  },
-                  {
-                    type: "reserved_confirmed",
-                    value: data.reserved_confirmed
-                  },
-                  {
-                    type: "standby",
-                    value: data.standby
-                  }
-                ]
+                {
+                  type: "reserved",
+                  value: @data.reserved
+                },
+                {
+                  type: "reserved_confirmed",
+                  value: @data.reserved_confirmed
+                },
+                {
+                  type: "standby",
+                  value: @data.standby
+                }
+              ]
   end
 
   def update
+    id = 1
+    @data = Capacity.where("institution = ? AND created_at >= ?", id, Time.zone.now.beginning_of_day).first
+    puts "Data" + @data.to_s
+    @data.update(
+      reserved: params[:reserved],
+      reserved_confirmed: params[:reserved_confirmed],
+      standby: params[:standby]
+    )
+    puts @data
+    render json: [
+                {
+                  type: "reserved",
+                  value: @data.reserved
+                },
+                {
+                  type: "reserved_confirmed",
+                  value: @data.reserved_confirmed
+                },
+                {
+                  type: "standby",
+                  value: @data.standby
+                }
+              ]
   end
-  
+
 end

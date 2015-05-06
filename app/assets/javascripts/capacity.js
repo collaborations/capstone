@@ -25,41 +25,30 @@ var pie = d3.layout.pie()
     .value(function(d) { return d.population; });
 
 // Updates the number of reserverd spots by the given amount
-function addReserved(){
-  num = getIncrement()
-  data["reserved"] += num
-  $("#reserved-total")[0].innerHTML = data["reserved"]
-  addTotal(num)
-}
-
-// Updates the number of standby spots by the given amount
-function addStandby(){
-  num = getIncrement()
-  data["standby"] += num
-  $("#standby-total")[0].innerHTML = data["standby"]
-  addTotal(num)
-}
-
-// Updates the total number of spots used
-function addTotal(num){
+function add(){
+  num = parseInt($("#inc").val());
+  
+  if(this.id === "reserved"){
+    data["reserved"] += num
+    $("#reserved-total")[0].innerHTML = data["reserved"]
+  } else if(this.id === "standby"){
+    data["standby"] += num
+    $("#standby-total")[0].innerHTML = data["standby"]
+  } else {
+    console.log("add was called without a button");
+  }
+  
   data["total"] += num
   $("#total")[0].innerHTML = data["total"]
+
+  updateServer();
 }
 
 var color = d3.scale.ordinal()
-    .range(["#98abc5", "#8a89a6", "#7b6888", "#6b486b", "#a05d56", "#d0743c", "#ff8c00"]);
-
-// Returns the number of spots to increment by
-function getIncrement(){
-  return parseInt($("#inc").val())
-}
+    .range(["#00BB00", "#8a89a6", "#7b6888", "#6b486b", "#a05d56", "#d0743c", "#ff8c00"]);
 
 var pie = d3.layout.pie()
-    .value(function(d) { console.log("PIE"); return d.value; });
-
-function renderGraph(){
-
-}
+    .value(function(d) { return d.value; });
 
 function transform(){
   r = "translate(" + arc.centroid(this) + ")"
@@ -67,24 +56,25 @@ function transform(){
   return r
 }
 
-function updateGraph(){
-
+function updateServer(){
+  $.ajax({
+    "type": "POST",
+    "url": "http://localhost:3000/capacity/update",
+    "data": data,
+    "success": function(){
+      console.log("Success!");
+    }
+  })
 }
 
-$("#reserved").on("click", addReserved)
-$("#standby").on("click", addStandby)
-$("#total").on("change", updateGraph)
-
-$("#reserved").on("click", updateGraph)
-$("#standby").on("click", updateGraph)
+$("#reserved").on("click", add)
+$("#standby").on("click", add)
 
 dataCall = d3.xhr("http://localhost:3000/capacity/get")
 params = {id: 1}
 dataCall.post(params, function(error, data){
   data = JSON.parse(data.response);
-  data.forEach(function(d) {
-    d.value = +d.value;
-  });
+  console.log(data);
 
   var g = svg.selectAll(".arc")
       .data(pie(data))
@@ -93,8 +83,7 @@ dataCall.post(params, function(error, data){
 
   g.append("path")
     .attr("d", arc)
-    .style("fill", function(d) { return "#AABBCC"; });
-    // .style("fill", function(d) { return color(d.data.age); });
+    .style("fill", function(d) { return color(d.type); });
 
   g.append("text")
     .attr("transform", function(d) { return "translate(" + arc.centroid(d) + ")"; })

@@ -7,26 +7,12 @@ $category-size: 60px;
 $category-circle-size: $category-size * 2;
 
 #home_index {
-  #logo {
-    background-color: $home-background;
-
-    .header div{
-      display: inline-block;
-    }
-
-    .statement {
-      margin-top: 100px;
-    }
-  }
-
-  #search {
-    .row {
-      max-width: none;
-    }    
+  h3 {
+    color: $header-text-color;
   }
 
   #categories {
-    background-color: $home-background;
+    background-color: $background-color;
 
     .category-bg {
       height: $category-circle-size;
@@ -48,12 +34,28 @@ $category-circle-size: $category-size * 2;
 
     .category-label {
       text-align: center;
+      color: $label-color;
+    }
+  }
+
+  #header {
+    div {
+      float: left;
+      height: 100%;
+      vertical-align: middle;
     }
 
+    .statement {
+      padding-top: 15%;
+      padding-bottom: 15%;
+    }
   }
 
-  p, div {
-    color: $home-text-color;
-  }
+  #search {
+    clear: both;
 
+    .row {
+      max-width: none;
+    }    
+  }
 }

@@ -46,14 +46,16 @@ function addTotal(num){
   $("#total")[0].innerHTML = data["total"]
 }
 
-function callback () {
-  console.log(this.responseText);
-};
+var color = d3.scale.ordinal()
+    .range(["#98abc5", "#8a89a6", "#7b6888", "#6b486b", "#a05d56", "#d0743c", "#ff8c00"]);
 
 // Returns the number of spots to increment by
 function getIncrement(){
   return parseInt($("#inc").val())
 }
+
+var pie = d3.layout.pie()
+    .value(function(d) { console.log("PIE"); return d.value; });
 
 function renderGraph(){
 
@@ -66,18 +68,7 @@ function transform(){
 }
 
 function updateGraph(){
-  for(var key in data){
-    console.log(key + " " + data[key])
-    g = svg.selectAll(".arc")
-          .data(pie())
-          .enter()
-          .append("g")
-          .attr("class", "arc")
-    
-    g.append("path")
-      .attr("d", arc)
-      .style("fill", "#000")
-  }
+
 }
 
 $("#reserved").on("click", addReserved)
@@ -87,10 +78,27 @@ $("#total").on("change", updateGraph)
 $("#reserved").on("click", updateGraph)
 $("#standby").on("click", updateGraph)
 
+dataCall = d3.xhr("http://localhost:3000/capacity/get")
+params = {id: 1}
+dataCall.post(params, function(error, data){
+  data = JSON.parse(data.response);
+  data.forEach(function(d) {
+    d.value = +d.value;
+  });
 
-var request = new XMLHttpRequest();
-request.onload = callback;
-request.open("post", "http://localhost:3000/capacity/get");
-var formData = new FormData();
-formData.append('my_data', 'back to basics')
-request.send(formData);
+  var g = svg.selectAll(".arc")
+      .data(pie(data))
+    .enter().append("g")
+      .attr("class", "arc");
+
+  g.append("path")
+    .attr("d", arc)
+    .style("fill", function(d) { return "#AABBCC"; });
+    // .style("fill", function(d) { return color(d.data.age); });
+
+  g.append("text")
+    .attr("transform", function(d) { return "translate(" + arc.centroid(d) + ")"; })
+    .attr("dy", ".35em")
+    .style("text-anchor", "middle")
+    .text(function(d) { return d.type; });
+})

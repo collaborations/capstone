@@ -45,6 +45,10 @@ $category-circle-size: $category-size * 2;
       vertical-align: middle;
     }
 
+    .logo {
+      // max-height: 30%;
+      max-width: 500px;
+    }
     .statement {
       padding-top: 15%;
       padding-bottom: 15%;

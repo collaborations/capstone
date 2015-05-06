@@ -9,7 +9,7 @@ class CapacityController < ApplicationController
     # ID should be passed in as a parameter and be the id of the institution
     id = 1
     # Should get total from the institution as the maximum number of spots allowed
-    total = 50
+    total = 100
     
     @data ||= Capacity.where("institution = ? AND created_at >= ?", id, Time.zone.now.beginning_of_day).first
     if !@data.present?
@@ -39,12 +39,13 @@ class CapacityController < ApplicationController
 
   def update
     id = 1
+    total = 100
     @data ||= Capacity.where("institution = ? AND created_at >= ?", id, Time.zone.now.beginning_of_day).first
     if !@data.present?
       @data = Capacity.new(institution: id)
       @data.save
     end
-    empty = 100 - Integer(params[:reserved]) - Integer(params[:reserved_confirmed]) - Integer(params[:standby])
+    empty = total - Integer(params[:reserved]) - Integer(params[:reserved_confirmed]) - Integer(params[:standby])
     if empty < 0
       render json: { errors: "Not enough spots left"}, status: 400
     else

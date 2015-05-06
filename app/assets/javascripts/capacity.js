@@ -27,18 +27,27 @@ var pie = d3.layout.pie()
 // Updates the number of reserverd spots by the given amount
 function add(){
   num = parseInt($("#inc").val());
-  
   if(this.id === "reserved"){
-    data["reserved"] += num
+    temp = data["reserved"] + num;
+    if(temp < 0){
+      num = -data["reserved"];
+      temp = 0;
+    }
+    data["reserved"] = temp;
     $("#reserved-total")[0].innerHTML = data["reserved"]
   } else if(this.id === "standby"){
-    data["standby"] += num
+    temp = data["standby"] + num;
+    if(temp < 0){
+      num = -data["standby"];
+      temp = 0;
+    }
+    data["standby"] = temp;
     $("#standby-total")[0].innerHTML = data["standby"]
   } else {
     console.log("add was called without a button");
   }
   
-  data["total"] += num
+  data["total"] = data["total"] + num;
   $("#total")[0].innerHTML = data["total"]
 
   updateServer();

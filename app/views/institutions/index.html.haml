@@ -1,11 +1,52 @@
-%h1 Listing Institution
-
 = link_to('New Institution', new_institution_path, :class => "link-create-new")
 %br
+%div.row.collapse
+  %div.small-11.columns
+    = search_field_tag :query, t('home.search_placeholder')
+  %div.small-1.columns
+    = button_tag(image_tag("search.png"))
+%div#filter 
+  %div.filter_column 
+    %div.title Number of People
+    %div.button Individual
+    %div.button Family
+  %div.filter_column 
+    %div.title Gender
+    %div.button Male
+    %div.button Female
+  %div.filter_column
+    %div.title Age
+    %div.button ____
+  %div.filter_column
+    %div.title Disability
+    %div.button Physical
+    %div.button Mental
+  %div.filter_column
+    %div.title Miscallaneous
+    %div.button Veteran
+    %div.button Victim of Abuse
+  %div.filter_column
+    %div.title Show
+    %div.button All
+    %div.button Open Now
+  %div.filter_column
+    %div.title Sort By
+    %div.button Distance
+    %div.button Name
 
-%div.institution_node
+%div#map Map Goes Here
+
+%div#institution_list
   - @institutions.each do |institution|
-    %span= institution.name
-    %span= institution.desc
-    %span= institution.instructions
-    %span= link_to 'See More', institution
+    %div.institution_node
+      %div.institution_name= institution.name
+      %div.institution_contents
+        %div.institution_info
+          %div.institution_distance #{getDistance(institution.id)} miles away
+          %div.institution_hours Hours: #{getHours(institution.id)}
+        %div.institution_amenities
+          - getAmenities(institution.id).each do |amenity|
+            %div.amenity
+              %svg.amenity_img= embedded_svg("categories/" + amenity + ".svg", class: "category-img")
+              %div.amenity_name= amenity
+      %div.more_info= link_to 'See More', institution

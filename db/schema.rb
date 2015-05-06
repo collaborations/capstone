@@ -23,6 +23,14 @@ ActiveRecord::Schema.define(version: 20150504050827) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "capacities", force: :cascade do |t|
+    t.integer  "reserved"
+    t.integer  "reserved_confirmed"
+    t.integer  "standby"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+  end
+
   create_table "contact_types", force: :cascade do |t|
     t.string   "type",       null: false
     t.datetime "created_at", null: false

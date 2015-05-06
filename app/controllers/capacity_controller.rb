@@ -11,7 +11,7 @@ class CapacityController < ApplicationController
     # Should get total from the institution as the maximum number of spots allowed
     total = 50
     
-    @data = Capacity.where("institution = ? AND created_at >= ?", id, Time.zone.now.beginning_of_day).first
+    @data ||= Capacity.where("institution = ? AND created_at >= ?", id, Time.zone.now.beginning_of_day).first
     if !@data.present?
       @data = Capacity.new(institution: id)
       @data.save
@@ -35,8 +35,7 @@ class CapacityController < ApplicationController
 
   def update
     id = 1
-    @data = Capacity.where("institution = ? AND created_at >= ?", id, Time.zone.now.beginning_of_day).first
-    puts "Data" + @data.to_s
+    @data ||= Capacity.where("institution = ? AND created_at >= ?", id, Time.zone.now.beginning_of_day).first
     @data.update(
       reserved: params[:reserved],
       reserved_confirmed: params[:reserved_confirmed],

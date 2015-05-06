@@ -6,7 +6,8 @@
 var data = {
   "total": 0,
   "reserved": 0,
-  "standby": 0
+  "standby": 0,
+  "reserved_confirmed": 0
 }
 var gWidth = 960
 var gHeight = 500
@@ -21,8 +22,7 @@ var svg = d3.select("#capacity_view")
   .append("g")
   .attr("transform", "translate(" + gWidth / 2 + "," + gHeight / 2 + ")")
 var pie = d3.layout.pie()
-    .sort(null)
-    .value(function(d) { return d.population; });
+    .value(function(d) { return d.value; });
 
 // Updates the number of reserverd spots by the given amount
 function add(){
@@ -44,16 +44,46 @@ function add(){
   updateServer();
 }
 
-var color = d3.scale.ordinal()
-    .range(["#00BB00", "#8a89a6", "#7b6888", "#6b486b", "#a05d56", "#d0743c", "#ff8c00"]);
-
-var pie = d3.layout.pie()
-    .value(function(d) { return d.value; });
-
 function transform(){
   r = "translate(" + arc.centroid(this) + ")"
   console.log(r)
   return r
+}
+
+function updateGraph(){
+  dataCall = d3.xhr("http://localhost:3000/capacity/get")
+  params = {id: 1}
+  dataCall.post(params, function(error, data){
+    data = JSON.parse(data.response);
+
+    data.forEach(function(d){
+      data[d.type] = d.value;
+    });
+
+    var g = svg.selectAll(".arc")
+        .data(pie(data))
+      .enter().append("g")
+        .attr("class", "arc");
+
+    g.append("path")
+      .attr("d", arc)
+      .style("fill", function(d) {
+        switch (d.data.type){
+          case "reserved":
+            return "#A00";
+          case "standby":
+            return "#0A0";
+          case "reserved_confirmed":
+            return "#000";
+        }
+      });
+
+    g.append("text")
+      .attr("transform", function(d) { return "translate(" + arc.centroid(d) + ")"; })
+      .attr("dy", ".35em")
+      .style("text-anchor", "middle")
+      .text(function(d) { return d.data.type; });
+  });
 }
 
 function updateServer(){
@@ -64,30 +94,29 @@ function updateServer(){
     "success": function(){
       console.log("Success!");
     }
-  })
+  });
+  $(".arc").remove();
+  updateGraph();
 }
+
 
 $("#reserved").on("click", add)
 $("#standby").on("click", add)
+$.ajax({
+  "type": "POST",
+  "url": "http://localhost:3000/capacity/get",
+  "success": function(temp){
+    // console.log(temp);
+    temp.forEach(function(d){
+      data[d.type] = d.value;
+      data["total"] += d.value;
+      console.log(d.type + " => " + d.value);
+    });
+    $("#standby-total")[0].innerHTML = data["standby"];
+    $("#reserved-total")[0].innerHTML = data["reserved"];
+    $("#total")[0].innerHTML = data["total"];
+  }
+});
+updateGraph();
 
-dataCall = d3.xhr("http://localhost:3000/capacity/get")
-params = {id: 1}
-dataCall.post(params, function(error, data){
-  data = JSON.parse(data.response);
-  console.log(data);
 
-  var g = svg.selectAll(".arc")
-      .data(pie(data))
-    .enter().append("g")
-      .attr("class", "arc");
-
-  g.append("path")
-    .attr("d", arc)
-    .style("fill", function(d) { return color(d.type); });
-
-  g.append("text")
-    .attr("transform", function(d) { return "translate(" + arc.centroid(d) + ")"; })
-    .attr("dy", ".35em")
-    .style("text-anchor", "middle")
-    .text(function(d) { return d.type; });
-})

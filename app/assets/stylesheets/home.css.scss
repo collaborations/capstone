@@ -3,12 +3,12 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 @import 'variables';
-$category-size: 50px;
+$category-size: 75px;
 $category-circle-size: $category-size * 2;
 
 #home_index {
   #logo {
-    background-color: $nav-background;
+    background-color: $home-background;
 
     .header div{
       display: inline-block;
@@ -46,10 +46,6 @@ $category-circle-size: $category-size * 2;
       text-align: center;
     }
 
-    .search-label {
-      text-align: center;
-      color: white;
-    }
   }
 
   p, div {

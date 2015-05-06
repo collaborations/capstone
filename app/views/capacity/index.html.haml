@@ -1,0 +1,30 @@
+%div#capacity_index
+  %h2= "Shelter Name"
+  %div#tracker
+    %div#capacity_header
+      %h3= "Capacity Tracker"
+      %h4= t('capacity.description')
+    %h3#capacity-warning= "WARNING: You have gone above your max capacity."
+    %p
+      = "Capacity: "
+      %span#max-capacity= "150"
+    %p
+      = "Total spots filled: "
+      %span#total= "0"
+    %p
+      = "Reserved spots filled: "
+      %span#reserved-total= "0"
+    %p
+      = "Standby spots filled: "
+      %span#standby-total= "0"
+
+    %ul#capacity_controls.small-block-grid-1.medium-block-grid-3.large-block-grid-3
+      %li
+        = button_tag("Reserved Spot", id: 'reserved')
+      %li
+        %input#inc{type: "number", value: 1}
+      %li
+        = button_tag("Standby Spot", id: 'standby')
+
+    %div#capacity_view
+      / GRAPH GETS INJECTED HERE

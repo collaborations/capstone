@@ -4,7 +4,10 @@
     %div#capacity_header
       %h3= "Capacity Tracker"
       %h4= t('capacity.description')
-
+    %h3#capacity-warning= "WARNING: You have gone above your max capacity."
+    %p
+      = "Capacity: "
+      %span#max-capacity= "150"
     %p
       = "Total spots filled: "
       %span#total= "0"

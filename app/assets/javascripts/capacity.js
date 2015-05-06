@@ -9,6 +9,8 @@ var data = {
   "standby": 0,
   "reserved_confirmed": 0
 }
+var mCapacity = parseInt($("#max-capacity")[0].innerHTML);
+console.log(mCapacity);
 var gWidth = 960
 var gHeight = 500
 var radius = Math.min(gWidth, gHeight) / 2;
@@ -49,6 +51,12 @@ function add(){
   
   data["total"] = data["total"] + num;
   $("#total")[0].innerHTML = data["total"]
+  if(data["total"] > mCapacity){
+    console.log("OVER CAPACITY");
+    $("#capacity-warning").show();
+  } else {
+    $("#capacity-warning").hide();
+  }
 
   updateServer();
 }
@@ -111,8 +119,9 @@ function updateServer(){
 }
 
 
-$("#reserved").on("click", add)
-$("#standby").on("click", add)
+$("#reserved").on("click", add);
+$("#standby").on("click", add);
+$("#capacity-warning").hide();
 $.ajax({
   "type": "POST",
   "url": "http://localhost:3000/capacity/get",

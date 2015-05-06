@@ -46,34 +46,29 @@ class CapacityController < ApplicationController
       @data.save
     end
     empty = total - Integer(params[:reserved]) - Integer(params[:reserved_confirmed]) - Integer(params[:standby])
-    if empty < 0
-      render json: { errors: "Not enough spots left"}, status: 400
-    else
-      @data.update(
-        reserved: params[:reserved],
-        reserved_confirmed: params[:reserved_confirmed],
-        standby: params[:standby]
-      )
-      puts @data
-      render json: [
-                  {
-                    type: "reserved",
-                    value: @data.reserved
-                  },
-                  {
-                    type: "reserved_confirmed",
-                    value: @data.reserved_confirmed
-                  },
-                  {
-                    type: "standby",
-                    value: @data.standby
-                  },
-                  {
-                    type: "empty",
-                    value: empty
-                  }
-                ]
-    end
+    @data.update(
+      reserved: params[:reserved],
+      reserved_confirmed: params[:reserved_confirmed],
+      standby: params[:standby]
+    )
+    render json: [
+                {
+                  type: "reserved",
+                  value: @data.reserved
+                },
+                {
+                  type: "reserved_confirmed",
+                  value: @data.reserved_confirmed
+                },
+                {
+                  type: "standby",
+                  value: @data.standby
+                },
+                {
+                  type: "empty",
+                  value: empty
+                }
+              ]
   end
 
 end

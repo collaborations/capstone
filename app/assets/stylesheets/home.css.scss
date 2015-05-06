@@ -3,7 +3,7 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 @import 'variables';
-$category-size: 75px;
+$category-size: 60px;
 $category-circle-size: $category-size * 2;
 
 #home_index {
@@ -19,14 +19,18 @@ $category-circle-size: $category-size * 2;
     }
   }
 
+  #search {
+    .row {
+      max-width: none;
+    }    
+  }
+
   #categories {
     background-color: $home-background;
-    padding: 60px;
 
     .category-bg {
       height: $category-circle-size;
       width: $category-circle-size;
-      background-color: green;
       -moz-border-radius: $category-circle-size; 
       -webkit-border-radius: $category-circle-size; 
       border-radius: $category-circle-size;

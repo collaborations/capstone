@@ -72,9 +72,11 @@ function updateGraph(){
           case "reserved":
             return "#A00";
           case "standby":
-            return "#0A0";
+            return "#00A";
           case "reserved_confirmed":
             return "#000";
+          case "empty":
+            return "#0A0";
         }
       });
 
@@ -109,8 +111,9 @@ $.ajax({
     // console.log(temp);
     temp.forEach(function(d){
       data[d.type] = d.value;
-      data["total"] += d.value;
-      console.log(d.type + " => " + d.value);
+      if(d.type != "empty"){
+        data["total"] += d.value;
+      }
     });
     $("#standby-total")[0].innerHTML = data["standby"];
     $("#reserved-total")[0].innerHTML = data["reserved"];

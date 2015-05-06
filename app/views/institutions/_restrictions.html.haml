@@ -1,3 +1,9 @@
 %div#restrictions
   %h2= "Restrictions"
-  %p= "form goes here"
+  = f.fields_for :restrictions do |l|
+    %div.row
+      = l.label :name, "Restriction Name"
+      = l.text_field :name
+    %div.row
+      = l.label :desc, "Description"
+      = l.text_field :desc

@@ -25,6 +25,8 @@ set :rvm_type, :system                     #/usr/local/rvm
 set :rvm_ruby_version, '2.2.0'           
 # set :rvm_custom_path, '~/.myveryownrvm'  # only needed if not detected
 
+set :passenger_restart_with_sudo, true
+
 namespace :deploy do
 
   after :restart, :clear_cache do

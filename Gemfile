@@ -33,7 +33,7 @@ gem 'unicorn'
 gem 'capistrano', '~> 3.4.0'
 gem 'capistrano-bundler'
 gem 'capistrano-rvm'
-gem 'passenger'
+gem 'capistrano-passenger'
 
 # Use debugger
 # gem 'debugger', group: [:development, :test]

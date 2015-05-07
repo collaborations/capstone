@@ -31,7 +31,7 @@ namespace :deploy do
 
   after :restart, :clear_cache do
     on roles(:web), in: :groups, limit: 3, wait: 10 do
-      run "#{ try_sudo } touch #{ File.join(current_path, 'tmp', 'restart.txt') }"
+      run "touch #{ File.join(current_path, 'tmp', 'restart.txt') }"
     end
   end
 

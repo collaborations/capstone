@@ -14,15 +14,15 @@
 
   -# Set the viewport width to device width for mobile
   %meta{ :name => "viewport", :content => "width=device-width, initial-scale=1.0" }
-
   %title= content_for?(:title) ? yield(:title) : "Untitled"
 
   = stylesheet_link_tag "application"
   = javascript_include_tag "vendor/custom.modernizr"
   = csrf_meta_tag
 
-%body
-
-  = yield
+%body{id: params[:controller] + '_' + params[:action]}
+  = render 'shared/nav' unless @disable_nav
+  %div#content
+    = yield
 
   = javascript_include_tag "application"

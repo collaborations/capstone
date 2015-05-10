@@ -42,7 +42,6 @@ class CapacityController < ApplicationController
       @data = Capacity.new(institution: id)
       @data.save
     end
-    # empty = total - Integer(params[:reserved]) - Integer(params[:standby])
     @data.update(
       reserved: params[:reserved],
       standby: params[:standby]

@@ -26,10 +26,7 @@ var pie = d3.layout.pie()
     .value(function(d) { return d.value; });
 
 // Updates the number of reserverd spots by the given amount
-function add(event){
-  // Value to change by
-  // num = parseInt(num)
-  
+function add(event){  
   if(this.id === "reserved" || this.id === "reserved-del"){
     temp = data["reserved"] + event.data.num;
     if(temp < 0){
@@ -124,7 +121,6 @@ $.ajax({
   "type": "POST",
   "url": "http://localhost:3000/capacity/get",
   "success": function(temp){
-    // console.log(temp);
     temp.forEach(function(d){
       data[d.type] = d.value;
       if(d.type != "empty"){

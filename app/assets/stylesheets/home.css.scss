@@ -3,30 +3,20 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 @import 'variables';
-$category-size: 75px;
+$category-size: 60px;
 $category-circle-size: $category-size * 2;
 
 #home_index {
-  #logo {
-    background-color: $home-background;
-
-    .header div{
-      display: inline-block;
-    }
-
-    .statement {
-      margin-top: 100px;
-    }
+  h3 {
+    color: $header-text-color;
   }
 
   #categories {
-    background-color: $home-background;
-    padding: 60px;
+    background-color: $background-color;
 
     .category-bg {
       height: $category-circle-size;
       width: $category-circle-size;
-      background-color: green;
       -moz-border-radius: $category-circle-size; 
       -webkit-border-radius: $category-circle-size; 
       border-radius: $category-circle-size;
@@ -44,12 +34,32 @@ $category-circle-size: $category-size * 2;
 
     .category-label {
       text-align: center;
+      color: $label-color;
+    }
+  }
+
+  #header {
+    div {
+      float: left;
+      height: 100%;
+      vertical-align: middle;
     }
 
+    .logo {
+      // max-height: 30%;
+      max-width: 500px;
+    }
+    .statement {
+      padding-top: 15%;
+      padding-bottom: 15%;
+    }
   }
 
-  p, div {
-    color: $home-text-color;
-  }
+  #search {
+    clear: both;
 
+    .row {
+      max-width: none;
+    }    
+  }
 }

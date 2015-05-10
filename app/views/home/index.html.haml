@@ -1,22 +1,22 @@
 %div#home_index
-  %div#logo
-    %div.row.header
-      %div.small-6.large-6.columns= image_tag "logo_black.png"
-      %div.small-6.large-6.columns.statement= t('home.statement')
+  %ul#header.small-block-grid-1.large-block-grid-2
+    %li.small-1.large-2.columns.logo= image_tag "logo_black.png"
+    %li.small-1.large-2.columns.statement= t('home.statement')
+
+  %div#search
+    %h3= t('home.search_name')
     %div.row.collapse
-      %h3= t('home.search_name')
-      %div.small-11.columns
-        = search_field_tag :query, t('home.search_placeholder')
-      %div.small-1.columns
-        = button_tag(image_tag("search.png"))
+      %div.small-10.columns
+        %input{type: "text", placeholder: t('home.search_placeholder')}
+      %div.small-2.columns
+        %button.button.postfix= "Search"
+
   %div#categories
     %h3= t('home.search_categories')
     %ul.categories.small-block-grid-2.large-block-grid-5
-      //This is just temporary until we get images
-      - categories = ["Clothing", "Food", "Bus Tickets", "Storage", "Recreation", "Shelter", "Hygiene", "Medical", "Hotlines", "Employment"]
-      - categories.each do |cat|
+      - Amenity.all.each do |cat|
         %li
-          = link_to("categories/" + cat) do
+          = link_to("categories/" + cat.name, title: cat.desc) do
             %div.row.category-bg
-              %div.category-img= embedded_svg("categories/" + cat + ".svg", class: "category-img")
-            %div.row.category-label= cat
+              %div.category-img= embedded_svg(cat.img, { class: "category-img", alt: cat.desc})
+            %div.row.category-label= cat.name

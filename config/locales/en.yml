@@ -22,7 +22,12 @@
 en:
   capacity:
     title: "Capacity"
-    description: "Use this form to track the current number of guests in the shelter"
+    description:
+      capacity: "As guests enter for stay in the overnight shelter, use this form to count the number of reserved and standby spots that become occupied."
+      reserved: "Guests who did not previously sign up"
+      standby: "Guests who previously signed up"
+      update_detail: "The tracked capacity will be updated in real-time on the Step Stone site."
+
   home:
     title: "Step Stone"
     search_categories: "Search by categories"

@@ -23,16 +23,12 @@ class CapacityController < ApplicationController
                   value: @data.reserved
                 },
                 {
-                  type: "reserved_confirmed",
-                  value: @data.reserved_confirmed
-                },
-                {
                   type: "standby",
                   value: @data.standby
                 },
                 {
                   type: "empty",
-                  value: total - @data.reserved - @data.reserved_confirmed - @data.standby
+                  value: total - @data.reserved - @data.standby
                 }
               ]
   end
@@ -45,20 +41,15 @@ class CapacityController < ApplicationController
       @data = Capacity.new(institution: id)
       @data.save
     end
-    empty = total - Integer(params[:reserved]) - Integer(params[:reserved_confirmed]) - Integer(params[:standby])
+    empty = total - Integer(params[:reserved]) - Integer(params[:standby])
     @data.update(
       reserved: params[:reserved],
-      reserved_confirmed: params[:reserved_confirmed],
       standby: params[:standby]
     )
     render json: [
                 {
                   type: "reserved",
                   value: @data.reserved
-                },
-                {
-                  type: "reserved_confirmed",
-                  value: @data.reserved_confirmed
                 },
                 {
                   type: "standby",

@@ -7,7 +7,6 @@ var data = {
   "total": 0,
   "reserved": 0,
   "standby": 0,
-  "reserved_confirmed": 0
 }
 var mCapacity = parseInt($("#max-capacity")[0].innerHTML);
 console.log(mCapacity);
@@ -87,13 +86,11 @@ function updateGraph(){
       .style("fill", function(d) {
         switch (d.data.type){
           case "reserved":
-            return "#A00";
+            return "#EF7B5C";
           case "standby":
-            return "#00A";
-          case "reserved_confirmed":
-            return "#000";
+            return "#66CFC3";
           case "empty":
-            return "#0A0";
+            return "#9BE08B";
         }
       });
 

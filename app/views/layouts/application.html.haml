@@ -19,11 +19,15 @@
 
   = stylesheet_link_tag "application"
   = javascript_include_tag "vendor/custom.modernizr"
-  = csrf_meta_tag
+  = csrf_meta_tags
 
 %body
-  %p.notice= notice
-  %p.alert= alert
-  = yield
+  -if notice
+    %p.notice=notice
+  -if alert
+    %p.alert=alert
+  = render 'shared/nav' unless @disable_nav
+  %div#content
+    = yield
 
   = javascript_include_tag "application"

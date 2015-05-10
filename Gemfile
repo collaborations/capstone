@@ -35,12 +35,14 @@ gem 'unicorn'
 gem 'capistrano', '~> 3.4.0'
 gem 'capistrano-bundler'
 gem 'capistrano-rvm'
+gem 'capistrano-passenger'
 
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 
 #Use haml instead of erb
 gem 'haml'
+gem 'haml-rails'
 
 # Use nokogiri
 # Dependencies on Nokogiri
@@ -53,6 +55,9 @@ gem 'mechanize'
 # Using Foundation for styling
 gem 'compass-rails' # you need this or you get an err
 gem 'zurb-foundation', '~> 4.0.0'
+
+# Using D3.js for data. https://github.com/logical42/d3_rails
+gem 'd3_rails'
 
 group :development do
   gem 'capistrano-rails'

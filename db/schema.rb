@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150429032824) do
+ActiveRecord::Schema.define(version: 20150506162349) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,11 +24,13 @@ ActiveRecord::Schema.define(version: 20150429032824) do
   end
 
   create_table "capacities", force: :cascade do |t|
+    t.integer  "institution_id",                 null: false
+    t.integer  "reserved",           default: 0
+    t.integer  "reserved_confirmed", default: 0
+    t.integer  "standby",            default: 0
     t.integer  "shelter_id"
-    t.integer  "num_reserved"
-    t.integer  "num_standby"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
   end
 
   create_table "contact_types", force: :cascade do |t|
@@ -71,20 +73,22 @@ ActiveRecord::Schema.define(version: 20150429032824) do
   end
 
   create_table "locations", force: :cascade do |t|
-    t.string   "streetLine1", null: false
+    t.string   "streetLine1",    null: false
     t.string   "streetLine2"
     t.string   "city"
     t.string   "state"
     t.string   "zip"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+    t.integer  "institution_id"
   end
 
   create_table "restrictions", force: :cascade do |t|
-    t.string   "name",       null: false
+    t.string   "name",           null: false
     t.string   "desc"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+    t.integer  "institution_id"
   end
 
   create_table "shelters", force: :cascade do |t|

@@ -3,19 +3,9 @@
 = link_to('New Institution', new_institution_path, :class => "link-create-new")
 %br
 
-%table
-  %thead
-    %tr
-      %th Name
-      %th Description
-      %th Instruction
-      %th{:colspan => "3"} CRUD options
-  %tbody
+%div.institution_node
   - @institutions.each do |institution|
-    %tr
-      %td= institution.name
-      %td= institution.desc
-      %td= institution.instructions
-      %td= link_to 'Show', institution
-      %td= link_to('Edit', edit_institution_path(institution))
-      %td= link_to('Destroy', institution, method: :delete, data: { confirm: 'Are you sure?' })
+    %span= institution.name
+    %span= institution.desc
+    %span= institution.instructions
+    %span= link_to 'See More', institution

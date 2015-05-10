@@ -1,3 +1,3 @@
 %div#amenities
   %h2= "Amenities"
-  %p= "form goes here"
+  =collection_check_boxes(:institution, :amenity_ids, @amenities, :id, :name)

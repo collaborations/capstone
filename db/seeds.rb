@@ -17,3 +17,7 @@ Amenity.create([{ name: "Clothing", img: "categories/clothing.svg", desc: "Provi
 	{ name: "Hotline", img: "categories/hotline.svg", desc: "Number to call for help for various reasons"},
 	{ name: "Employment", img: "categories/employment.svg", desc: "A place to offers assistance getting employed or is a job opening"}
 ])
+
+sugc = Institution.new({ name: "Seattle Union Gospel Church", desc: "Providing help to all those in need"})
+sugc.amenities = Amenity.find(2,3,6)
+sugc.save

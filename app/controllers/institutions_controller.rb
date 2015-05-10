@@ -5,6 +5,19 @@ class InstitutionsController < ApplicationController
   # GET /institutions.json
   def index
     @institutions = Institution.all
+    locations = Array.new(Array.new)
+    for institution in @institutions do
+      locations.push([institution.name, institution.locations])  
+    end
+    gon.locations2= locations
+
+    #hard coded locations for testing
+    gon.locations =  [
+      ['<h4>Sigma Chi</h4>', 47.661520, -122.308676],
+      ['<h4>Chipotle Mexican Grill</h4>', 47.659240, -122.313411],
+      ['<h4>UW Tower</h4>', 47.660841, -122.314828],
+      ['<h4>Mary Gates Hall</h4>', 47.655151, -122.307948]]
+
   end
 
   # GET /institutions/1

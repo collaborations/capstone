@@ -12,12 +12,5 @@ module InstitutionsHelper
 		return amenities
 	end
 
-	def getMapURL
-		mode = "place"
-		key = "AIzaSyBPK3tB2tAZbat9Sq3zcmTBUGCxZUO_zzg"
-		parameters = "q=Space+Needle,Seattle+WA"
-
-		"https://www.google.com/maps/embed/v1/"+mode+"?key="+key+"&"+parameters
-	end
 
 end

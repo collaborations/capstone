@@ -52,6 +52,8 @@ gem 'mechanize'
 gem 'compass-rails' # you need this or you get an err
 gem 'zurb-foundation', '~> 4.0.0'
 
+
+gem 'gon'
 group :development do
   gem 'capistrano-rails'
   

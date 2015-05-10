@@ -6,12 +6,12 @@
 var data = {
   "total": 0,
   "reserved": 0,
-  "standby": 0,
+  "standby": 0
 }
-var mCapacity = parseInt($("#max-capacity")[0].innerHTML);
+var mCapacity = 100;
 console.log(mCapacity);
-var gWidth = 960
-var gHeight = 500
+var gWidth = 400
+var gHeight = 400
 var radius = Math.min(gWidth, gHeight) / 2;
 var arc = d3.svg.arc()
   .outerRadius(radius - 10)
@@ -26,30 +26,29 @@ var pie = d3.layout.pie()
     .value(function(d) { return d.value; });
 
 // Updates the number of reserverd spots by the given amount
-function add(){
-  num = parseInt($("#inc").val());
-  if(this.id === "reserved"){
-    temp = data["reserved"] + num;
+function add(event){
+  // Value to change by
+  // num = parseInt(num)
+  
+  if(this.id === "reserved" || this.id === "reserved-del"){
+    temp = data["reserved"] + event.data.num;
     if(temp < 0){
-      num = -data["reserved"];
+      event.data.num = -data["reserved"];
       temp = 0;
     }
     data["reserved"] = temp;
-    $("#reserved-total")[0].innerHTML = data["reserved"]
-  } else if(this.id === "standby"){
-    temp = data["standby"] + num;
+  } else if(this.id === "standby" || this.id === "standby-del"){
+    temp = data["standby"] + event.data.num;
     if(temp < 0){
-      num = -data["standby"];
+      event.data.num = -data["standby"];
       temp = 0;
     }
     data["standby"] = temp;
-    $("#standby-total")[0].innerHTML = data["standby"]
   } else {
     console.log("add was called without a button");
   }
   
-  data["total"] = data["total"] + num;
-  $("#total")[0].innerHTML = data["total"]
+  data["total"] = data["total"] + event.data.num;
   if(data["total"] > mCapacity){
     console.log("OVER CAPACITY");
     $("#capacity-warning").show();
@@ -98,7 +97,7 @@ function updateGraph(){
       .attr("transform", function(d) { return "translate(" + arc.centroid(d) + ")"; })
       .attr("dy", ".35em")
       .style("text-anchor", "middle")
-      .text(function(d) { return d.data.type; });
+      .text(function(d) { return d.data.value; });
   });
 }
 
@@ -116,8 +115,10 @@ function updateServer(){
 }
 
 
-$("#reserved").on("click", add);
-$("#standby").on("click", add);
+$("#reserved").on("click", { num: 1 },  add);
+$("#standby").on("click", { num: 1 }, add);
+$("#reserved-del").on("click", { num: -1 },  add);
+$("#standby-del").on("click", { num: -1 }, add);
 $("#capacity-warning").hide();
 $.ajax({
   "type": "POST",
@@ -128,11 +129,10 @@ $.ajax({
       data[d.type] = d.value;
       if(d.type != "empty"){
         data["total"] += d.value;
+      } else {
+        $("#remaining")[0].innerHTML = d.value;
       }
     });
-    $("#standby-total")[0].innerHTML = data["standby"];
-    $("#reserved-total")[0].innerHTML = data["reserved"];
-    $("#total")[0].innerHTML = data["total"];
   }
 });
 updateGraph();

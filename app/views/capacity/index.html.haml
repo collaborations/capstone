@@ -10,7 +10,7 @@
     %div#capacity_view
       / GRAPH GETS INJECTED HERE
 
-    %ul#capacity_controls.small-block-grid-1.medium-block-grid-2.large-block-grid-2
+    %ul#capacity_controls.small-block-grid-2.medium-block-grid-2.large-block-grid-2
       %li
         = button_tag("Reserved Spot", id: 'reserved')
         %p= t('capacity.description.reserved')
@@ -20,23 +20,10 @@
 
     %div#remaining-capacity
       %p= "Remaining Capacity:"
-      %p= "73"
+      %p#remaining= 100
 
-    %ul#capacity_controls_del.small-block-grid-1.medium-block-grid-2.large-block-grid-2
+    %ul#capacity_controls_del.small-block-grid-2.medium-block-grid-2.large-block-grid-2
       %li
-        = button_tag("Delete Reserved Spot", id: 'reserved-del')
+        = button_tag("Delete Reserved Spot", id: 'reserved-del', class: 'delete')
       %li
-        = button_tag("Delete Standby Spot", id: 'standby-del')
-
-    %p
-      = "Capacity: "
-      %span#max-capacity= "150"
-    %p
-      = "Total spots filled: "
-      %span#total= "0"
-    %p
-      = "Reserved spots filled: "
-      %span#reserved-total= "0"
-    %p
-      = "Standby spots filled: "
-      %span#standby-total= "0"
+        = button_tag("Delete Standby Spot", id: 'standby-del', class: 'delete')

@@ -34,6 +34,7 @@ class CapacityController < ApplicationController
   end
 
   def update
+    pp params
     id = 1
     total = 100
     @data ||= Capacity.where("institution = ? AND created_at >= ?", id, Time.zone.now.beginning_of_day).first
@@ -41,7 +42,7 @@ class CapacityController < ApplicationController
       @data = Capacity.new(institution: id)
       @data.save
     end
-    empty = total - Integer(params[:reserved]) - Integer(params[:standby])
+    # empty = total - Integer(params[:reserved]) - Integer(params[:standby])
     @data.update(
       reserved: params[:reserved],
       standby: params[:standby]
@@ -57,7 +58,7 @@ class CapacityController < ApplicationController
                 },
                 {
                   type: "empty",
-                  value: empty
+                  value: total - @data.reserved - @data.standby
                 }
               ]
   end

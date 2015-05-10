@@ -6,6 +6,7 @@ class InstitutionsController < ApplicationController
   # GET /institutions.json
   def index
     @institutions = Institution.all
+    # Institution.where(:amenities => :category)
   end
 
   # GET /institutions/1

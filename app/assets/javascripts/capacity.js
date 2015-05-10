@@ -55,7 +55,7 @@ function add(event){
   } else {
     $("#capacity-warning").hide();
   }
-
+  $("#remaining")[0].innerHTML = mCapacity - data["total"];
   updateServer();
 }
 

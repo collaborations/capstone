@@ -18,9 +18,13 @@
         = button_tag("Standby Spot", id: 'standby')
         %p= t('capacity.description.standby')
 
-    %div#remaining-capacity
-      %p= "Remaining Capacity:"
-      %p#remaining= 100
+    %div#remaining-capacity.row
+      %div.small-3.columns
+      %div.small-3.columns
+        %p#remaining-label= "Remaining Capacity:"
+      %div.small-3.columns
+        %h3#remaining= 100
+      %div.small-3.columns
 
     %ul#capacity_controls_del.small-block-grid-2.medium-block-grid-2.large-block-grid-2
       %li

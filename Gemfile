@@ -39,10 +39,12 @@ gem 'haml'
 gem 'haml-rails'
 
 # Use nokogiri
-# Dependencies on Nokogiri
-  # Mechanize
+# http://www.nokogiri.org/
 gem 'nokogiri'
 
+# Rails config: easiest way to add multi-environment yaml settings to Rails 3 or 4
+# https://github.com/railsconfig/rails_config
+gem 'rails_config'
 
 # Using Foundation for styling
 gem 'compass-rails' # you need this or you get an err

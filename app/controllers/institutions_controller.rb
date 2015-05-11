@@ -23,7 +23,6 @@ class InstitutionsController < ApplicationController
 
   def amenity
     @institutions = Amenity.find(params[:id]).institutions
-    # Institution.where(:amenities => :category)
     render 'index'
   end
 

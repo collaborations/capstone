@@ -1,7 +1,7 @@
 module ApplicationHelper
 
   def amenity_path(amenity_id)
-    "amenity/" + amenity_id.to_s
+    "/amenity/" + amenity_id.to_s
   end
 
   def embedded_amenity(amenity, options = {})

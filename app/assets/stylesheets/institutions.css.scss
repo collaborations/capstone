@@ -19,7 +19,7 @@ $amenity-circle-size: $amenity-size * 2;
   margin-right: auto;
 }
 
-#institutions_index {
+#institutions_index, #institutions_amenity {
 	@include search-btn();
 
 	div.row {

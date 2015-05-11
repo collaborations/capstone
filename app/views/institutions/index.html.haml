@@ -1,38 +1,68 @@
 = javascript_include_tag(Settings.google.maps.url + Settings.google.maps.token)
+= javascript_include_tag('institution/filters.js')
 
 %div.row.collapse
   %div.small-11.columns
     = search_field_tag :query, t('home.search_placeholder')
   %div.small-1.columns
     = button_tag(image_tag("search.png"))
-%div#filter-settings.row.collapse
-  %div.columns.small-1.large-2
-    %div.title Number of People
-    %button Individual
-    %button Family
-  %div.columns.small-1.large-2
-    %div.title Gender
-    %button Male
-    %button Female
-  %div.columns.small-1.large-2
-    %div.title Age
-    %button ____
-  %div.columns.small-1.large-2
-    %div.title Disability
-    %button Physical
-    %button Mental
-  %div.columns.small-1.large-2
-    %div.title Miscallaneous
-    %button Veteran
-    %button Victim of Abuse
-  %div.columns.small-1.large-2
-    %div.title Show
-    %button All
-    %button Open Now
-  %div.columns.small-1.large-2
-    %div.title Sort By
-    %button Distance
-    %button Name
+
+
+%ul#filter-settings.small-box-grid-2
+  %li
+    %ul
+      %li
+        %p.title Number of People
+      %li
+        %button.filter Individual
+      %li
+        %button.filter Family
+  %li
+    %ul
+      %li
+        %p.title Gender
+      %li
+        %button.filter Male
+      %li
+        %button.filter Female
+  %li
+    %ul
+      %li
+        %p.title Age
+      %li
+        %button.filter ____
+  %li
+    %ul
+      %li
+        %p.title Disability
+      %li
+        %button.filter Physical
+      %li
+        %button.filter Mental
+  %li
+    %ul
+      %li
+        %p.title Miscallaneous
+      %li
+        %button.filter Veteran
+      %li
+        %button.filter Victim of Abuse
+  %li
+    %ul
+      %li
+        %p.title Show
+      %li
+        %button.filter All
+      %li
+        %button.filter Open Now
+  %li
+    %ul
+      %li
+        %p.title Sort By
+      %li
+        %button.filter Distance
+      %li
+        %button.filter Name
 
 %div#map
 / %iframe#map/:src => getMapURL}

@@ -7,5 +7,20 @@ $nav-background: #cda8a0;
 $nav-height: 50px;
 
 
-$button-selected: #FFF;
-$button-deselected: #AAA;
+//Filter button settings
+$filter-btn-selected: #FFF;
+$filter-btn-deselected: #AAA;
+
+$filter-btn-padding: 2px;
+$filter-btn-radius: false;
+$filter-btn-full-width: false;
+$filter-btn-disabled: false;
+$filter-btn-is-input: false;
+
+// @mixin filter-btn-selected {
+//   @include button($filter-btn-padding, $filter-btn-selected, $filter-btn-radius, $filter-btn-full-width, $filter-btn-disabled, $filter-btn-is-input);
+// }
+
+// @mixin filter-btn-deselected {
+//   @include button($filter-btn-padding, $filter-btn-deselected, $filter-btn-radius, $filter-btn-full-width, $filter-btn-disabled, $filter-btn-is-input);
+// }

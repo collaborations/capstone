@@ -2,76 +2,66 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+// Used for custom buttons
+// @import "foundation/variables";
+// @import "foundation/components/global";
+// @import "foundation/components/buttons";
 @import 'variables';
+
 $amenity-size: 30px;
 $amenity-circle-size: $amenity-size * 2;
 
 #institution_setup {
- width: 80%;
- margin-left: auto;
- margin-right: auto;
-
-
- #amenities {
-
- }
-
- #general {
-
- }
-
- #location {
-
- }
-
- #restrictions {
- }
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 #institutions_index {
 
 	#filter-settings {
-    button {
-      width: 100%;
+    .selected {
+      @include filter-btn-selected();
+    }
+
+    .deselected {
+      @include filter-btn-deselected();
     }
 	}
 	
 	#map {
-		border:2px dashed black;
-		border-radius:5px;
-		text-align:center;
-		width:100%;
-		height:400px;
+		text-align: center;
+		width: 100%;
+		height: 400px;
 		position: relative;
-		float:left;
+		float: left;
 	}
 
 	#institution_list {
-		width:100%;
-		position:relative;
-		float:right;
-		//overflow:auto;
-		height:400px;
+		width: 100%;
+		position: relative;
+		float: right;
+		height: 400px;
 		
 		.institution_node{
-	  	border: 2px solid black;
-	  	border-radius: 5px;
+	  	border:  2px solid black;
+	  	border-radius:  5px;
 
 	  	.institution_contents{
-	  		display:inline-block;
+	  		display: inline-block;
 
 
 		  	.institution_info{
-		  		postion:relative;
-		  		float:left;
+		  		postion: relative;
+		  		float: left;
 		  	}
 
 				.institution_amenities{
-					position:relative;
-					float:right;
-					//display:inline-block;
+					position: relative;
+					float: right;
+
 					.amenity{
-						display:inline-block
+						display: inline-block
 					}
 					
 					.amenity_img{
@@ -90,5 +80,9 @@ $amenity-circle-size: $amenity-size * 2;
 			}
 		}
 	}
+}
+
+.filter-button-selected {
+  background-color: #AAA;
 }
 

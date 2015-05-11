@@ -10,74 +10,48 @@
 
 %ul#filter-settings.small-box-grid-2
   %li
-    %ul
-      %li
-        %p.title Number of People
-      %li
-        %button.filter Individual
-      %li
-        %button.filter Family
+    %p.title Number of People
+    %button Individual
+    %button Family
   %li
-    %ul
-      %li
-        %p.title Gender
-      %li
-        %button.filter Male
-      %li
-        %button.filter Female
+    %p.title Gender
+    %button Male
+    %button Female
   %li
-    %ul
-      %li
-        %p.title Age
-      %li
-        %button.filter ____
+    %p.title Age
+    %button ____
   %li
-    %ul
-      %li
-        %p.title Disability
-      %li
-        %button.filter Physical
-      %li
-        %button.filter Mental
+    %p.title Disability
+    %button Physical
+    %button Mental
   %li
-    %ul
-      %li
-        %p.title Miscallaneous
-      %li
-        %button.filter Veteran
-      %li
-        %button.filter Victim of Abuse
+    %p.title Miscallaneous
+    %button Veteran
+    %button Victim of Abuse
   %li
-    %ul
-      %li
-        %p.title Show
-      %li
-        %button.filter All
-      %li
-        %button.filter Open Now
+    %p.title Show
+    %button All
+    %button Open Now
   %li
-    %ul
-      %li
-        %p.title Sort By
-      %li
-        %button.filter Distance
-      %li
-        %button.filter Name
+    %p.title Sort By
+    %button Distance
+    %button Name
 
-%div#map
-/ %iframe#map/:src => getMapURL}
+%div.row
+  %div.small-1.large-6.columns#map
+  / %iframe#map/:src => getMapURL}
 
-%div#institution_list
-  - @institutions.each do |institution|
-    %div.institution_node
-      %div.institution_name= institution.name
-      %div.institution_contents
-        %div.institution_info
-          %div.institution_distance #{getDistance(institution.id)} miles away
-          %div.institution_hours Hours: #{getHours(institution.id)}
-        %div.institution_amenities
-          - getAmenities(institution.id).each do |amenity|
-            %div.amenity
-              %svg.amenity_img= embedded_svg(amenity.img, class: "category-img")
-              %div.amenity_name= amenity.name
-      %div.more_info= link_to 'See More', institution
+  %div.small-1.large-6.columns#institution_list
+    - @institutions.each do |institution|
+      %div.institution_node
+        %div.institution_name= institution.name
+        %div.institution_contents
+          %div.institution_info
+            %div.institution_distance #{getDistance(institution.id)} miles away
+            %div.institution_hours Hours: #{getHours(institution.id)}
+          %div.institution_amenities
+            - getAmenities(institution.id).each do |amenity|
+              %div.amenity
+                %svg.amenity_img= embedded_svg(amenity.img, class: "category-img")
+                %div.amenity_name= amenity.name
+        %div.more_info= link_to 'See More', institution

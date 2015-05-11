@@ -7,6 +7,7 @@
 @import "foundation/components/global";
 @import "foundation/components/buttons";
 @import "foundation/components/block-grid";
+@import 'mixins';
 @import 'variables';
 
 $amenity-size: 30px;
@@ -38,6 +39,10 @@ $amenity-circle-size: $amenity-size * 2;
 	#map {
 		text-align: center;
 		height: 400px;
+	}
+
+	#institutions_list {
+
 	}
 
 	// #institution_list {

@@ -29,7 +29,10 @@ class InstitutionsController < ApplicationController
   # GET /institutions/1
   # GET /institutions/1.json
   def show
-    # @institution
+    @hours = InstitutionHasAmenity.where(institution_id: @institution.id).first.hours
+    @location = Location.where(institution_id: @institution.id).first
+    @contact = Contact.where(institution_id: @institution.id).first
+    @restrictions = @institution.restrictions
   end
 
   # GET /institutions/new

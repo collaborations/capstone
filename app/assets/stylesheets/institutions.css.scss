@@ -49,7 +49,7 @@ $amenity-circle-size: $amenity-size * 2;
 	#institutions_list {
 		
 		.institution {
-			padding-left: 20px;
+			padding-left: $default-spacing;
 
 			.institution-amenities {
 				@include amenity-icon(15px);
@@ -65,4 +65,66 @@ $amenity-circle-size: $amenity-size * 2;
         padding-bottom: 10px;
     }
 	}
+}
+
+#institutions_show {
+  $maps-view-height: 200px;
+
+  #institution-name {
+    margin-bottom: 0px;
+  }
+
+  #address {
+    margin-bottom: $default-spacing;
+    border-bottom: solid 1px #AAA;
+    padding-bottom: $default-spacing;
+
+    p {
+      margin-bottom: 0px;
+    }
+
+  }
+
+  #get-info {
+    border: solid 1px black;
+  }
+
+  #institution-aerial-map {
+    height: $maps-view-height;
+
+    background-color: #DDD;
+    border: solid 1px black;
+  }
+
+  #institution-street-view {
+    height: $maps-view-height;
+
+    background-color: #DDD;
+    border: solid 1px black;
+  }
+
+  #institution-directions-link {
+    text-align: center;
+    margin-bottom: $default-spacing;
+
+    background-color: #DDD;
+    border: solid 1px black;
+  }
+
+  #institution-desc {
+    margin-bottom: $default-spacing;
+
+    border: solid 1px black;
+  }
+
+  #institution-restrictions {
+    margin-bottom: $default-spacing;
+
+    border: solid 1px black;
+  }
+
+  #get-info {
+    border: solid 1px black;
+  }
+
 }

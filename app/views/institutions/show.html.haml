@@ -1,8 +1,50 @@
-%h1= @institution.name
+/ if current_user_admin? 
+/   %div#admin-controls
+/     = link_to 'Edit', edit_institution_path(@institution)
 
-%p
-  %strong desc:
-  = @institution.desc
+%h1#institution-name= @institution.name
 
-= link_to 'Edit', edit_institution_path(@institution)
-= link_to 'Back', institutions_path
+%div#address
+  %p= @location.streetLine1
+  %p= @location.streetLine2 if @location.streetLine2.present?
+  %p= @location.city + ", " + @location.state + " " + @location.zip.to_s
+
+%div.row
+  %div#institution-info.columns.small-12.large-9
+    %div.row
+      %div#institution-details.columns.small-12.large-8
+        - if @contact.present?
+          - if @contact.phone.present?
+            %p= "Phone: " + @contact.phone
+          - if @contact.website.present?
+            %p= "Website: " + @contact.website
+        - if @hours.present?
+          %p= "Hours: " + @hours
+        %p= "DAYS OF WEEK OPEN"
+
+      %div#institution-aerial-map.columns.small-12.large-4
+        %p= "Google Aerial View Goes Here"
+
+    %div#institution-street-view.row
+      %p= "Google Street View Goes Here"
+
+    %div#institution-directions-link.row
+      = link_to "Get Directions", getDirectionsLink()
+
+    %div#institution-desc.row
+      %h3= "Description"
+      %p= @institution.desc
+
+    %div#institution-restrictions.row
+      %h3= "Restrictions"
+      - @restrictions.each do |r|
+        %div.row
+          %p.small-3.large-4= r.name
+          - if r.desc.present?
+            %p.small-8.large-8= r.desc
+
+  %div#get-info.columns.small-12.large-2
+    %h3= "Save Shelter Information"
+    %p= "Email"
+    %p= "Text"
+    %p= "Print"

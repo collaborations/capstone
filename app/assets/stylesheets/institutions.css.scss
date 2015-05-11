@@ -30,28 +30,10 @@ $amenity-circle-size: $amenity-size * 2;
 
 #institutions_index {
 
-	#filter {
-		border:2px dashed black;
-		border-radius:5px;
-		//text-align:center;
-		height:150px;
-
-  	.filter_column{
-  		display:inline-block;
-  		border:2px solid black;
-  		float:left;
-  		height:100%;
-
-  		.title{
-  			width:60%;
-  			margin:0 auto;
-  			height:30%;
-  		}
-
-  		.button{
-  			display:block;
-  		}
-  	}
+	#filter-settings {
+    button {
+      width: 100%;
+    }
 	}
 	
 	#map {

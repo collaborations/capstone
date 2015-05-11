@@ -1,39 +1,38 @@
 = javascript_include_tag(Settings.google.maps.url + Settings.google.maps.token)
 
-%br
 %div.row.collapse
   %div.small-11.columns
     = search_field_tag :query, t('home.search_placeholder')
   %div.small-1.columns
     = button_tag(image_tag("search.png"))
-%div#filter
-  %div.filter_column
+%div#filter-settings.row.collapse
+  %div.columns.small-1.large-2
     %div.title Number of People
-    %div.button Individual
-    %div.button Family
-  %div.filter_column 
+    %button Individual
+    %button Family
+  %div.columns.small-1.large-2
     %div.title Gender
-    %div.button Male
-    %div.button Female
-  %div.filter_column
+    %button Male
+    %button Female
+  %div.columns.small-1.large-2
     %div.title Age
-    %div.button ____
-  %div.filter_column
+    %button ____
+  %div.columns.small-1.large-2
     %div.title Disability
-    %div.button Physical
-    %div.button Mental
-  %div.filter_column
+    %button Physical
+    %button Mental
+  %div.columns.small-1.large-2
     %div.title Miscallaneous
-    %div.button Veteran
-    %div.button Victim of Abuse
-  %div.filter_column
+    %button Veteran
+    %button Victim of Abuse
+  %div.columns.small-1.large-2
     %div.title Show
-    %div.button All
-    %div.button Open Now
-  %div.filter_column
+    %button All
+    %button Open Now
+  %div.columns.small-1.large-2
     %div.title Sort By
-    %div.button Distance
-    %div.button Name
+    %button Distance
+    %button Name
 
 %div#map
 / %iframe#map/:src => getMapURL}

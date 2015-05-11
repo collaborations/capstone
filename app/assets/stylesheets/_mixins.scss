@@ -45,3 +45,17 @@ $filter-btn-is-input: false;
 @mixin filter-btn-deselected {
   @include button($filter-btn-padding, $filter-btn-deselected, $filter-btn-radius, $filter-btn-full-width, $filter-btn-disabled, $filter-btn-is-input);
 }
+
+// Search Style
+@mixin search-btn {
+  button.search  {
+    background-image: url('search.png');
+    background-position: 50%;
+    background-repeat: no-repeat
+  }
+
+  .small-10>input, button.search {
+    height:30px;
+  }
+
+}

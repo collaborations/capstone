@@ -21,6 +21,10 @@ module ApplicationHelper
     raw doc
   end
 
+  def search_bar(options = {})
+    @search_label = true if options[:label].present?
+    render 'shared/search'
+  end
 end
 
 

@@ -41,15 +41,7 @@
     }    
   }
 
-  button.button  {
-    width: 40px;
-    background-image: url('search.png');
-    background-repeat: no-repeat
-  }
-
-  .small-10>input, button.button {
-    height:30px;
-  }
+  @include search-btn();
 
   .logo {
     width: 300px;

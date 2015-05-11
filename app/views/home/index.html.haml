@@ -3,13 +3,8 @@
     %li.small-1.large-2.columns.logo= image_tag "logo_black.png"
     %li.small-1.large-2.columns.statement= t('home.statement')
 
-  %div#search
-    %h3= t('home.search_name')
-    %div.row.collapse
-      %div.small-10.columns
-        %input{type: "text", placeholder: t('home.search_placeholder')}
-      %div.small-2.columns
-        %button.button.postfix
+  - @search_label = true
+  = render 'shared/search'
 
   %div
     %h3= t('home.search_categories')

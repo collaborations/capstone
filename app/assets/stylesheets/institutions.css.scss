@@ -20,6 +20,11 @@ $amenity-circle-size: $amenity-size * 2;
 }
 
 #institutions_index {
+	@include search-btn();
+
+	div.row {
+		max-width: 100%;
+	}
 
 	#filter-settings {
 
@@ -42,7 +47,15 @@ $amenity-circle-size: $amenity-size * 2;
 	}
 
 	#institutions_list {
+		
+		.institution {
+			padding-left: 10px;
+			border-bottom: 1px solid #AAA;
 
+			.institution-amenities {
+				@include amenity-icon(15px);
+			}
+		}
 	}
 
 	// #institution_list {

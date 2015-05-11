@@ -11,10 +11,9 @@
       %div.small-2.columns
         %button.button.postfix
 
-  %div#categories
+  %div
     %h3= t('home.search_categories')
-    %ul.categories.small-block-grid-2.large-block-grid-5
+    %ul#amenities_list.small-block-grid-2.large-block-grid-5
       - Amenity.all.each do |amenity|
         %li
           =embedded_amenity(amenity, label: true)
-/ <%= link_to "Add to cart", {:controller => "car", :action => "add_to_cart", :car => car.id }%>

@@ -3,39 +3,17 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 @import 'variables';
-$category-size: 60px;
-$category-circle-size: $category-size * 2;
+
 
 #home_index {
   h3 {
     color: $header-text-color;
   }
 
-  #categories {
+  #amenities_list {
     background-color: $background-color;
 
-    .category-bg {
-      height: $category-circle-size;
-      width: $category-circle-size;
-      -moz-border-radius: $category-circle-size; 
-      -webkit-border-radius: $category-circle-size; 
-      border-radius: $category-circle-size;
-    }
-
-    .category-img {
-      height: $category-size;
-      width: $category-size;
-      margin-top: ($category-circle-size - $category-size) / 4;
-      position: relative;
-      margin-left: auto;
-      margin-right: auto;
-      fill: white;
-    }
-
-    .category-label {
-      text-align: center;
-      color: $label-color;
-    }
+    @include amenity-icon(60px);
   }
 
   #header {

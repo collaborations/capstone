@@ -7,41 +7,41 @@
   %div.small-1.columns
     = button_tag(image_tag("search.png"))
 
-
-%ul#filter-settings.small-box-grid-2
-  %li
-    %p.title Number of People
-    %button Individual
-    %button Family
-  %li
-    %p.title Gender
-    %button Male
-    %button Female
-  %li
-    %p.title Age
-    %button ____
-  %li
-    %p.title Disability
-    %button Physical
-    %button Mental
-  %li
-    %p.title Miscallaneous
-    %button Veteran
-    %button Victim of Abuse
-  %li
-    %p.title Show
-    %button All
-    %button Open Now
-  %li
-    %p.title Sort By
-    %button Distance
-    %button Name
+%div
+  %ul#filter-settings.small-block-grid-2.large-block-grid-7
+    %li.filter
+      %span.filter-title Number of People
+      %button.filter-btn-deselected Individual
+      %button.filter-btn-deselected Family
+    %li.filter
+      %span.filter-title Gender
+      %button.filter-btn-deselected Male
+      %button.filter-btn-deselected Female
+    %li.filter
+      %span.filter-title Age
+      %button.filter-btn-deselected ____
+    %li.filter
+      %span.filter-title Disability
+      %button.filter-btn-deselected Physical
+      %button.filter-btn-deselected Mental
+    %li.filter
+      %span.filter-title Miscallaneous
+      %button.filter-btn-deselected Veteran
+      %button.filter-btn-deselected Victim of Abuse
+    %li.filter
+      %span.filter-title Show
+      %button.filter-btn-deselected All
+      %button.filter-btn-deselected Open Now
+    %li.filter
+      %span.filter-title Sort By
+      %button.filter-btn-deselected Distance
+      %button.filter-btn-deselected Name
 
 %div.row
-  %div.small-1.large-6.columns#map
+  %div.small-12.large-6.columns#map
   / %iframe#map/:src => getMapURL}
 
-  %div.small-1.large-6.columns#institution_list
+  %div.small-12.large-6.columns#institution_list
     - @institutions.each do |institution|
       %div.institution_node
         %div.institution_name= institution.name

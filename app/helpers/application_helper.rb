@@ -11,7 +11,6 @@ module ApplicationHelper
   end
 
   def embedded_svg(filename, options = {})
-    puts "Filename: " + filename
     assets = Rails.application.assets
     file = assets.find_asset(filename).body.force_encoding("UTF-8")
     doc = Nokogiri::HTML::DocumentFragment.parse file

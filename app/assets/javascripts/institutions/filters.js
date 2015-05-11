@@ -1,10 +1,11 @@
-// Add toggle
-$("button.filter").on("click", function(){
+// Toggle filter button
+$("li.filter > button").on("click", function(){
   btn = $(this);
-  btn.toggleClass("selected");
-  if( btn.hasClass("selected") ){
-    btn.removeClass("selected");
+  if( btn.hasClass("filter-btn-selected") ){
+    btn.removeClass("filter-btn-selected");
+    btn.addClass("filter-btn-deselected");
   } else {
-    btn.addClass("selected");
+    btn.removeClass("filter-btn-deselected");
+    btn.addClass("filter-btn-selected");
   }
 })

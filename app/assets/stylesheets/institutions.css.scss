@@ -21,11 +21,11 @@ $amenity-circle-size: $amenity-size * 2;
 
 	#filter-settings {
     .selected {
-      @include filter-btn-selected();
+      // @include filter-btn-selected();
     }
 
     .deselected {
-      @include filter-btn-deselected();
+      // @include filter-btn-deselected();
     }
 	}
 	

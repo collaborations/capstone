@@ -13,7 +13,7 @@ nav {
 }
 
 .logo {
-    background-image: image-url('logo.png'); 
+    background-image: image-url('logo_black.png'); 
     background-position: center left;
     background-repeat: no-repeat;
     background-size: contain;
@@ -24,5 +24,9 @@ nav {
 }
 
 div#menu {
+    float: right;
+}
+
+div#nav-right {
     float: right;
 }

@@ -1,6 +1,9 @@
 class CapacityController < ApplicationController
   # Introducing this has to give some sort of CSRF vulnerability
   skip_before_action :verify_authenticity_token
+  
+  # TODO: Before adding this, we need do error handling for if someone isn't logged in.
+  # before_action :authenticate_user!
 
   def index
   end

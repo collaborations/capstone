@@ -18,24 +18,9 @@ Amenity.create([{ name: "Clothing", img: "categories/clothing.svg", desc: "Provi
 	{ name: "Employment", img: "categories/employment.svg", desc: "A place to offers assistance getting employed or is a job opening"}
 ])
 
-
 # var = <model>.new({<field>: "<value>", <field2>: "<value>"}) 
 # var.<model relation> = <active record association>
 # var.save
-
-# capstone_development=# SELECT * FROM amenities;
-#  id |    name     |            img            |                               desc                                |
-# ----+-------------+---------------------------+-------------------------------------------------------------------+
-#   1 | Clothing    | categories/clothing.svg   | Provides clothes to patrons                                       |
-#   2 | Food        | categories/food.svg       | Provides meals to homeless through coupons or for free            |
-#   3 | Bus Tickets | categories/bustickets.svg | Provides a place to purchase bus tickets                          |
-#   4 | Storage     | categories/storage.svg    | Provides a place to store personal items                          |
-#   5 | Recreation  | categories/recreation.svg | Has recreational things to do                                     |
-#   6 | Shelter     | categories/shelter.svg    | Provides a place to stay overnight                                |
-#   7 | Hygiene     | categories/hygiene.svg    | Provides a shower                                                 |
-#   8 | Medical     | categories/medical.svg    | Has some amount of medical assistance                             |
-#   9 | Hotline     | categories/hotline.svg    | Number to call for help for various reasons                       |
-#  10 | Employment  | categories/employment.svg | A place to offers assistance getting employed or is a job opening |
 
 SeattleUnionGospelMission = Institution.new({ name: "Seattle Union Gospel Mission: Men's Shelter", 
 	desc: "Men's emergency overnight shelter providing clothing, meals, and art classes.", 
@@ -71,5 +56,4 @@ StFrancisHouse = Institution.new({name: "St. Francis House",
 	instructions: "No one is ever turned away, all are welcome. Clients must visit in person, no phone calls please."})
 StFrancisHouse.amenities = Amenity.find(1,2)
 StFrancisHouse.save
-
 

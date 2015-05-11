@@ -9,14 +9,15 @@
       %div.small-10.columns
         %input{type: "text", placeholder: t('home.search_placeholder')}
       %div.small-2.columns
-        %button.button.postfix= "Search"
+        %button.button.postfix
 
   %div#categories
     %h3= t('home.search_categories')
     %ul.categories.small-block-grid-2.large-block-grid-5
       - Amenity.all.each do |cat|
         %li
-          = link_to("categories/" + cat.name, title: cat.desc) do
+          = link_to("amenity/" + cat.id.to_s, title: cat.desc, category: cat.name) do
             %div.row.category-bg
               %div.category-img= embedded_svg(cat.img, { class: "category-img", alt: cat.desc})
             %div.row.category-label= cat.name
+/ <%= link_to "Add to cart", {:controller => "car", :action => "add_to_cart", :car => car.id }%>

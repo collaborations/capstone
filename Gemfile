@@ -1,6 +1,5 @@
 source 'https://rubygems.org'
 
-
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.0'
 # Use postgresql as the database for Active Record
@@ -13,6 +12,7 @@ gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.0.0'
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 # gem 'therubyracer',  platforms: :ruby
+gem 'devise'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
@@ -25,9 +25,6 @@ gem 'sdoc', '~> 0.4.0',          group: :doc
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
-
-# Use unicorn as the app server
-gem 'unicorn'
 
 # Use Capistrano for deployment
 gem 'capistrano', '~> 3.4.0'
@@ -43,12 +40,12 @@ gem 'haml'
 gem 'haml-rails'
 
 # Use nokogiri
-# Dependencies on Nokogiri
-  # Mechanize
+# http://www.nokogiri.org/
 gem 'nokogiri'
 
-# Use mechanize
-gem 'mechanize'
+# Rails config: easiest way to add multi-environment yaml settings to Rails 3 or 4
+# https://github.com/railsconfig/rails_config
+gem 'rails_config'
 
 # Using Foundation for styling
 gem 'compass-rails' # you need this or you get an err
@@ -56,6 +53,10 @@ gem 'zurb-foundation', '~> 4.0.0'
 
 # Using D3.js for data. https://github.com/logical42/d3_rails
 gem 'd3_rails'
+
+# Stores variables so JavaScript and ruby can communicate
+# https://github.com/gazay/gon
+gem 'gon'
 
 group :development do
   gem 'capistrano-rails'

@@ -1,0 +1,13 @@
+slack:
+  slackbot: 
+    token: 
+    url: https://mohcare.slack.com/services/hooks/slackbot?token=
+
+twilio:
+  sid: 
+  auth: 
+
+google:
+  maps:
+    token: 
+    url: https://maps.googleapis.com/maps/api/js?key=

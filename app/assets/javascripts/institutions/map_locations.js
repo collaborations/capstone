@@ -2,21 +2,7 @@
 var siberia = new google.maps.LatLng(60, 105);
 var newyork = new google.maps.LatLng(40.69847032728747, -73.9514422416687);
 var initialLocation;
-
-//var locations = [['<h4>Home</h4>', 47.661297, -122.310390]];
 var locations = gon.locations;
-//console.log(gon.locations);
-/*
-
-
-  ['<h4>Bondi Beach</h4>', -33.890542, 151.274856],
-  ['<h4>Coogee Beach</h4>', -33.923036, 151.259052],
-  ['<h4>Cronulla Beach</h4>', -34.028249, 151.157507],
-  ['<h4>Manly Beach</h4>', -33.80010128657071, 151.28747820854187],
-  ['<h4>Maroubra Beach</h4>', -33.950198, 151.259302]
-];
-
-*/
 
 // Setup the different icons and shadows
 var iconURLPrefix = 'http://maps.google.com/mapfiles/ms/icons/';
@@ -110,9 +96,7 @@ function setMarkers(){
     }
 
     //calculate distances
-    //console.log('initialLocation = ' +initialLocation);
     calculateDistances(initialLocation, destination);
-    //console.log(results);
   }
 }
 
@@ -147,24 +131,6 @@ function callback(response, status) {
   } else {
     var origins = response.originAddresses;
     var destinations = response.destinationAddresses;
-    //var outputDiv = document.getElementById('outputDiv');
-    //outputDiv.innerHTML = '';
-    //deleteOverlays();
-    console.log('calling back')
-    console.log(response.rows[0].elements[0].distance.text);
-    /*
-    for (var i = 0; i < origins.length; i++) {
-      var results = response.rows[i].elements;
-      addMarker(origins[i], false);
-      for (var j = 0; j < results.length; j++) {
-        addMarker(destinations[j], true);
-        outputDiv.innerHTML += origins[i] + ' to ' + destinations[j]
-            + ': ' + results[j].distance.text + ' in '
-            + results[j].duration.text + '<br>';
-      }
-    }
-  */
-
   }
 }
 

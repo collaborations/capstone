@@ -8,8 +8,7 @@ module InstitutionsHelper
 	end
 
 	def getAmenities(institution_id)
-		amenities = ["Clothing", "Food", "Shelter", "Hygiene"]
-		return amenities
+		return Institution.where(id: institution_id).first.amenities
 	end
 
 

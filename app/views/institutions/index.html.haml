@@ -1,6 +1,4 @@
-= link_to('New Institution', new_institution_path, :class => "link-create-new")
-= javascript_include_tag("https://maps.googleapis.com/maps/api/js?key=AIzaSyAMFq3jNRGQzGSyBFns-FFrGUCH5VIVcXA")
-
+= javascript_include_tag(Settings.google.maps.url + Settings.google.maps.token)
 
 %br
 %div.row.collapse
@@ -51,6 +49,6 @@
         %div.institution_amenities
           - getAmenities(institution.id).each do |amenity|
             %div.amenity
-              %svg.amenity_img= embedded_svg("categories/" + amenity + ".svg", class: "category-img")
-              %div.amenity_name= amenity
+              %svg.amenity_img= embedded_svg(amenity.img, class: "category-img")
+              %div.amenity_name= amenity.name
       %div.more_info= link_to 'See More', institution

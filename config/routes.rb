@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
 
+  devise_for :shelters
   resources :institutions
-  
+  resources :shelters  
 
   resources :capacity
   match '/capacity/get' => 'capacity#get', via: :post

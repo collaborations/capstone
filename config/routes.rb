@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   match '/capacity/get' => 'capacity#get', via: :post
   match '/capacity/update' => 'capacity#update', via: :post
 
+  get '/about' => 'about#index'
   get '/amenity/:id' => 'institutions#amenity'
   get '/institution/:id' => 'institutions#show'
   

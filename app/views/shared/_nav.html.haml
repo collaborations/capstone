@@ -2,4 +2,8 @@
   = link_to("", root_path, :class => "logo")
   %div#menu
     = link_to("Institutions", institutions_path)
-
+    -if user_signed_in?
+      =link_to("Sign Out", destroy_user_session_path, :method => :delete)
+  %div#nav-right
+    %button= "About"
+    %button= "Shelter Sign In"

@@ -10,12 +10,16 @@ $("li.toggle > button").on("click", function(){
   }
 });
 
-$("#btn-name").on("click", function(){
+// Sort current institutions by name
+$("#btn-name").on("click", { selector: ".institution-name" } , sort);
+$("#btn-distance").on("click", { selector: ".institution-distance" } , sort);
+
+function sort(event){
   var map = {};
   var sorted = [];
   
   $.each($(".institution"), function(k, v){
-    var name = $(v).find(".institution-name")[0].innerHTML;
+    var name = $(v).find(event.data.selector)[0].innerHTML;
     map[name] = $(v);
     sorted.push(name);
   });
@@ -23,4 +27,4 @@ $("#btn-name").on("click", function(){
   container.empty();
   sorted.sort();
   $.each(sorted, function(k, v){ container.append(map[v]); });
-});
+}

@@ -12,14 +12,24 @@ nav {
     padding: 0;
 }
 
+#breadcrumbs {
+    height: $nav-height;
+    top: $nav-height / 3;
+
+    .crumb {
+        display: inline;
+        list-style-type: none;
+        font-weight: bold;
+    }
+
+    .crumb-break {
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+}
+
 .logo-nav {
-    // background-image: image-url('logo_black.png'); 
-    // background-position: center left;
-    // background-repeat: no-repeat;
-    // background-size: contain;
-    // display: block;
-    float: left;
-    height: 100%;
+    height: $nav-height;
 }
 
 div#menu {

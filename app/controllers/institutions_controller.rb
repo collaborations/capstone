@@ -29,6 +29,7 @@ class InstitutionsController < ApplicationController
   # GET /institutions/1
   # GET /institutions/1.json
   def show
+    # @institution
   end
 
   # GET /institutions/new

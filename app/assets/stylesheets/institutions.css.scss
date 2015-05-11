@@ -42,19 +42,27 @@ $amenity-circle-size: $amenity-size * 2;
 	}
 	
 	#map {
-		text-align: center;
 		height: 400px;
+    border: 1px solid #AAA;
 	}
 
 	#institutions_list {
 		
 		.institution {
-			padding-left: 10px;
-			border-bottom: 1px solid #AAA;
+			padding-left: 20px;
 
 			.institution-amenities {
 				@include amenity-icon(15px);
 			}
 		}
+
+    .institution:not(:first-child) {
+      padding-top: 10px;
+    }
+
+    .institution:not(:last-child) {
+        border-bottom: 1px solid #AAA;
+        padding-bottom: 10px;
+    }
 	}
 }

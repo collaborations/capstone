@@ -1,11 +1,19 @@
 %nav
-  = link_to(root_path) do
-    = image_tag "logo_black.png", class: "logo-nav"
-  %div#menu
-    -if user_signed_in?
-      =link_to("Sign Out", destroy_user_session_path, :method => :delete)
-  %div#nav-right
-    = link_to("/about") do
-      %button= "About"
-    = link_to("/about") do
-      %button= "Shelter Sign In"
+  %div.row
+    %div.columns.small-2
+      = link_to(root_path) do
+        = image_tag "logo_black.png", class: "logo-nav"
+    
+    %div.columns.small-1
+    
+    = breadcrumbs()
+
+    %div#menu.columns.small-5
+      %div#nav-right
+        = link_to("/about") do
+          %button= "About"
+        - if user_signed_in?
+          =link_to("Sign Out", destroy_user_session_path, :method => :delete)
+        - else
+          %button#sign-in= "Shelter Sign In"
+

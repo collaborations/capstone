@@ -1,26 +1,26 @@
 = javascript_include_tag(Settings.google.maps.url + Settings.google.maps.token)
-= javascript_include_tag('institution/filters.js')
+/= javascript_include_tag('shared/filters.js')
 
 =render 'shared/search'
 
 %div
   %ul#filter-settings.small-block-grid-2.large-block-grid-7
-    %li.filter
+    %li.toggle
       %span.filter-title Number of People
       %button#btn-individual.filter-btn-deselected Individual
       %button#btn-family.filter-btn-deselected Family
-    %li.filter
+    %li.toggle
       %span.filter-title Gender
       %button#btn-male.filter-btn-deselected Male
       %button#btn-female.filter-btn-deselected Female
-    %li.filter
+    %li.toggle
       %span.filter-title Age
       %button#btn-age.filter-btn-deselected ____
-    %li.filter
+    %li.toggle
       %span.filter-title Disability
       %button#btn-physical.filter-btn-deselected Physical
       %button#btn-mental.filter-btn-deselected Mental
-    %li.filter
+    %li.toggle
       %span.filter-title Miscellaneous
       %button#btn-veteran.filter-btn-deselected Veteran
       %button#btn-victimofabuse.filter-btn-deselected Victim of Abuse

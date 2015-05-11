@@ -1,8 +1,9 @@
 Rails.application.routes.draw do
 
+  devise_for :users
   resources :institutions
   
-
+  resources :users
   resources :capacity
   match '/capacity/get' => 'capacity#get', via: :post
   match '/capacity/update' => 'capacity#update', via: :post

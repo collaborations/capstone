@@ -23,13 +23,13 @@ class InstitutionsController < ApplicationController
 
   def amenity
     @institutions = Amenity.find(params[:id]).institutions
-    # Institution.where(:amenities => :category)
     render 'index'
   end
 
   # GET /institutions/1
   # GET /institutions/1.json
   def show
+    # @institution
   end
 
   # GET /institutions/new

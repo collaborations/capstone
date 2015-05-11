@@ -1,6 +1,6 @@
 module InstitutionsHelper
 	def getDistance(institution_id)
-		30
+		rand(0..100)
 	end
 
 	def getHours(institution_id)

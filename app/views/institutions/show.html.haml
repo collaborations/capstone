@@ -1,13 +1,16 @@
 / if current_user_admin? 
 /   %div#admin-controls
 /     = link_to 'Edit', edit_institution_path(@institution)
-
+= link_to 'Edit', edit_institution_path(@institution)
 %h1#institution-name= @institution.name
 
 %div#address
-  %p= @location.streetLine1
-  %p= @location.streetLine2 if @location.streetLine2.present?
-  %p= @location.city + ", " + @location.state + " " + @location.zip.to_s
+  %p
+    %em= @location.streetLine1
+  %p
+    %em= @location.streetLine2 if @location.streetLine2.present?
+  %p
+    %em= @location.city + ", " + @location.state + " " + @location.zip.to_s
 
 %div.row
   %div#institution-info.columns.small-12.large-9
@@ -46,11 +49,11 @@
   %div#get-info.columns.small-12.large-2
     %h5= "Save Shelter Information"
     %div.row
-      %p.columns.small-12.large-6= "Icon"
-      %p.columns.small-12.large-6= "Email"
+      %p.columns.small-12.large-6= embedded_svg("email.svg", { class: "save-icon", alt: "Email me this!"})
+      %button.columns.small-12.large-6.label= "Email"
     %div.row
-      %p.columns.small-12.large-6= "Icon"
-      %p.columns.small-12.large-6= "Text"
+      %p.columns.small-12.large-6= embedded_svg("sms.svg", { class: "save-icon", alt: "Text this to me!"})
+      %button.columns.small-12.large-6.label= "Text"
     %div.row
-      %p.columns.small-12.large-6= "Icon"
-      %p.columns.small-12.large-6= "Print"
+      %p.columns.small-12.large-6= embedded_svg("printer.svg", { class: "save-icon", alt: "Print this for me!"})
+      %button.columns.small-12.large-6.label= "Print"

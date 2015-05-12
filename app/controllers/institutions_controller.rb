@@ -29,6 +29,7 @@ class InstitutionsController < ApplicationController
   # GET /institutions/1
   # GET /institutions/1.json
   def show
+    puts params
     @hours = InstitutionHasAmenity.where(institution_id: @institution.id).first.hours
     @location = Location.where(institution_id: @institution.id).first
     @contact = Contact.where(institution_id: @institution.id).first

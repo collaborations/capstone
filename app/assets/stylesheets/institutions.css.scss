@@ -49,7 +49,7 @@ $amenity-circle-size: $amenity-size * 2;
 	#institutions_list {
 		
 		.institution {
-			padding-left: $default-spacing;
+			padding-left: $medium-spacing;
 
 			.institution-amenities {
 				@include amenity-icon(15px);
@@ -71,7 +71,7 @@ $amenity-circle-size: $amenity-size * 2;
   $maps-view-height: 200px;
 
   .restriction, .description {
-    padding-left: $default-spacing
+    padding-left: $medium-spacing
   }
 
   #institution-name {
@@ -79,9 +79,9 @@ $amenity-circle-size: $amenity-size * 2;
   }
 
   #address {
-    margin-bottom: $default-spacing;
+    margin-bottom: $medium-spacing;
     border-bottom: solid 1px #AAA;
-    padding-bottom: $default-spacing;
+    padding-bottom: $medium-spacing;
 
     p {
       margin-bottom: 0px;
@@ -115,7 +115,7 @@ $amenity-circle-size: $amenity-size * 2;
 
   #institution-directions-link {
     text-align: center;
-    margin-bottom: $default-spacing;
+    margin-bottom: $medium-spacing;
 
     // TODO: Remove when ready to deploy
     background-color: #DDD;
@@ -123,14 +123,14 @@ $amenity-circle-size: $amenity-size * 2;
   }
 
   #institution-desc {
-    margin-bottom: $default-spacing;
+    margin-bottom: $medium-spacing;
 
     // TODO: Remove when ready to deploy
     border: solid 1px black;
   }
 
   #institution-restrictions {
-    margin-bottom: $default-spacing;
+    margin-bottom: $medium-spacing;
 
     // TODO: Remove when ready to deploy
     border: solid 1px black;
@@ -138,6 +138,22 @@ $amenity-circle-size: $amenity-size * 2;
 
   #get-info {
     
+    h5 {
+      border-bottom: solid 1px #AAA;
+    }
+
+    .save-icon {
+      width: 50px;
+    }
+
+    .label {
+      margin-top: $small-spacing;
+    }
+
+    // div.row:not(:last-child) {
+    //   border-bottom: solid 1px #AAA;
+    // }
+
     // TODO: Remove when ready to deploy
     border: solid 1px black;
   }

@@ -28,9 +28,25 @@ module ApplicationHelper
     raw doc
   end
 
+  def loadGoogleMaps()
+    javascript_include_tag(Settings.google.maps.url + Settings.google.maps.token)
+  end
+
   def search_bar(options = {})
     @search_label = true if options[:label].present?
     render 'shared/search'
+  end
+
+  def send_email(options = {})
+
+  end
+
+  def send_text(options = {})
+
+  end
+
+  def send_printer(options = {})
+
   end
 end
 

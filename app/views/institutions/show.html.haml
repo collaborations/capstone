@@ -1,7 +1,14 @@
+
+/ = javascript_include_tag('individual.js')
+
 / if current_user_admin? 
 /   %div#admin-controls
 /     = link_to 'Edit', edit_institution_path(@institution)
+
+
 = link_to 'Edit', edit_institution_path(@institution)
+
+
 %h1#institution-name= @institution.name
 
 %div#address

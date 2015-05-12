@@ -70,6 +70,10 @@ $amenity-circle-size: $amenity-size * 2;
 #institutions_show {
   $maps-view-height: 200px;
 
+  .restriction, .description {
+    padding-left: $default-spacing
+  }
+
   #institution-name {
     margin-bottom: 0px;
   }
@@ -92,21 +96,28 @@ $amenity-circle-size: $amenity-size * 2;
   #institution-aerial-map {
     height: $maps-view-height;
 
+    // TODO: Remove when ready to deploy
     background-color: #DDD;
     border: solid 1px black;
+    padding-top: 50px;
+    text-align: center;
   }
 
   #institution-street-view {
     height: $maps-view-height;
 
+    // TODO: Remove when ready to deploy
     background-color: #DDD;
     border: solid 1px black;
+    padding-top: 50px;    
+    text-align: center;
   }
 
   #institution-directions-link {
     text-align: center;
     margin-bottom: $default-spacing;
 
+    // TODO: Remove when ready to deploy
     background-color: #DDD;
     border: solid 1px black;
   }
@@ -114,16 +125,20 @@ $amenity-circle-size: $amenity-size * 2;
   #institution-desc {
     margin-bottom: $default-spacing;
 
+    // TODO: Remove when ready to deploy
     border: solid 1px black;
   }
 
   #institution-restrictions {
     margin-bottom: $default-spacing;
 
+    // TODO: Remove when ready to deploy
     border: solid 1px black;
   }
 
   #get-info {
+    
+    // TODO: Remove when ready to deploy
     border: solid 1px black;
   }
 

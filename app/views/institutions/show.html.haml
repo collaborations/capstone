@@ -32,19 +32,25 @@
       = link_to "Get Directions", getDirectionsLink()
 
     %div#institution-desc.row
-      %h3= "Description"
-      %p= @institution.desc
+      %h4= "Description:"
+      %p.description= @institution.desc
 
     %div#institution-restrictions.row
-      %h3= "Restrictions"
+      %h4= "Restrictions:"
       - @restrictions.each do |r|
-        %div.row
-          %p.small-3.large-4= r.name
+        %p.restriction
+          %strong= r.name
           - if r.desc.present?
-            %p.small-8.large-8= r.desc
+            = r.desc
 
   %div#get-info.columns.small-12.large-2
-    %h3= "Save Shelter Information"
-    %p= "Email"
-    %p= "Text"
-    %p= "Print"
+    %h5= "Save Shelter Information"
+    %div.row
+      %p.columns.small-12.large-6= "Icon"
+      %p.columns.small-12.large-6= "Email"
+    %div.row
+      %p.columns.small-12.large-6= "Icon"
+      %p.columns.small-12.large-6= "Text"
+    %div.row
+      %p.columns.small-12.large-6= "Icon"
+      %p.columns.small-12.large-6= "Print"

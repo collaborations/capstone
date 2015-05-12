@@ -62,6 +62,10 @@ gem 'gon'
 # http://www.rubygeocoder.com/
 gem 'geocoder'
 
+# Using Twilio for SMS
+# https://www.twilio.com
+gem 'twilio-ruby'
+
 group :development do
   gem 'capistrano-rails'
 

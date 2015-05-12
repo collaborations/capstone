@@ -58,6 +58,10 @@ gem 'd3_rails'
 # https://github.com/gazay/gon
 gem 'gon'
 
+# Use Geocoder to look up street addresses, IP addresses and geographic coordinates
+# http://www.rubygeocoder.com/
+gem 'geocoder'
+
 group :development do
   gem 'capistrano-rails'
 

@@ -4,8 +4,8 @@ module InstitutionsHelper
     return Institution.where(id: institution_id).first.amenities
   end
 
-  def getDirectionsLink()
-    "#"
+  def getDirectionsLink(address)
+    "https://www.google.com/maps/place/" + address.sub(/\s/, "+")
   end
 
 	def getDistance(institution_id)

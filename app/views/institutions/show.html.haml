@@ -28,7 +28,7 @@
       %p= "Google Street View Goes Here"
 
     %div#institution-directions-link.row
-      = link_to "Get Directions", getDirectionsLink()
+      = link_to "Get Directions", getDirectionsLink(@address)
 
     %div#institution-desc.row
       %h4= "Description:"
@@ -46,10 +46,13 @@
     %h5= "Save Shelter Information"
     %div.row
       %p.columns.small-12.large-6= embedded_svg("email.svg", { class: "save-icon", alt: "Email me this!"})
-      %button.columns.small-12.large-6.label= "Email"
+      %button{ class: "columns small-12 large-6 label", "data-reveal-id" => "institution-modal" }= "Email"
     %div.row
       %p.columns.small-12.large-6= embedded_svg("sms.svg", { class: "save-icon", alt: "Text this to me!"})
-      %button.columns.small-12.large-6.label= "Text"
+      %button{ class: "columns small-12 large-6 label", "data-reveal-id" => "institution-modal" }= "Text"
     %div.row
       %p.columns.small-12.large-6= embedded_svg("printer.svg", { class: "save-icon", alt: "Print this for me!"})
-      %button.columns.small-12.large-6.label= "Print"
+      %button{ class: "columns small-12 large-6 label", "data-reveal-id" => "institution-modal" }= "Print"
+
+= render 'customize'
+

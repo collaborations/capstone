@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   get '/about' => 'about#index'
   get '/amenity/:id' => 'institutions#amenity'
   get '/institution/:id' => 'institutions#show'
+  get '/institution/:id/sms' => 'sms#notify', as: 'sms_notification'
   
   root "home#index"
   # The priority is based upon order of creation: first created -> highest priority.

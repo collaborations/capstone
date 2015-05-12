@@ -1,0 +1,11 @@
+%div#institution-modal.reveal-modal
+  %h2= "This form will allow you to customize what information gets sent to you"
+  %div.row
+    %div#notify-buttons.columns.small-12.large-3
+      %button#select-all-options= "Select All"
+      %button#remove-all-options= "Deselect All"
+    %div#notify-options.columns.small-12.large-9
+      %input{ type: "checkbox" }= "Address"
+      %input{ type: "checkbox" }= "Phone"
+      %input{ type: "checkbox" }= "Amenities"
+

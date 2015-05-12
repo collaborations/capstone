@@ -22,6 +22,7 @@ class InstitutionsController < ApplicationController
 
   end
 
+  # GET /amenity/1
   def amenity
     @institutions = Amenity.find(params[:id]).institutions
     render 'index'
@@ -30,19 +31,18 @@ class InstitutionsController < ApplicationController
   # GET /institutions/1
   # GET /institutions/1.json
   def show
-    puts params
     @hours = InstitutionHasAmenity.where(institution_id: @institution.id).first.hours
     @location = Location.where(institution_id: @institution.id).first
     @contact = Contact.where(institution_id: @institution.id).first
     @restrictions = @institution.restrictions
     
-    address = @location.streetLine1 + " "
+    @address = @location.streetLine1 + " "
     if @location.streetLine2.present?
-      address << @location.streetLine2
+      @address << @location.streetLine2
     end
-    address << @location.city + ", " + @location.state + " " + @location.zip.to_s
+    @address << @location.city + ", " + @location.state + " " + @location.zip.to_s
 
-    gon.push(address: address)
+    gon.push(address: @address)
   end
 
   # GET /institutions/new

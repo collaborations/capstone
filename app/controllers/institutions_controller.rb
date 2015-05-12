@@ -1,5 +1,5 @@
 class InstitutionsController < ApplicationController
-  before_action :load_google_maps, only: [:index, :show]
+  before_action :load_google_maps
   before_action :set_institution, only: [:show, :edit, :update, :destroy]
   before_action :set_amenity, only: [:edit, :update, :new]
 
@@ -41,10 +41,8 @@ class InstitutionsController < ApplicationController
       address << @location.streetLine2
     end
     address << @location.city + ", " + @location.state + " " + @location.zip.to_s
-    puts address
 
     gon.push(address: address)
-
   end
 
   # GET /institutions/new

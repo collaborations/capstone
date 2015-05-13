@@ -15,11 +15,18 @@
         - if @contact.present?
           - if @contact.phone.present?
             %p= "Phone: " + @contact.phone
+          - else
+            %p= "Phone not listed"
+
           - if @contact.website.present?
             %p= "Website: " + @contact.website
+          - else
+            %p- "Website not listed"
+
         - if @hours.present?
           %p= "Hours: " + @hours
-        %p= "DAYS OF WEEK OPEN"
+        - else
+          %p= "Hours not listed."
 
       %div#institution-aerial-map.columns.small-12.large-4
         %p= "Google Aerial View Goes Here"

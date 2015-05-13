@@ -1,12 +1,21 @@
-%h1#institution-name= @institution.name
+%div.row#institution-header
+  %div.row
+    %div.columns.small-12.large-6
+      %h1#institution-name= @institution.name
+      %div#address
+        %p
+          %em= @location.streetLine1
+        %p
+          %em= @location.streetLine2 if @location.streetLine2.present?
+        %p
+          %em= @location.city + ", " + @location.state + " " + @location.zip.to_s
 
-%div#address
-  %p
-    %em= @location.streetLine1
-  %p
-    %em= @location.streetLine2 if @location.streetLine2.present?
-  %p
-    %em= @location.city + ", " + @location.state + " " + @location.zip.to_s
+    %div.columns.small-12.large-6
+      %ul.small-block-grid-2.large-block-grid-5.amenities-list
+        - @institution.amenities.each do |amenity|
+          %li
+            =embedded_amenity(amenity)
+
 
 %div.row
   %div#institution-info.columns.small-12.large-9
@@ -21,21 +30,22 @@
           - if @contact.website.present?
             %p= "Website: " + @contact.website
           - else
-            %p- "Website not listed"
+            %p= "Website not listed"
 
         - if @hours.present?
           %p= "Hours: " + @hours
         - else
           %p= "Hours not listed."
 
-      %div#institution-aerial-map.columns.small-12.large-4
-        %p= "Google Aerial View Goes Here"
+      %div#google-map-aerial.columns.small-12.large-4
+        = loading_spinner()
 
-    %div#institution-street-view.row
-      %p= "Google Street View Goes Here"
+    %div#google-map-street.row
+      = loading_spinner()
 
     %div#institution-directions-link.row
-      = link_to "Get Directions", getDirectionsLink(@address)
+      = link_to getDirectionsLink(@address) do
+        %button= "Get Directions"
 
     %div#institution-desc.row
       %h4= "Description:"
@@ -60,6 +70,15 @@
     %div.row
       %p.columns.small-12.large-6= embedded_svg("printer.svg", { class: "save-icon", alt: "Print this for me!"})
       %button{ name: "print", class: "columns small-12 large-6 label", "data-reveal-id" => "institution-modal" }= "Print"
+    
+
+    / %h5
+    /   = "Subscribe"
+    / %small= "What's this?"
+    / %div.row
+    /   = form_tag '/institution' do
+    /     %input{ type: "number" }
+    /     %button#subscribe= "Opt In"
+        
 
 = render 'customize'
-

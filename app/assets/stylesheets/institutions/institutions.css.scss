@@ -41,7 +41,7 @@ $amenity-circle-size: $amenity-size * 2;
     }
 	}
 	
-	#map {
+	#google-map-aerial {
 		height: 400px;
     border: 1px solid #AAA;
 	}
@@ -50,10 +50,6 @@ $amenity-circle-size: $amenity-size * 2;
 		
 		.institution {
 			padding-left: $medium-spacing;
-
-			.institution-amenities {
-				@include amenity-icon(15px);
-			}
 		}
 
     .institution:not(:first-child) {
@@ -64,37 +60,52 @@ $amenity-circle-size: $amenity-size * 2;
         border-bottom: 1px solid #AAA;
         padding-bottom: 10px;
     }
+
+    .amenities-list {
+      @include amenity-icon(15px);
+    }
 	}
 }
 
 #institutions_show {
   $maps-view-height: 200px;
 
-  .restriction, .description {
-    padding-left: $medium-spacing
-  }
-
-  #institution-name {
-    margin-bottom: 0px;
-  }
-
-  #address {
-    margin-bottom: $medium-spacing;
+  #institution-header {
     border-bottom: solid 1px #AAA;
+    margin-bottom: $medium-spacing;
     padding-bottom: $medium-spacing;
 
-    p {
+    #institution-name {
       margin-bottom: 0px;
     }
 
+    #address {
+      p {
+        margin-bottom: 0px;
+      }
+
+    }
+
+    .amenities-list {
+      margin-top: 20px;
+      @include amenity-icon(20px);
+    }
+  }
+
+  .restriction, .description {
+    padding-left: $medium-spacing
   }
 
   #get-info {
     border: solid 1px black;
   }
 
-  #institution-aerial-map {
+  #google-map-aerial {
     height: $maps-view-height;
+
+    .spinner {
+      margin-top: 40px;
+    }
 
     // TODO: Remove when ready to deploy
     background-color: #DDD;
@@ -103,8 +114,12 @@ $amenity-circle-size: $amenity-size * 2;
     text-align: center;
   }
 
-  #institution-street-view {
+  #google-map-street {
     height: $maps-view-height;
+
+    .spinner {
+      margin-top: 40px;
+    }
 
     // TODO: Remove when ready to deploy
     background-color: #DDD;
@@ -150,10 +165,6 @@ $amenity-circle-size: $amenity-size * 2;
       margin-top: $small-spacing;
     }
 
-    // div.row:not(:last-child) {
-    //   border-bottom: solid 1px #AAA;
-    // }
-
     // TODO: Remove when ready to deploy
     border: solid 1px black;
   }
@@ -161,7 +172,5 @@ $amenity-circle-size: $amenity-size * 2;
 }
 
 #institution-modal {
-  button {
-    width: 100%;
-  }
+
 }

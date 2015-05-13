@@ -1,7 +1,7 @@
 class InstitutionsController < ApplicationController
-  before_action :load_google_maps
-  before_action :set_institution, only: [:show, :edit, :update, :destroy]
+  before_action :load_google_maps, only: [:amenity, :index, :show]
   before_action :set_amenity, only: [:edit, :update, :new]
+  before_action :set_institution, only: [:show, :edit, :update, :destroy]
 
   # GET /institutions
   # GET /institutions.json
@@ -11,14 +11,22 @@ class InstitutionsController < ApplicationController
     for institution in @institutions do
       locations.push([institution.name, institution.locations])  
     end
-    gon.locations2= locations
-
+    # gon.locations2= locations
+    
     #hard coded locations for testing
-    gon.locations =  [
+    gon.markers =  [
       ['<h4>Sigma Chi</h4>', 47.661520, -122.308676],
       ['<h4>Chipotle Mexican Grill</h4>', 47.659240, -122.313411],
       ['<h4>UW Tower</h4>', 47.660841, -122.314828],
       ['<h4>Mary Gates Hall</h4>', 47.655151, -122.307948]]
+
+    lat = 0
+    lon = 0
+    gon.markers.each do |m|
+      lat += m[1]
+      lat += m[2]
+    end
+    gon.center = [lat/4, lon/4]
 
   end
 

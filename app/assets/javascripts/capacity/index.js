@@ -9,7 +9,6 @@ var data = {
   "standby": 0
 }
 var mCapacity = 100;
-console.log(mCapacity);
 var gWidth = 400
 var gHeight = 400
 var radius = Math.min(gWidth, gHeight) / 2;

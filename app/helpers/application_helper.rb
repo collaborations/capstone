@@ -44,6 +44,10 @@ module ApplicationHelper
   def send_printer(options = {})
 
   end
+
+  def loading_spinner
+    render 'shared/loading'
+  end
 end
 
 

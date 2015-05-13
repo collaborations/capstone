@@ -10,9 +10,13 @@ Rails.application.routes.draw do
   match '/capacity/update' => 'capacity#update', via: :post
 
   get '/about' => 'about#index'
+
   get '/amenity/:id' => 'institutions#amenity'
+
   get '/institution/:id' => 'institutions#show'
   get '/institution/:id/sms' => 'sms#notify', as: 'sms_notification'
+  get '/institution/:id/subscribe' => 'sms#subscribe', as: 'sms_subscribe'
+  get '/institution/:id/unsubscribe' => 'sms#unsubscribe', as: 'sms_unsubscribe'
   
   root "home#index"
   # The priority is based upon order of creation: first created -> highest priority.

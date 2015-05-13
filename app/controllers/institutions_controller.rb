@@ -31,6 +31,7 @@ class InstitutionsController < ApplicationController
   # GET /institutions/1
   # GET /institutions/1.json
   def show
+    @message = {}
     @hours = InstitutionHasAmenity.where(institution_id: @institution.id).first.hours
     @location = Location.where(institution_id: @institution.id).first
     @contact = Contact.where(institution_id: @institution.id).first
@@ -63,7 +64,6 @@ class InstitutionsController < ApplicationController
     puts params
     respond_to do |format|
       if @institution.save
-
         format.html { redirect_to @institution, notice: 'Institution was successfully created.' }
         format.json { render :show, status: :created, location: @institution }
       else

@@ -1,11 +1,22 @@
 %div#institution-modal.reveal-modal
-  %h2= "This form will allow you to customize what information gets sent to you"
+  %h4= "What information do you want sent?"
   %div.row
     %div#notify-buttons.columns.small-12.large-3
       %button#select-all-options= "Select All"
       %button#remove-all-options= "Deselect All"
     %div#notify-options.columns.small-12.large-9
-      %input{ type: "checkbox" }= "Address"
-      %input{ type: "checkbox" }= "Phone"
-      %input{ type: "checkbox" }= "Amenities"
+      = form_tag "/institution", { method: "POST" }  do
+        = hidden_field_tag :message_type, { name: "type" }
+        = label_tag "Address"
+        = check_box_tag :message, { name: "address" } 
+        = label_tag "Phone Number"
+        = check_box_tag :message, { name: "phone" } 
+        = label_tag "Amenities"
+        = check_box_tag :message, { name: "amenities" } 
+        = label_tag "Restrictions"
+        = check_box_tag :message, { name: "restrictions" } 
+        = label_tag "Hours"
+        = check_box_tag :message, { name: "hours" }
+        = submit_tag
+
 

@@ -1,0 +1,165 @@
+// Place all the styles related to the Institutions controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+// Used for custom buttons
+@import "foundation/variables";
+@import "foundation/components/global";
+@import "foundation/components/buttons";
+@import "foundation/components/block-grid";
+@import 'mixins';
+@import 'variables';
+
+$amenity-size: 30px;
+$amenity-circle-size: $amenity-size * 2;
+
+#institution_setup {
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#institutions_index, #institutions_amenity {
+	@include search-btn();
+
+	div.row {
+		max-width: 100%;
+	}
+
+	#filter-settings {
+
+		button {
+			width: 100%;
+		}
+
+    .filter-btn-selected {
+      @include filter-btn-selected();
+    }
+
+    .filter-btn-deselected {
+      @include filter-btn-deselected();
+    }
+	}
+	
+	#google-map-aerial {
+		height: 400px;
+    border: 1px solid #AAA;
+	}
+
+	#institutions_list {
+		
+		.institution {
+			padding-left: $medium-spacing;
+		}
+
+    .institution:not(:first-child) {
+      padding-top: 10px;
+    }
+
+    .institution:not(:last-child) {
+        border-bottom: 1px solid #AAA;
+        padding-bottom: 10px;
+    }
+
+    .amenities-list {
+      @include amenity-icon(15px);
+    }
+	}
+}
+
+#institutions_show {
+  $maps-view-height: 200px;
+
+  #institution-header {
+    border-bottom: solid 1px #AAA;
+    margin-bottom: $medium-spacing;
+    padding-bottom: $medium-spacing;
+
+    #institution-name {
+      margin-bottom: 0px;
+    }
+
+    #address {
+      p {
+        margin-bottom: 0px;
+      }
+
+    }
+
+    .amenities-list {
+      margin-top: 20px;
+      @include amenity-icon(20px);
+    }
+  }
+
+  .restriction, .description {
+    padding-left: $medium-spacing
+  }
+
+  #get-info {
+    border: solid 1px black;
+  }
+
+  #google-map-aerial, #google-map-street {
+    border: solid 1px #AAA;
+    height: $maps-view-height;
+    padding-top: 50px;
+
+    .spinner {
+      margin-top: 40px;
+    }
+  }
+
+  #institution-directions-link {
+    text-align: center;
+    margin-bottom: $medium-spacing;
+
+    button {
+      margin-bottom: 0px;
+      width: 100%;
+    }
+  }
+
+  #institution-desc {
+    margin-bottom: $medium-spacing;
+
+    // TODO: Remove when ready to deploy
+    border: solid 1px black;
+  }
+
+  #institution-restrictions {
+    margin-bottom: $medium-spacing;
+
+    // TODO: Remove when ready to deploy
+    border: solid 1px black;
+  }
+
+  #get-info {
+    
+    h5 {
+      border-bottom: solid 1px #AAA;
+    }
+
+    .save-icon {
+      width: 50px;
+    }
+
+    .label {
+      margin-top: $small-spacing;
+    }
+
+    // TODO: Remove when ready to deploy
+    border: solid 1px black;
+
+    #subscribe {
+      button {
+        width: 100%;
+      }
+    }
+  }
+
+}
+
+#institution-modal {
+
+}

@@ -58,6 +58,10 @@ gem 'd3_rails'
 # https://github.com/gazay/gon
 gem 'gon'
 
+# Using Twilio for SMS
+# https://www.twilio.com
+gem 'twilio-ruby'
+
 group :development do
   gem 'capistrano-rails'
 

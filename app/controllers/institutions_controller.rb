@@ -1,6 +1,7 @@
 class InstitutionsController < ApplicationController
-  before_action :set_institution, only: [:show, :edit, :update, :destroy]
+  before_action :load_google_maps, only: [:amenity, :index, :show]
   before_action :set_amenity, only: [:edit, :update, :new]
+  before_action :set_institution, only: [:show, :edit, :update, :destroy]
 
   # GET /institutions
   # GET /institutions.json
@@ -10,17 +11,27 @@ class InstitutionsController < ApplicationController
     for institution in @institutions do
       locations.push([institution.name, institution.locations])  
     end
-    gon.locations2= locations
-
+    # gon.locations2= locations
+    
+    gon.clear
     #hard coded locations for testing
-    gon.locations =  [
+    gon.markers =  [
       ['<h4>Sigma Chi</h4>', 47.661520, -122.308676],
       ['<h4>Chipotle Mexican Grill</h4>', 47.659240, -122.313411],
       ['<h4>UW Tower</h4>', 47.660841, -122.314828],
       ['<h4>Mary Gates Hall</h4>', 47.655151, -122.307948]]
 
+    lat = 0
+    lon = 0
+    gon.markers.each do |m|
+      lat += m[1]
+      lat += m[2]
+    end
+    gon.center = [lat/4, lon/4]
+
   end
 
+  # GET /amenity/1
   def amenity
     @institutions = Amenity.find(params[:id]).institutions
     render 'index'
@@ -29,7 +40,20 @@ class InstitutionsController < ApplicationController
   # GET /institutions/1
   # GET /institutions/1.json
   def show
-    # @institution
+    @message = {}
+    @hours = InstitutionHasAmenity.where(institution_id: @institution.id).first.hours
+    @location = Location.where(institution_id: @institution.id).first
+    @contact = Contact.where(institution_id: @institution.id).first
+    @restrictions = @institution.restrictions
+    
+    @address = @location.streetLine1 + " "
+    if @location.streetLine2.present?
+      @address << @location.streetLine2
+    end
+    @address << @location.city + ", " + @location.state + " " + @location.zip.to_s
+
+    gon.clear
+    gon.push(address: @address)
   end
 
   # GET /institutions/new
@@ -50,7 +74,6 @@ class InstitutionsController < ApplicationController
     puts params
     respond_to do |format|
       if @institution.save
-
         format.html { redirect_to @institution, notice: 'Institution was successfully created.' }
         format.json { render :show, status: :created, location: @institution }
       else
@@ -85,6 +108,10 @@ class InstitutionsController < ApplicationController
   end
 
   private
+    def load_google_maps
+      @load_google_maps = true
+    end
+
     # Use callbacks to share common setup or constraints between actions.
     def set_institution
       @institution = Institution.find(params[:id])

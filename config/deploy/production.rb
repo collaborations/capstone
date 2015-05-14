@@ -10,7 +10,7 @@ set :stage, :production
 set :rails_env, :production
 set :deploy_user, 'deploy'
 set :deploy_to, "/home/deploy/app/#{fetch(:application)}"
-
+set :passenger_restart_with_sudo, true
 server 'step-stone.me', user: 'deploy', roles: %w{web app db}, primary: true
 # Custom SSH Options
 # ==================

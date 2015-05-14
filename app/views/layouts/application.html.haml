@@ -14,7 +14,7 @@
 
   -# Set the viewport width to device width for mobile
   %meta{ :name => "viewport", :content => "width=device-width, initial-scale=1.0" }
-  %title= content_for?(:title) ? yield(:title) : "Untitled"
+  %title= content_for?(:title) ? yield(:title) : t('defaults.title')
   = include_gon(:init => true)
   = stylesheet_link_tag "application"
   = javascript_include_tag "vendor/custom.modernizr"
@@ -25,4 +25,7 @@
   %div#content
     = yield
 
+  / = javascript_include_tag(params[:controller] + "/" + params[:action])
   = javascript_include_tag "application"
+  - if @load_google_maps
+    = javascript_include_tag(Settings.google.maps.url + "key=" + Settings.google.maps.token + "&callback=" + Settings.google.maps.callback)

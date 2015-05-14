@@ -25,14 +25,16 @@ set :rvm_type, :system                     #/usr/local/rvm
 set :rvm_ruby_version, '2.2.0'           
 # set :rvm_custom_path, '~/.myveryownrvm'  # only needed if not detected
 
-set :passenger_restart_with_sudo, true
-
 namespace :deploy do
 
-  after :restart do
-    on roles(:web), in: :groups, limit: 3, wait: 10 do
-      run "touch #{ File.join(current_path, 'tmp', 'restart.txt') }"
+  desc 'Restart application'
+  task :restart do
+    on roles(:app), in: :sequence, wait: 5 do
+      execute :mkdir, '-p', "#{ release_path }/tmp"
+      execute :touch, release_path.join('tmp/restart.txt')
     end
   end
 
+  after :publishing, 'deploy:restart'
+  after :finishing, 'deploy:cleanup'
 end

@@ -32,6 +32,22 @@ module ApplicationHelper
     @search_label = true if options[:label].present?
     render 'shared/search'
   end
+
+  def send_email(options = {})
+
+  end
+
+  def send_text(options = {})
+
+  end
+
+  def send_printer(options = {})
+
+  end
+
+  def loading_spinner
+    render 'shared/loading'
+  end
 end
 
 

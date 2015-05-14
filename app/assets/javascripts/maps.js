@@ -15,7 +15,7 @@ var icons = [
   iconURLPrefix + 'yellow-dot.png'
 ];
 
-function initialize(){
+function initializeMaps(){
   geocoder = new google.maps.Geocoder();
 
   if(gon.useCurrentLocation){

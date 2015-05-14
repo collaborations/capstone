@@ -13,6 +13,7 @@ class InstitutionsController < ApplicationController
     end
     # gon.locations2= locations
     
+    gon.clear
     #hard coded locations for testing
     gon.markers =  [
       ['<h4>Sigma Chi</h4>', 47.661520, -122.308676],
@@ -51,6 +52,7 @@ class InstitutionsController < ApplicationController
     end
     @address << @location.city + ", " + @location.state + " " + @location.zip.to_s
 
+    gon.clear
     gon.push(address: @address)
   end
 

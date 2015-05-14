@@ -100,41 +100,24 @@ $amenity-circle-size: $amenity-size * 2;
     border: solid 1px black;
   }
 
-  #google-map-aerial {
+  #google-map-aerial, #google-map-street {
+    border: solid 1px #AAA;
     height: $maps-view-height;
-
-    .spinner {
-      margin-top: 40px;
-    }
-
-    // TODO: Remove when ready to deploy
-    background-color: #DDD;
-    border: solid 1px black;
     padding-top: 50px;
-    text-align: center;
-  }
-
-  #google-map-street {
-    height: $maps-view-height;
 
     .spinner {
       margin-top: 40px;
     }
-
-    // TODO: Remove when ready to deploy
-    background-color: #DDD;
-    border: solid 1px black;
-    padding-top: 50px;    
-    text-align: center;
   }
 
   #institution-directions-link {
     text-align: center;
     margin-bottom: $medium-spacing;
 
-    // TODO: Remove when ready to deploy
-    background-color: #DDD;
-    border: solid 1px black;
+    button {
+      margin-bottom: 0px;
+      width: 100%;
+    }
   }
 
   #institution-desc {
@@ -167,6 +150,12 @@ $amenity-circle-size: $amenity-size * 2;
 
     // TODO: Remove when ready to deploy
     border: solid 1px black;
+
+    #subscribe {
+      button {
+        width: 100%;
+      }
+    }
   }
 
 }

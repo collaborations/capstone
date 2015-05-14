@@ -21,16 +21,15 @@
   %div#institution-info.columns.small-12.large-9
     %div.row
       %div#institution-details.columns.small-12.large-8
-        - if @contact.present?
-          - if @contact.phone.present?
-            %p= "Phone: " + @contact.phone
-          - else
-            %p= "Phone not listed"
+        - if @contact.present? and @contact.phone.present?
+          %p= "Phone: " + @contact.phone
+        - else
+          %p= "Phone not listed"
 
-          - if @contact.website.present?
-            %p= "Website: " + @contact.website
-          - else
-            %p= "Website not listed"
+        - if @contact.present? and @contact.website.present?
+          %p= "Website: " + @contact.website
+        - else
+          %p= "Website not listed"
 
         - if @hours.present?
           %p= "Hours: " + @hours
@@ -60,25 +59,26 @@
             = r.desc
 
   %div#get-info.columns.small-12.large-2
-    %h5= "Save Shelter Information"
-    %div.row
-      %p.columns.small-12.large-6= embedded_svg("email.svg", { class: "save-icon", alt: "Email me this!"})
-      %button{ name: "email", class: "columns small-12 large-6 label", "data-reveal-id" => "institution-modal" }= "Email"
-    %div.row
-      %p.columns.small-12.large-6= embedded_svg("sms.svg", { class: "save-icon", alt: "Text this to me!"})
-      %button{ name: "text", class: "columns small-12 large-6 label", "data-reveal-id" => "institution-modal" }= "Text"
-    %div.row
-      %p.columns.small-12.large-6= embedded_svg("printer.svg", { class: "save-icon", alt: "Print this for me!"})
-      %button{ name: "print", class: "columns small-12 large-6 label", "data-reveal-id" => "institution-modal" }= "Print"
-    
+    %div#save
+      %h5= "Save Shelter Information"
+      %div.row
+        %p.columns.small-12.large-6= embedded_svg("email.svg", { class: "save-icon", alt: "Email me this!"})
+        %button.small-12.large-3{ name: "email", class: "columns small-12 large-6 label", "data-reveal-id" => "institution-modal" }= "Email"
+      %div.row
+        %p.columns.small-12.large-6= embedded_svg("sms.svg", { class: "save-icon", alt: "Text this to me!"})
+        %button.small-12.large-3{ name: "text", class: "columns small-12 large-6 label", "data-reveal-id" => "institution-modal" }= "Text"
+      %div.row
+        %p.columns.small-12.large-6= embedded_svg("printer.svg", { class: "save-icon", alt: "Print this for me!"})
+        %button.small-12.large-3{ name: "print", class: "columns small-12 large-6 label", "data-reveal-id" => "institution-modal" }= "Print"
 
-    / %h5
-    /   = "Subscribe"
-    / %small= "What's this?"
-    / %div.row
-    /   = form_tag '/institution' do
-    /     %input{ type: "number" }
-    /     %button#subscribe= "Opt In"
+    %div#subscribe    
+      %h5
+        = "Subscribe"
+      %small= "What's this?"
+      %div.row
+        = form_tag '/institution' do
+          %input{ type: "text", placeholder: "0123456789" }
+          %button#subscribe= "Opt In"
         
 
 = render 'customize'

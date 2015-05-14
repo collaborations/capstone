@@ -26,9 +26,33 @@ class SmsController < ApplicationController
   end
 
   def subscribe(number, institution_id)
+    begin
+      subscriber = Subscriber.find(phone: number, institution_id: institution_id)
+      if subscriber.present?
+        flash[:error] = "Already Subscribed"
+      elsif !number.match(/\d{10}/).present?
+        flash[:error] = "Bad Number"
+      else
+        Subscriber.create(phone: number, institution_id: institution_id)
+      end
+    rescue => e
+      puts e
+    end
   end
 
   def unsubscribe(number, institution_id)
+    begin
+      subscriber = Subscriber.find(phone: number, institution_id: institution_id)
+      if subscriber.empty?
+        flash[:error] = "Subscriber not registered"
+      elsif !number.match(/\d{10}/).present?
+        flash[:error] = "Bad Number"
+      else
+        subscriber.destroy_all
+      end
+    rescue => e
+      puts e
+    end
   end
 
 end

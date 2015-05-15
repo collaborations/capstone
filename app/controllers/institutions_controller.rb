@@ -1,7 +1,8 @@
 class InstitutionsController < ApplicationController
   before_action :load_google_maps, only: [:amenity, :index, :show]
   before_action :set_amenity, only: [:edit, :update, :new]
-  before_action :set_institution, only: [:show, :edit, :update, :destroy]
+  before_action :set_institution, only: [:show, :update, :destroy]
+  before_action :authenticate_user!, only: [:edit, :update]
 
   # GET /institutions
   # GET /institutions.json
@@ -13,7 +14,6 @@ class InstitutionsController < ApplicationController
     end
     # gon.locations2= locations
     
-    gon.clear
     #hard coded locations for testing
     gon.markers =  [
       ['<h4>Sigma Chi</h4>', 47.661520, -122.308676],
@@ -27,12 +27,27 @@ class InstitutionsController < ApplicationController
       lat += m[1]
       lat += m[2]
     end
-    gon.center = [lat/4, lon/4]
+    gon.push(center: [lat/4, lon/4])
 
   end
 
   # GET /amenity/1
   def amenity
+    #hard coded locations for testing
+    gon.markers =  [
+      ['<h4>Sigma Chi</h4>', 47.661520, -122.308676],
+      ['<h4>Chipotle Mexican Grill</h4>', 47.659240, -122.313411],
+      ['<h4>UW Tower</h4>', 47.660841, -122.314828],
+      ['<h4>Mary Gates Hall</h4>', 47.655151, -122.307948]]
+
+    lat = 0
+    lon = 0
+    gon.markers.each do |m|
+      lat += m[1]
+      lat += m[2]
+    end
+    gon.push(center: [lat/4, lon/4])
+    
     @institutions = Amenity.find(params[:id]).institutions
     render 'index'
   end
@@ -52,7 +67,6 @@ class InstitutionsController < ApplicationController
     end
     @address << @location.city + ", " + @location.state + " " + @location.zip.to_s
 
-    gon.clear
     gon.push(address: @address)
   end
 
@@ -65,6 +79,8 @@ class InstitutionsController < ApplicationController
 
   # GET /institutions/1/edit
   def edit
+    @institution = Institution.where(id: params[:id]).first
+    puts @institution
   end
 
   # POST /institutions

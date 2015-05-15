@@ -49,7 +49,7 @@ $filter-btn-is-input: false;
 // Search Style
 @mixin search-btn {
   button.search  {
-    background-image: url('/assets/images/search.png');
+    background-image: url(image-path('search.png'));
     background-position: 50%;
     background-repeat: no-repeat
   }

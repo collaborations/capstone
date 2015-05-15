@@ -1,33 +1,32 @@
-%div#capacity_index
-  %h2= "Shelter Name"
-  %div#tracker
-    %div#capacity_header
-      %h3= "Capacity Tracker"
-      %p= t('capacity.description.capacity')
-      %p= t('capacity.description.update_detail')
-    %h3#capacity-warning= "WARNING: You have gone above your max capacity."
+%h2= "Shelter Name"
+%div#tracker
+  %div#capacity_header
+    %h3= "Capacity Tracker"
+    %p= t('capacity.description.capacity')
+    %p= t('capacity.description.update_detail')
+  %h3#capacity-warning= "WARNING: You have gone above your max capacity."
 
-    %div#capacity_view
-      / GRAPH GETS INJECTED HERE
+  %div#capacity_view
+    / GRAPH GETS INJECTED HERE
 
-    %ul#capacity_controls.small-block-grid-2.medium-block-grid-2.large-block-grid-2
-      %li
-        = button_tag("Reserved Spot", id: 'reserved')
-        %p= t('capacity.description.reserved')
-      %li
-        = button_tag("Standby Spot", id: 'standby')
-        %p= t('capacity.description.standby')
+  %ul#capacity_controls.small-block-grid-2.medium-block-grid-2.large-block-grid-2
+    %li
+      = button_tag("Reserved Spot", id: 'reserved')
+      %p= t('capacity.description.reserved')
+    %li
+      = button_tag("Standby Spot", id: 'standby')
+      %p= t('capacity.description.standby')
 
-    %div#remaining-capacity.row
-      %div.small-3.columns
-      %div.small-3.columns
-        %p#remaining-label= "Remaining Capacity:"
-      %div.small-3.columns
-        %h3#remaining= 100
-      %div.small-3.columns
+  %div#remaining-capacity.row
+    %div.small-3.columns
+    %div.small-3.columns
+      %p#remaining-label= "Remaining Capacity:"
+    %div.small-3.columns
+      %h3#remaining= 100
+    %div.small-3.columns
 
-    %ul#capacity_controls_del.small-block-grid-2.medium-block-grid-2.large-block-grid-2
-      %li
-        = button_tag("Delete Reserved Spot", id: 'reserved-del', class: 'delete')
-      %li
-        = button_tag("Delete Standby Spot", id: 'standby-del', class: 'delete')
+  %ul#capacity_controls_del.small-block-grid-2.medium-block-grid-2.large-block-grid-2
+    %li
+      = button_tag("Delete Reserved Spot", id: 'reserved-del', class: 'delete')
+    %li
+      = button_tag("Delete Standby Spot", id: 'standby-del', class: 'delete')

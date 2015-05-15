@@ -1,30 +1,28 @@
 class SmsController < ApplicationController
-  def notify
-    puts params
-    render text: "Implement Sending SMS"
-  end
-  
-  def retrieve_messages(params)
+  before_action :authenticate_user!, only: [:index, :mass_text]
+
+  def index
+    @institution = current_user.institution_id
+    @subscribers = Subscriber.find(institution_id: current_user.institution_id)
   end
 
-  def send_message(params)
+  def retrieve_messages
+  end
+
+  def mass_text
     message = params.require(:message)
-    numbers = params.require(:numbers)
-
-    numbers.each do |num|
-      begin
-        @client = Twilio::REST::Client.new Settings.twilio.sid, Settings.twilio.auth
-        @client.account.messages.create({
-          :from => Settings.twilio.number,
-          :to => num,
-          :body => message
-        })
-      rescue Twilio::REST::RequestError => e
-        puts e.message
-      end
-    end
+    @subscribers ||= Subscriber.find(institution_id: current_user.institution_id)
+    send_message(@subscribers, message)
   end
 
+  def send_info
+    number = params.require(:number)
+    body = params.require(:body)
+
+    send_message([number], body)
+  end
+
+  # GET /institution/:id/subscribe
   def subscribe(number, institution_id)
     begin
       subscriber = Subscriber.find(phone: number, institution_id: institution_id)
@@ -54,5 +52,21 @@ class SmsController < ApplicationController
       puts e
     end
   end
+
+  private
+    def send_message(numbers, message)
+      numbers.each do |num|
+        begin
+          @client = Twilio::REST::Client.new Settings.twilio.sid, Settings.twilio.auth
+          @client.account.messages.create({
+            :from => Settings.twilio.number,
+            :to => num,
+            :body => message
+          })
+        rescue Twilio::REST::RequestError => e
+          puts e.message
+        end
+      end
+    end
 
 end

@@ -1,0 +1,8 @@
+%div#subscribers
+  %p= "You have #{@subscribers.length}!"
+%div#warning
+  %p= "This can be a powerful tool to help send out information to people in the area. Please try not to abuse this tool or else it may negatively impact how useful it is."
+%div#message
+  = form_tag '/sms/send', method: :put
+    = text_area_tag 'message'
+    = submit_tag "Send Message"

@@ -1,17 +1,16 @@
-%div#home_index
-  %ul#header.small-block-grid-1.large-block-grid-2
-    %li.small-1.large-2.columns.logo
-      = link_to(root_path) do
-        = image_tag "logo_black.png"
-    %li.small-1.large-2.columns.statement= t('home.statement')
+%ul#header.small-block-grid-1.large-block-grid-2
+  %li.small-1.large-2.columns.logo
+    = link_to(root_path) do
+      = image_tag "logo_black.png"
+  %li.small-1.large-2.columns.statement= t('home.statement')
 
 
-  - @search_label = true
-  = render 'shared/search'
+- @search_label = true
+= render 'shared/search'
 
-  %div
-    %h3= t('home.search_categories')
-    %ul#amenities_list.small-block-grid-2.large-block-grid-5
-      - Amenity.all.each do |amenity|
-        %li
-          =embedded_amenity(amenity, label: true)
+%div
+  %h3= t('home.search_categories')
+  %ul#amenities_list.small-block-grid-2.large-block-grid-5
+    - Amenity.all.each do |amenity|
+      %li
+        =embedded_amenity(amenity, label: true)

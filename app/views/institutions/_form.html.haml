@@ -1,15 +1,14 @@
-%div#institution_setup
-  = form_for @institution do |f|
-    = if @institution.errors.any?
-      %div#error_explanation
-      %h2 = pluralize(@institution.errors.count, "error") prohibited this job from being saved:
-      %ul
-      = @job.errors.full_messages.each do |message|
-        %li= message 
+= form_for @institution do |f|
+  = if @institution.errors.any?
+    %div#error_explanation
+    %h2 = pluralize(@institution.errors.count, "error") prohibited this job from being saved:
+    %ul
+    = @job.errors.full_messages.each do |message|
+      %li= message 
 
 
-    = render 'general', f: f
-    = render 'location', f: f
-    = render 'amenities', f: f
-    = render 'restrictions', f: f
-    = f.submit "Submit"
+  = render 'general', f: f
+  = render 'location', f: f
+  = render 'amenities', f: f
+  = render 'restrictions', f: f
+  = f.submit "Submit"

@@ -4,6 +4,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   before_action :set_locale
+  # before_action :user_institution
  
   def set_locale
     I18n.locale = extract_locale_from_tld || I18n.default_locale
@@ -22,5 +23,11 @@ class ApplicationController < ActionController::Base
 
   def disable_nav
     @disable_nav = true
+  end
+
+  def user_institution
+    if user_signed_in?
+      @user_institution = Institution.where(id: current_user.institution_id).first
+    end
   end
 end

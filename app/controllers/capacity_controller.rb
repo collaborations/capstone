@@ -1,16 +1,18 @@
 class CapacityController < ApplicationController
   # Introducing this has to give some sort of CSRF vulnerability
   skip_before_action :verify_authenticity_token
-  
-  # TODO: Before adding this, we need do error handling for if someone isn't logged in.
-  before_action :authenticate_user!
+  before_action :authenticate_user!, only: [:update, :index]
 
   def index
   end
 
   def get
     # ID should be passed in as a parameter and be the id of the institution
-    id = current_user.institution_id
+    if params[:id].present?
+      id = params[:id]
+    else 
+      id = current_user.institution_id
+    end
 
     # Should get total from the institution as the maximum number of spots allowed
     total = 100

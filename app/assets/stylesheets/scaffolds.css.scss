@@ -7,7 +7,6 @@
 }
 
 body {
-  margin-top: $nav-height + 20px;
   background-color: $background-color;
   font-family: verdana, arial, helvetica, sans-serif;
   font-size: 13px;
@@ -28,13 +27,6 @@ pre {
 
 a {
   color: #000;
-  &:visited {
-    color: #666;
-  }
-  &:hover {
-    color: #fff;
-    background-color: #000;
-  }
 }
 
 div {

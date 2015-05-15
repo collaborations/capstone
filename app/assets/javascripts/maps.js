@@ -17,7 +17,6 @@ var icons = [
 
 function initializeMaps(){
   geocoder = new google.maps.Geocoder();
-
   if(gon.useCurrentLocation){
     // Try W3C Geolocation (Preferred)
     if(navigator.geolocation) {

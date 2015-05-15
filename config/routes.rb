@@ -11,7 +11,7 @@ Rails.application.routes.draw do
 
   get '/about' => 'about#index'
 
-  get '/amenity/:id' => 'institutions#amenity'
+  get '/amenity/:id' => 'institutions#amenity', as: 'amenity'
 
   get '/institution/:id' => 'institutions#show'
   get '/institution/:id/sms' => 'sms#send_info', as: 'sms_info'

@@ -1,7 +1,4 @@
-%div#breadcrumbs.column.small-4
-  %ul
-    - @url.each do |str|
-      - if !str.match(/\d+/).present?
-        %li.crumb= str.humanize
-      - if str != @url.last and !@url.last.match(/\d+/).present?
-        %span.crumb-break= "/"
+%ul.right.breadcrumbs
+  - @url.each do |str|
+    - if !str.match(/\d+/).present?
+      %li= str.humanize

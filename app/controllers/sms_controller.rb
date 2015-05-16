@@ -1,9 +1,10 @@
 class SmsController < ApplicationController
-  before_action :authenticate_user!, only: [:index, :mass_text]
+  # before_action :authenticate_user!, only: [:index, :mass_text]
 
   def index
-    @institution = current_user.institution_id
-    @subscribers = Subscriber.find(institution_id: current_user.institution_id)
+    # @institution = current_user.institution_id
+    # @subscribers = Subscriber.find(institution_id: current_user.institution_id)
+    
   end
 
   def retrieve_messages

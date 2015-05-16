@@ -1,8 +1,8 @@
 class ChangeInstitutionHasAmenity < ActiveRecord::Migration
   def change
-    remove_column :capacity, :value, :string
-    remove_column :desc, :value, :string
-    remove_column :fees, :value, :string
-    remove_column :hours, :value, :string
+    remove_column :institution_has_amenities, :capacity, :integer
+    remove_column :institution_has_amenities, :desc, :text
+    remove_column :institution_has_amenities, :fees, :decimal
+    remove_column :institution_has_amenities, :hours, :string
   end
 end

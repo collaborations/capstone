@@ -3,26 +3,62 @@
 // You can use CoffeeScript in this file: http://coffeescript.org/
 
 // Setting up values for the graph
-var data = {
-  "total": 0,
-  "reserved": 0,
-  "standby": 0
+var data;
+var mCapacity;
+var gWidth;
+var gHeight;
+var radius;
+var arc;
+var svg;
+var pie;
+
+if ($("#capacity_index").length) {
+  initializeCapacityTracker();
 }
-var mCapacity = 100;
-var gWidth = 400
-var gHeight = 400
-var radius = Math.min(gWidth, gHeight) / 2;
-var arc = d3.svg.arc()
-  .outerRadius(radius - 10)
-  .innerRadius(radius - 70)
-var svg = d3.select("#capacity_view")
-  .append("svg")
-  .attr("width", gWidth)
-  .attr("height", gHeight)
-  .append("g")
-  .attr("transform", "translate(" + gWidth / 2 + "," + gHeight / 2 + ")")
-var pie = d3.layout.pie()
+
+function initializeCapacityTracker(){
+  data = {
+    "total": 0,
+    "reserved": 0,
+    "standby": 0
+  }
+  mCapacity = gon.capacity;
+  gHeight = 400;
+  gWidth = 400;
+  radius = Math.min(gWidth, gHeight) / 2;
+  arc = d3.svg.arc()
+    .outerRadius(radius - 10)
+    .innerRadius(radius - 70)
+  svg = d3.select("#capacity_view")
+    .append("svg")
+    .attr("width", gWidth)
+    .attr("height", gHeight)
+    .append("g")
+    .attr("transform", "translate(" + gWidth / 2 + "," + gHeight / 2 + ")")
+  pie = d3.layout.pie()
     .value(function(d) { return d.value; });
+
+  $("#reserved").on("click", { num: 1 },  add);
+  $("#standby").on("click", { num: 1 }, add);
+  $("#reserved-del").on("click", { num: -1 },  add);
+  $("#standby-del").on("click", { num: -1 }, add);
+  $("#capacity-warning").hide();
+  $.ajax({
+    "type": "POST",
+    "url": "http://localhost:3000/capacity/get",
+    "success": function(temp){
+      temp.forEach(function(d){
+        data[d.type] = d.value;
+        if(d.type != "empty"){
+          data["total"] += d.value;
+        } else {
+          $("#remaining")[0].innerHTML = d.value;
+        }
+      });
+    }
+  });
+  updateGraph();
+}
 
 // Updates the number of reserverd spots by the given amount
 function add(event){  
@@ -41,7 +77,7 @@ function add(event){
     }
     data["standby"] = temp;
   } else {
-    console.log("add was called without a button");
+    console.log("Add was called without clicking a button");
   }
   
   data["total"] = data["total"] + event.data.num;
@@ -57,7 +93,6 @@ function add(event){
 
 function transform(){
   r = "translate(" + arc.centroid(this) + ")"
-  console.log(r)
   return r
 }
 
@@ -109,27 +144,5 @@ function updateServer(){
   $(".arc").remove();
   updateGraph();
 }
-
-
-$("#reserved").on("click", { num: 1 },  add);
-$("#standby").on("click", { num: 1 }, add);
-$("#reserved-del").on("click", { num: -1 },  add);
-$("#standby-del").on("click", { num: -1 }, add);
-$("#capacity-warning").hide();
-$.ajax({
-  "type": "POST",
-  "url": "http://localhost:3000/capacity/get",
-  "success": function(temp){
-    temp.forEach(function(d){
-      data[d.type] = d.value;
-      if(d.type != "empty"){
-        data["total"] += d.value;
-      } else {
-        $("#remaining")[0].innerHTML = d.value;
-      }
-    });
-  }
-});
-updateGraph();
 
 

@@ -4,6 +4,14 @@ class CapacityController < ApplicationController
   before_action :authenticate_user!, only: [:update, :index]
 
   def index
+    @total = InstitutionDetail.where(institution_id: current_user.institution_id).first.capacity
+    if @total == 0
+      @max_capacity_prompt = true
+    end
+
+    gon.push({
+      :capacity => @total
+    })
   end
 
   def get
@@ -15,12 +23,12 @@ class CapacityController < ApplicationController
     end
 
     # Should get total from the institution as the maximum number of spots allowed
-    total = 100
+    total = InstitutionDetail.where(institution_id: id).first.capacity
     
     @data = Capacity.where("institution = ? AND created_at >= ?", id, Time.zone.now.beginning_of_day)
-    if @data.length > 0
+    if @data.present?
       @data = @data.first
-    else !@data.present?
+    else
       @data = Capacity.new(institution: id)
       @data.save
     end
@@ -43,7 +51,7 @@ class CapacityController < ApplicationController
 
   def update
     id = current_user.institution_id
-    total = 100
+    total = InstitutionDetail.where(institution_id: id).first.capacity
     @data = Capacity.where("institution = ? AND created_at >= ?", id, Time.zone.now.beginning_of_day).first
 
     @data.update(

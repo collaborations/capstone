@@ -14,10 +14,6 @@ class SmsController < ApplicationController
     if params[:message].present?
       send_message(@subscribers)
     end
-    #   message = params.require(:message)
-    #   send_message(@subscribers, message)
-    #   puts @subscribers
-    # end
     render 'index'
   end
 

@@ -26,7 +26,7 @@ class InstitutionsController < ApplicationController
       lat += m[1]
       lat += m[2]
     end
-    gon.push(center: [lat/4, lon/4])
+    gon.push({:center => [lat/4, lon/4]})
 
   end
 
@@ -45,7 +45,7 @@ class InstitutionsController < ApplicationController
       lat += m[1]
       lat += m[2]
     end
-    gon.push(center: [lat/4, lon/4])
+    gon.push({:center => [lat/4, lon/4]})
     
     @institutions = Amenity.find(params[:id]).institutions
     render 'index'
@@ -68,7 +68,7 @@ class InstitutionsController < ApplicationController
     end
     @address << @location.city + ", " + @location.state + " " + @location.zip.to_s
 
-    gon.push({"address" => @address})
+    gon.push({:address => @address})
   end
 
   # GET /institutions/new

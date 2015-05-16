@@ -1,10 +1,10 @@
 %h3= "Subscription List Messages"
 
 %div#subscribers
-  %p= "You have " + @subscribers.length.to_s + " subscriber!"
+  %p= "You have " + pluralize(@subscribers.length, "subscriber") + "!"
 %div#warning
   %p= "This can be a powerful tool to help send out information to people in the area. Please try not to abuse this tool or else it may negatively impact how useful it is."
 %div#message
-  = form_tag('/sms/notify') do
+  = form_tag('/sms/notify', remote: true) do
     = text_area_tag "message"
     = submit_tag "Send Message"

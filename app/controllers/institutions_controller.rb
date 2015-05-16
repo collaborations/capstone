@@ -26,8 +26,10 @@ class InstitutionsController < ApplicationController
       lat += m[1]
       lat += m[2]
     end
-    gon.push({:center => [lat/4, lon/4]})
-
+    gon.push({
+      :latitude => lat/4,
+      :longitude => lon/4
+    })
   end
 
   # GET /amenity/1
@@ -45,7 +47,10 @@ class InstitutionsController < ApplicationController
       lat += m[1]
       lat += m[2]
     end
-    gon.push({:center => [lat/4, lon/4]})
+    gon.push({
+      :latitude => lat/4,
+      :longitude => lon/4
+    })
     
     @institutions = Amenity.find(params[:id]).institutions
     render 'index'
@@ -56,19 +61,15 @@ class InstitutionsController < ApplicationController
   def show
     @id = @institution.id
 
-    # @message = {}
-    # @hours = InstitutionHasAmenity.where(institution_id: @institution.id).first.hours
-    # @hours = getHours(id)
     @location = Location.where(institution_id: @id).first
     @restrictions = @institution.restrictions
     
-    @address = @location.streetLine1 + " "
-    if @location.streetLine2.present?
-      @address << @location.streetLine2
-    end
-    @address << @location.city + ", " + @location.state + " " + @location.zip.to_s
-
-    gon.push({:address => @address})
+    address = @location.streetLine1 + " "
+    address << @location.streetLine2 + " " if @location.streetLine2.present?
+    address << @location.city + ", " + @location.state + " " + @location.zip.to_s
+    
+    gon.push({:address => address})
+    render 'show'
   end
 
   # GET /institutions/new
@@ -125,7 +126,6 @@ class InstitutionsController < ApplicationController
   end
 
   private
-
     # Use callbacks to share common setup or constraints between actions.
     def set_institution
       @institution = Institution.find(params[:id])

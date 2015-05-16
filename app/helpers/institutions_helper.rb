@@ -9,7 +9,10 @@ module InstitutionsHelper
     return contact.first if contact.present?
   end
 
-  def getDirectionsLink(address)
+  def getDirectionsLink(location)
+    address = location.streetLine1 + " "
+    address << location.streetLine2 + " " if location.streetLine2.present?
+    address << location.city + ", " + location.state + " " + location.zip.to_s
     "https://www.google.com/maps/place/" + address.sub(/\s/, "+")
   end
 
@@ -39,9 +42,7 @@ module InstitutionsHelper
   def getWebsite(institution_id)
     contact = Contact.where(institution_id: institution_id)
     if contact.present? and contact.first.website.present?
-      return contact.first.website
-    else
-      return "Not Listed"
+      contact.first.website
     end
   end
 

@@ -4,7 +4,7 @@
       %h1#institution-name= @institution.name
       %div#address
         %p
-          %em= @location.streetLine1 if @location.streetLine1.present?
+          %em= @location.streetLine1
         %p
           %em= @location.streetLine2 if @location.streetLine2.present?
         %p
@@ -22,7 +22,13 @@
     %div.row
       %div#institution-details.columns.small-12.large-8
         %p= "Phone: " + getPhone(@id)
-        %p= "Website: " + getWebsite(@id)
+        %p
+          = "Website: "
+          - link = getWebsite(@id)
+          - if link.present?
+            = link_to link
+          - else
+            = "Not Listed"
         %p= "Hours: " + getHours(@id)
 
       %div#google-map-aerial.columns.small-12.large-4
@@ -32,7 +38,7 @@
       = loading_spinner()
 
     %div#institution-directions-link.row
-      = link_to getDirectionsLink(@address) do
+      = link_to getDirectionsLink(@location) do
         %button= "Get Directions"
 
     %div#institution-desc.row
@@ -44,8 +50,8 @@
       - @restrictions.each do |r|
         %p.restriction
           %strong= r.name
-          - if r.desc.present?
-            = r.desc
+          = r.desc if r.desc.present?
+            
 
   %div#get-info.columns.small-12.large-2
     %div#save
@@ -73,5 +79,3 @@
 
 = render 'send_info_modal'
 
-= content_for :javascripts do
-  = javascript_include_tag(Settings.google.maps.url + "key=" + Settings.google.maps.token + "&callback=" + Settings.google.maps.callback)

@@ -2,19 +2,17 @@ class SmsController < ApplicationController
   before_action :authenticate_user!, only: [:index, :notify]
 
   def index
-    # @institution = current_user.institution_id
-    # @subscribers = Subscriber.find(institution_id: current_user.institution_id)
-    @subscribers = ["2063713424"]
+    @subscribers = Subscriber.where(institution_id: current_user.institution_id)
   end
 
   # This should notify all subscribers by sending them a message.
   def notify
     id = current_user.institution_id
     @subscribers ||= Subscriber.where(institution_id: id)
-    if params[:message].present?
-      send_message(@subscribers)
+    send_message(@subscribers.map(&:phone), params[:message]) if params[:message].present?
+    respond_to do |format|
+      format.js {  flash[:notice] = "test!" }
     end
-    render 'index'
   end
 
   def retrieve_messages
@@ -63,9 +61,9 @@ class SmsController < ApplicationController
 
   private
     def send_message(numbers, message)
+      @client = Twilio::REST::Client.new Settings.twilio.sid, Settings.twilio.auth
       numbers.each do |num|
         begin
-          @client = Twilio::REST::Client.new Settings.twilio.sid, Settings.twilio.auth
           @client.account.messages.create({
             :from => Settings.twilio.number,
             :to => num,

@@ -5,3 +5,4 @@
 %div#message
   = form_tag({controller: "sms", action: "mass_text"}) do |f|
     = f.text_area_tag
+    = submit_tag "Send Message"

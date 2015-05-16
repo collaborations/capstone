@@ -6,7 +6,7 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-Amenity.all.destroy_all()
+
 Amenity.create([{ name: "Clothing", img: "categories/clothing.svg", desc: "Provides clothes to patrons"}, 
 	{ name: "Food", img: "categories/food.svg", desc: "Provides meals to homeless through coupons or for free"},
 	{ name: "Bus Tickets", img: "categories/bustickets.svg", desc: "Provides a place to purchase bus tickets"},
@@ -23,16 +23,6 @@ Amenity.create([{ name: "Clothing", img: "categories/clothing.svg", desc: "Provi
 # var.<model relation> = <active record association>
 # var.save
 
-# contact => phone | email | institution_id | website
-
-# InstitutionDetail
-      # t.string :hours
-      # t.integer :institution_id
-      # t.decimal :fees, null: false, default: 0
-      # t.text :desc
-      # t.integer :capacity, null: false, default: 0
-      # t.timestamps null: false
-
 SeattleUnionGospelMission = Institution.new({ name: "Seattle Union Gospel Mission: Men's Shelter", 
 	desc: "Men's emergency overnight shelter providing clothing, meals, and art classes.", 
 	instructions: "Maximum stay is 168 nights per year, conseutive or spread out. Call or walk in 9am - 6:30pm to reserve a ticket for the night.
@@ -40,18 +30,18 @@ SeattleUnionGospelMission = Institution.new({ name: "Seattle Union Gospel Missio
 SeattleUnionGospelMission.amenities = Amenity.find(1,2,5,6,8)
 SeattleUnionGospelMission.contact = Contact.new({
 		email: "mission@ugm.org",
-		phone: "2067231076",
+		phone: "206-723-1076",
 		website: "www.ugm.org"
 	})
 SeattleUnionGospelMission.institution_detail = InstitutionDetail.new({
 		hours: "No Hours Set"
 	})
-SeattleUnionGospelMission.location = Location.new({
+SeattleUnionGospelMission.locations = [Location.new({
 		streetLine1: "318 2nd Ave Extension South",
 		city: "Seattle",
 		state: "WA",
 		zip: "98104"
-	})
+	})]
 SeattleUnionGospelMission.save
 
 BallardHomelessClinic = Institution.new({ name: "Ballard Homeless Clinic", 
@@ -59,19 +49,19 @@ BallardHomelessClinic = Institution.new({ name: "Ballard Homeless Clinic",
 	instructions: "Walk in appointments available, but scheduling apointments is encouraged."}) 
 BallardHomelessClinic.amenities = [Amenity.find(8)]
 BallardHomelessClinic.contact = Contact.new({
-		phone: "2067825939",
+		phone: "206-782-5939",
 		website: "www.neighborcare.org/clinics/neighborcare-health-ballard-homeless-clinic-nyer-urness-house"
 	})
 BallardHomelessClinic.institution_detail = InstitutionDetail.new({
 		hours: "No Hours Set"
 	})
-BallardHomelessClinic.location = Location.new({
+BallardHomelessClinic.locations = [Location.new({
 		streetLine1: "1753 NW 56th St",
 		streetLine2: "#200",
 		city: "Seattle",
 		state: "WA",
 		zip: "98107"
-	})
+	})]
 BallardHomelessClinic.save
 
 SacredHeartShelter = Institution.new({ name: "Sacred Heart Shelter", 
@@ -83,18 +73,18 @@ SacredHeartShelter = Institution.new({ name: "Sacred Heart Shelter",
  		* 'Meet with housing staff to ensure the best fit for your family'"})
  SacredHeartShelter.amenities = Amenity.find(2,6)
  SacredHeartShelter.contact = Contact.new({
-		phone: "2062844680",
+		phone: "206-284-4680",
 		website: "www.sacredheartseattle.com"
 	})
 SacredHeartShelter.institution_detail = InstitutionDetail.new({
 		hours: "No Hours Set"
 	})
- SacredHeartShelter.location = Location.new({
+ SacredHeartShelter.locations = [Location.new({
 		streetLine1: "205 2nd Ave N",
 		city: "Seattle",
 		state: "WA",
 		zip: "98109"
-	})
+	})]
  SacredHeartShelter.save
 
 SalvationArmyFoodBank = Institution.new({ name: "Salvation Army Food Bank", 
@@ -102,18 +92,18 @@ SalvationArmyFoodBank = Institution.new({ name: "Salvation Army Food Bank",
 	instructions: "Must have proof of address and ID for all household members. Limit of 3 emergency food bags per household per year."})
 SalvationArmyFoodBank.amenities = [Amenity.find(2)]
 SalvationArmyFoodBank.contact = Contact.new({
-		phone: "2064479944",
+		phone: "206-447-9944",
 		website: "www.salvationarmy.org"
 	})
 SalvationArmyFoodBank.institution_detail = InstitutionDetail.new({
 		hours: "No Hours Set"
 	})
-SalvationArmyFoodBank.location = Location.new({
+SalvationArmyFoodBank.locations = [Location.new({
 		streetLine1: "1101 Pike St",
 		city: "Seattle",
 		state: "WA",
 		zip: "98101"
-	})
+	})]
 SalvationArmyFoodBank.save
 
 StFrancisHouse = Institution.new({name: "St. Francis House", 
@@ -122,17 +112,17 @@ StFrancisHouse = Institution.new({name: "St. Francis House",
 StFrancisHouse.amenities = Amenity.find(1,2)
 StFrancisHouse.contact = Contact.new({
 		email: "stfrancis@live.com",
-		phone: "2066210945",
+		phone: "206-621-0945",
 		website: "www.stfrancishouseseattle.org"
 	})
 StFrancisHouse.institution_detail = InstitutionDetail.new({
 		hours: "No Hours Set"
 	})
-StFrancisHouse.location = Location.new({
+StFrancisHouse.locations = [Location.new({
 		streetLine1: "169 12th Ave",
 		city: "Seattle",
 		state: "WA",
 		zip: "98122"
-	})
+	})]
 StFrancisHouse.save
 

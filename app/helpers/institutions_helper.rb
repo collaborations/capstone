@@ -18,12 +18,31 @@ module InstitutionsHelper
 	end
 
 	def getHours(institution_id)
-		hours = InstitutionDetails.where(institution_id: institution_id)
-    if hours.present?
-      return hours.first
+		details = InstitutionDetail.where(institution_id: institution_id)
+    if details.present? and details.first.hours.present?
+      return details.first.hours
     else
-      return "No Hours Listed"
+      return "Not Listed"
     end
 	end
+
+  def getPhone(institution_id)
+    contact = Contact.where(institution_id: institution_id)
+    if contact.present? and contact.first.phone.present?
+      phone = contact.first.phone.split("-")
+      return sprintf("(%s)%s-%s", phone[0], phone[1], phone[2])
+    else
+      return "Not Listed"
+    end
+  end
+
+  def getWebsite(institution_id)
+    contact = Contact.where(institution_id: institution_id)
+    if contact.present? and contact.first.website.present?
+      return contact.first.website
+    else
+      return "Not Listed"
+    end
+  end
 
 end

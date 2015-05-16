@@ -4,7 +4,7 @@
       %h1#institution-name= @institution.name
       %div#address
         %p
-          %em= @location.streetLine1 if @location.streetLine2.present?
+          %em= @location.streetLine1 if @location.streetLine1.present?
         %p
           %em= @location.streetLine2 if @location.streetLine2.present?
         %p
@@ -21,17 +21,9 @@
   %div#institution-info.columns.small-12.large-9
     %div.row
       %div#institution-details.columns.small-12.large-8
-        - if @contact.present? and @contact.phone.present?
-          %p= "Phone: " + @contact.phone
-        - else
-          %p= "Phone not listed"
-
-        - if @contact.present? and @contact.website.present?
-          %p= "Website: " + @contact.website
-        - else
-          %p= "Website not listed"
-
-       %p= getHours(@institution.id)
+        %p= "Phone: " + getPhone(@id)
+        %p= "Website: " + getWebsite(@id)
+        %p= "Hours: " + getHours(@id)
 
       %div#google-map-aerial.columns.small-12.large-4
         = loading_spinner()

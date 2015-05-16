@@ -54,12 +54,12 @@ class InstitutionsController < ApplicationController
   # GET /institutions/1
   # GET /institutions/1.json
   def show
-    id = @institution.id
-    @message = {}
+    @id = @institution.id
+
+    # @message = {}
     # @hours = InstitutionHasAmenity.where(institution_id: @institution.id).first.hours
-    @hours = getHours(id)
-    @location = Location.where(institution_id: id).first
-    @contact = getContactInfo(id)
+    # @hours = getHours(id)
+    @location = Location.where(institution_id: @id).first
     @restrictions = @institution.restrictions
     
     @address = @location.streetLine1 + " "

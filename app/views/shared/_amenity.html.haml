@@ -1,5 +1,5 @@
 = link_to(amenity_path(@amenity.id), title: @amenity.desc, category: @amenity.name) do
-  %div.row.amenity-bg
+  %div{ class: "row amenity-bg amenity-#{@amenity.name.downcase.sub(' ', '')}" }
     %div.amenity-img= embedded_svg(@amenity.img, { class: "amenity-img", alt: @amenity.desc})
   - if @label.present?
     %div.row.amenity-label= @amenity.name

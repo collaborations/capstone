@@ -1,8 +1,10 @@
+%h3= "Subscription List Messages"
+
 %div#subscribers
-  %p= "You have #{@subscribers.length}!"
+  %p= "You have " + @subscribers.length.to_s + " subscriber!"
 %div#warning
   %p= "This can be a powerful tool to help send out information to people in the area. Please try not to abuse this tool or else it may negatively impact how useful it is."
 %div#message
-  = form_tag({controller: "sms", action: "mass_text"}) do |f|
-    = f.text_area_tag
+  = form_tag('/sms/notify') do
+    = text_area_tag "message"
     = submit_tag "Send Message"

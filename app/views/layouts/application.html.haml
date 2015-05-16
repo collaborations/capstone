@@ -27,5 +27,4 @@
     = yield
 
   = javascript_include_tag "application"
-  - if @load_google_maps
-    = javascript_include_tag(Settings.google.maps.url + "key=" + Settings.google.maps.token + "&callback=" + Settings.google.maps.callback)
+  = yield :javascripts

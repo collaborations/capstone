@@ -5,7 +5,8 @@ module InstitutionsHelper
   end
 
   def getDirectionsLink(address)
-    "https://www.google.com/maps/place/" + address.sub(/\s/, "+")
+    # "https://www.google.com/maps/place/" + address.sub(/\s/, "+")
+    "Testing"
   end
 
 	def getDistance(institution_id)

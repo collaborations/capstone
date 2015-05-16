@@ -1,19 +1,27 @@
 class SmsController < ApplicationController
-  # before_action :authenticate_user!, only: [:index, :mass_text]
+  before_action :authenticate_user!, only: [:index, :notify]
 
   def index
     # @institution = current_user.institution_id
     # @subscribers = Subscriber.find(institution_id: current_user.institution_id)
-    
+    @subscribers = ["2063713424"]
+  end
+
+  # This should notify all subscribers by sending them a message.
+  def notify
+    id = current_user.institution_id
+    @subscribers ||= Subscriber.where(institution_id: id)
+    if params[:message].present?
+      send_message(@subscribers)
+    end
+    #   message = params.require(:message)
+    #   send_message(@subscribers, message)
+    #   puts @subscribers
+    # end
+    render 'index'
   end
 
   def retrieve_messages
-  end
-
-  def mass_text
-    message = params.require(:message)
-    @subscribers ||= Subscriber.find(institution_id: current_user.institution_id)
-    send_message(@subscribers, message)
   end
 
   def send_info
@@ -23,17 +31,49 @@ class SmsController < ApplicationController
     send_message([number], body)
   end
 
-  # GET /institution/:id/subscribe
-  def subscribe(number, institution_id)
+  # POST /institution/subscribe
+  def subscribe
+    # number = params.require(:number)
     begin
-      subscriber = Subscriber.find(phone: number, institution_id: institution_id)
+      # Get phone number
+      number = params.require(:number)
+      id = params.require(:id)
+      # Check if phone number exists in database for given institution
+      subscriber = Subscriber.where({phone: number, institution_id: id})
+      puts "Subscriber"
+      puts subscriber
+      puts "ID"
+      puts id.to_s
+      puts "Phone Number"
+      puts number.to_s
       if subscriber.present?
-        flash[:error] = "Already Subscribed"
-      elsif !number.match(/\d{10}/).present?
-        flash[:error] = "Bad Number"
+        puts "Found"
+        flash[:notice] = "Already Subscribed"
       else
-        Subscriber.create(phone: number, institution_id: institution_id)
+        puts "Not found"
+        Subscriber.create(phone: number, institution_id: id)
       end
+      render 'show'
+
+      # If number exists
+        # Fail and show message
+      # Else
+        # Create object and send confirmation message
+
+
+
+      
+    
+      # subscriber = Subscriber.new({phone: number, institution_id: institution_id})
+      # # subscriber = Subscriber.find(phone: number, institution_id: institution_id) 
+      # if subscriber.present?
+      #   flash[:error] = "Already Subscribed"
+      # elsif !number.match(/\d{10}/).present?
+      #   flash[:error] = "Bad Number"
+      # else
+      #   Subscriber.create(phone: number, institution_id: institution_id)
+      # end
+
     rescue => e
       puts e
     end

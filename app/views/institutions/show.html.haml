@@ -76,9 +76,13 @@
         = "Subscribe"
       %small= "What's this?"
       %div.row
-        = form_tag '/institution' do
-          %input{ type: "text", placeholder: "0123456789" }
-          %button#subscribe= "Opt In"
+        = form_tag('/sms/subscribe', method: :post) do
+          = text_field_tag "number"
+          = hidden_field_tag "id", @institution.id
+          = submit_tag "Opt In"
         
 
 = render 'customize'
+
+= content_for :javascripts do
+  = javascript_include_tag(Settings.google.maps.url + "key=" + Settings.google.maps.token + "&callback=" + Settings.google.maps.callback)

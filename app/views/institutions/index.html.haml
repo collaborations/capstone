@@ -51,3 +51,5 @@
               %li
                 =embedded_amenity(amenity)
 
+= content_for :javascripts do
+  = javascript_include_tag(Settings.google.maps.url + "key=" + Settings.google.maps.token + "&callback=" + Settings.google.maps.callback)

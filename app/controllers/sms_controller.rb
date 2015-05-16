@@ -10,19 +10,16 @@ class SmsController < ApplicationController
     id = current_user.institution_id
     @subscribers ||= Subscriber.where(institution_id: id)
     send_message(@subscribers.map(&:phone), params[:message]) if params[:message].present?
-    respond_to do |format|
-      format.js {  flash[:notice] = "test!" }
-    end
+    head :ok, content_type: "text/html"
   end
 
   def retrieve_messages
   end
 
-  def send_info
-    number = params.require(:number)
-    body = params.require(:body)
-
-    send_message([number], body)
+  def info
+    puts params
+    head :ok, content_type: "text/html"
+    # send_message([number], body)
   end
 
   # POST /institution/subscribe
@@ -72,6 +69,7 @@ class SmsController < ApplicationController
         rescue Twilio::REST::RequestError => e
           puts e.message
         end
+        puts @client
       end
     end
 

@@ -7,4 +7,4 @@
 %div#message
   = form_tag('/sms/notify', remote: true) do
     = text_area_tag "message"
-    = submit_tag "Send Message"
+    = submit_tag "Send Message", class: "button"

@@ -1,21 +1,26 @@
 class CapacityController < ApplicationController
   # Introducing this has to give some sort of CSRF vulnerability
   skip_before_action :verify_authenticity_token
-  
-  # TODO: Before adding this, we need do error handling for if someone isn't logged in.
-  # before_action :authenticate_user!
+  before_action :authenticate_user!, only: [:update, :index]
 
   def index
   end
 
   def get
     # ID should be passed in as a parameter and be the id of the institution
-    id = 1
+    if params[:id].present?
+      id = params[:id]
+    else 
+      id = current_user.institution_id
+    end
+
     # Should get total from the institution as the maximum number of spots allowed
     total = 100
     
-    @data ||= Capacity.where("institution = ? AND created_at >= ?", id, Time.zone.now.beginning_of_day).first
-    if !@data.present?
+    @data = Capacity.where("institution = ? AND created_at >= ?", id, Time.zone.now.beginning_of_day)
+    if @data.length > 0
+      @data = @data.first
+    else !@data.present?
       @data = Capacity.new(institution: id)
       @data.save
     end
@@ -37,14 +42,10 @@ class CapacityController < ApplicationController
   end
 
   def update
-    pp params
-    id = 1
+    id = current_user.institution_id
     total = 100
-    @data ||= Capacity.where("institution = ? AND created_at >= ?", id, Time.zone.now.beginning_of_day).first
-    if !@data.present?
-      @data = Capacity.new(institution: id)
-      @data.save
-    end
+    @data = Capacity.where("institution = ? AND created_at >= ?", id, Time.zone.now.beginning_of_day).first
+
     @data.update(
       reserved: params[:reserved],
       standby: params[:standby]

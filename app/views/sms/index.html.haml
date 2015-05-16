@@ -1,2 +1,8 @@
-= form_tag({controller: "sms", action: "mass_text"}) do |f|
-  = f.text_area_tag
+%div#subscribers
+  %p= "You have #{@subscribers.length}!"
+%div#warning
+  %p= "This can be a powerful tool to help send out information to people in the area. Please try not to abuse this tool or else it may negatively impact how useful it is."
+%div#message
+  = form_tag({controller: "sms", action: "mass_text"}) do |f|
+    = f.text_area_tag
+    = submit_tag "Send Message"

@@ -1,41 +1,5 @@
 @import 'variables';
 
-nav {
-    position: fixed;
-    top: 0px;
-    left: 0px;
-    height: $nav-height;
-    width: 100%;
-    z-index: 100;
-    background-color: $nav-background;
-    overflow: hidden;
-    padding: 0;
-}
-
-#breadcrumbs {
-    height: $nav-height;
-    top: $nav-height / 3;
-
-    .crumb {
-        display: inline;
-        list-style-type: none;
-        font-weight: bold;
-    }
-
-    .crumb-break {
-        margin-left: 10px;
-        margin-right: 10px;
-    }
-}
-
 .logo-nav {
     height: $nav-height;
-}
-
-div#menu {
-    float: right;
-}
-
-div#nav-right {
-    float: right;
 }

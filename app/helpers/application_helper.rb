@@ -1,9 +1,5 @@
 module ApplicationHelper
 
-  def amenity_path(amenity_id)
-    "/amenity/" + amenity_id.to_s
-  end
-
   def breadcrumbs
     @url = request.env['PATH_INFO'].sub(/\A\//, '').split("/")
     if @url.size >= 1
@@ -31,18 +27,6 @@ module ApplicationHelper
   def search_bar(options = {})
     @search_label = true if options[:label].present?
     render 'shared/search'
-  end
-
-  def send_email(options = {})
-
-  end
-
-  def send_text(options = {})
-
-  end
-
-  def send_printer(options = {})
-
   end
 
   def loading_spinner

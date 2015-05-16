@@ -33,47 +33,18 @@ class SmsController < ApplicationController
 
   # POST /institution/subscribe
   def subscribe
-    # number = params.require(:number)
     begin
       # Get phone number
       number = params.require(:number)
       id = params.require(:id)
       # Check if phone number exists in database for given institution
       subscriber = Subscriber.where({phone: number, institution_id: id})
-      puts "Subscriber"
-      puts subscriber
-      puts "ID"
-      puts id.to_s
-      puts "Phone Number"
-      puts number.to_s
       if subscriber.present?
-        puts "Found"
         flash[:notice] = "Already Subscribed"
       else
-        puts "Not found"
         Subscriber.create(phone: number, institution_id: id)
       end
-      render 'show'
-
-      # If number exists
-        # Fail and show message
-      # Else
-        # Create object and send confirmation message
-
-
-
-      
-    
-      # subscriber = Subscriber.new({phone: number, institution_id: institution_id})
-      # # subscriber = Subscriber.find(phone: number, institution_id: institution_id) 
-      # if subscriber.present?
-      #   flash[:error] = "Already Subscribed"
-      # elsif !number.match(/\d{10}/).present?
-      #   flash[:error] = "Bad Number"
-      # else
-      #   Subscriber.create(phone: number, institution_id: institution_id)
-      # end
-
+      redirect_to '/institution/' + id.to_s
     rescue => e
       puts e
     end
@@ -83,9 +54,9 @@ class SmsController < ApplicationController
     begin
       subscriber = Subscriber.find(phone: number, institution_id: institution_id)
       if subscriber.empty?
-        flash[:error] = "Subscriber not registered"
+        flash[:notice] = "Subscriber not registered"
       elsif !number.match(/\d{10}/).present?
-        flash[:error] = "Bad Number"
+        flash[:notice] = "Bad Number"
       else
         subscriber.destroy_all
       end

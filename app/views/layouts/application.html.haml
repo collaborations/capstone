@@ -14,7 +14,7 @@
 
   -# Set the viewport width to device width for mobile
   %meta{ :name => "viewport", :content => "width=device-width, initial-scale=1.0" }
-  %title= content_for?(:title) ? yield(:title) : t('defaults.title')
+  %title= content_for?(:title) ? yield(:title) : t('defaults.title') + " " + params[:controller].to_s
   = include_gon(:init => true)
   = stylesheet_link_tag "application"
   = javascript_include_tag "vendor/custom.modernizr"
@@ -22,7 +22,8 @@
 
 %body
   = render 'shared/nav' unless @disable_nav
-
+  -if flash[:notice].present?
+    %div.notice= flash[:notice]
   %div{id: params[:controller] + '_' + params[:action]}
     = yield
 

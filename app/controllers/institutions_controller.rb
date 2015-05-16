@@ -1,5 +1,4 @@
 class InstitutionsController < ApplicationController
-  before_action :load_google_maps, only: [:amenity, :index, :show]
   before_action :set_amenity, only: [:edit, :update, :new]
   before_action :set_institution, only: [:show, :update, :destroy]
   before_action :authenticate_user!, only: [:edit, :update]
@@ -55,10 +54,12 @@ class InstitutionsController < ApplicationController
   # GET /institutions/1
   # GET /institutions/1.json
   def show
+    id = @institution.id
     @message = {}
-    @hours = InstitutionHasAmenity.where(institution_id: @institution.id).first.hours
-    @location = Location.where(institution_id: @institution.id).first
-    @contact = Contact.where(institution_id: @institution.id).first
+    # @hours = InstitutionHasAmenity.where(institution_id: @institution.id).first.hours
+    @hours = getHours(id)
+    @location = Location.where(institution_id: id).first
+    @contact = getContactInfo(id)
     @restrictions = @institution.restrictions
     
     @address = @location.streetLine1 + " "
@@ -67,7 +68,7 @@ class InstitutionsController < ApplicationController
     end
     @address << @location.city + ", " + @location.state + " " + @location.zip.to_s
 
-    gon.push(address: @address)
+    gon.push({"address" => @address})
   end
 
   # GET /institutions/new
@@ -124,9 +125,6 @@ class InstitutionsController < ApplicationController
   end
 
   private
-    def load_google_maps
-      @load_google_maps = true
-    end
 
     # Use callbacks to share common setup or constraints between actions.
     def set_institution

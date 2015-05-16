@@ -3,9 +3,8 @@ class CreateInstitutionDetails < ActiveRecord::Migration
     create_table :institution_details do |t|
       t.string :hours
       t.integer :institution_id
-      t.decimal :fees
-      t.text :desc
-      t.integer :capacity
+      t.decimal :fees, null: false, default: 0
+      t.integer :capacity, null: false, default: 0
       t.timestamps null: false
     end
   end

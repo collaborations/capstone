@@ -67,15 +67,13 @@
         %button.small-12.large-3{ name: "print", class: "columns small-12 large-6 label", "data-reveal-id" => "institution-modal" }= "Print"
 
     %div#subscribe    
-      %h5
-        = "Subscribe"
-      %small= "What's this?"
+      %h5= "Subscribe"
       %div.row
         = form_tag('/sms/subscribe', method: :post, data: { :abide => "ajax" }) do
-          = telephone_field_tag "number", nil, required: true
+          = telephone_field_tag "number", nil, required: true, pattern: "\\d{10}"
           %small.error= "Please enter your 10 digit phone number (including area code)."
           = hidden_field_tag "id", @institution.id
-          = submit_tag "Opt In", class: "button"
+          = submit_tag "Opt In", { class: "button", id: "opt-in" }
         
 
 = render 'send_info_modal'

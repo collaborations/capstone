@@ -125,6 +125,41 @@ class InstitutionsController < ApplicationController
     end
   end
 
+  def print
+    begin
+      id = params.require(:institution_id)
+      institution = Institution.where(id: id).first
+
+      if params[:phone].to_bool
+        @contact = Contact.where(institution_id: id)
+        @contact = @contact.first if @contact.present?
+      end
+
+      if params[:hours].to_bool
+        @details = InstitutionDetails.where(institution_id: id)
+        @details = details.first if @details.present? and @details.hours.present?
+      end
+
+      if params[:address].to_bool
+        @location = Location.where(institution_id: id)
+        @location = location.first if location.present?
+      end
+
+      if params[:amenities].to_bool
+        @amenities = InstitutionHasAmenity.joins(:amenity, :institution).where(institution_id: id).map(&:amenity)
+      end
+
+      if params[:restrictions].to_bool
+        @restrictions = Restrictions.where(institution_id: id)
+        @restrictions = @restrictions.first.present?
+      end
+    rescue ActionController::ParameterMissing => e
+      puts e.message
+      head :bad_request, content_type: "text/html"
+    end
+    head :ok, content_type: "text/html"
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_institution

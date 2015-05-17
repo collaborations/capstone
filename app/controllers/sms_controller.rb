@@ -65,6 +65,7 @@ class SmsController < ApplicationController
       send_message([number], message.join("\n"))
     rescue ActionController::ParameterMissing => e
       puts e.message
+      head :bad_request, content_type: "text/html"
     end
     head :ok, content_type: "text/html"
     

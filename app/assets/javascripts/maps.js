@@ -15,6 +15,14 @@ var icons = [
   iconURLPrefix + 'yellow-dot.png'
 ];
 
+$(document).on("page:change", function(){
+  if($("#google-map-aerial").length){
+    initializeMaps();
+  }
+});
+  
+
+
 function initializeMaps(){
   geocoder = new google.maps.Geocoder();
   if(gon.useCurrentLocation){
@@ -29,7 +37,7 @@ function initializeMaps(){
     } else {
       geoLocationCallback(false);
     }
-  } else if(gon.address){
+  } else if(typeof(gon.address) !== 'undefined'){
     // Need to lookup coordinates
     geocoder.geocode({'address': gon.address}, function(results, status){
       if (status == google.maps.GeocoderStatus.OK) {
@@ -43,8 +51,8 @@ function initializeMaps(){
         alert("Geocode was not successful for the following reason: " + status);
       }
     });
-  } else if(gon.center){
-    initialLocation = new google.maps.LatLng(gon.center[0], gon.center[1]);
+  } else if(typeof(gon.latitude) !== 'undefined' && typeof(gon.longitude) !== 'undefined'){
+    initialLocation = new google.maps.LatLng(gon.latitude, gon.longitude);
     generateMap();
   } else {
     alert("Address not specified");
@@ -72,7 +80,7 @@ function generateMap(){
     markers = gon.markers;
     setMarkers();
   }
-  if($("#google-map-street").length != 0){
+  if($("#google-map-street").length){
     generateStreetView()
   }
 }

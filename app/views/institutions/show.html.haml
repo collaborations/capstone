@@ -21,20 +21,15 @@
   %div#institution-info.columns.small-12.large-9
     %div.row
       %div#institution-details.columns.small-12.large-8
-        - if @contact.present? and @contact.phone.present?
-          %p= "Phone: " + @contact.phone
-        - else
-          %p= "Phone not listed"
-
-        - if @contact.present? and @contact.website.present?
-          %p= "Website: " + @contact.website
-        - else
-          %p= "Website not listed"
-
-        - if @hours.present?
-          %p= "Hours: " + @hours
-        - else
-          %p= "Hours not listed."
+        %p= "Phone: " + getPhone(@id)
+        %p
+          = "Website: "
+          - link = getWebsite(@id)
+          - if link.present?
+            = link_to link
+          - else
+            = "Not Listed"
+        %p= "Hours: " + getHours(@id)
 
       %div#google-map-aerial.columns.small-12.large-4
         = loading_spinner()
@@ -43,7 +38,7 @@
       = loading_spinner()
 
     %div#institution-directions-link.row
-      = link_to getDirectionsLink(@address) do
+      = link_to getDirectionsLink(@location) do
         %button= "Get Directions"
 
     %div#institution-desc.row
@@ -55,8 +50,8 @@
       - @restrictions.each do |r|
         %p.restriction
           %strong= r.name
-          - if r.desc.present?
-            = r.desc
+          = r.desc if r.desc.present?
+            
 
   %div#get-info.columns.small-12.large-2
     %div#save
@@ -76,9 +71,12 @@
         = "Subscribe"
       %small= "What's this?"
       %div.row
-        = form_tag '/institution' do
-          %input{ type: "text", placeholder: "0123456789" }
-          %button#subscribe= "Opt In"
+        = form_tag('/sms/subscribe', method: :post, data: { :abide => "ajax" }) do
+          = telephone_field_tag "number", nil, required: true
+          %small.error= "Please enter your 10 digit phone number (including area code)."
+          = hidden_field_tag "id", @institution.id
+          = submit_tag "Opt In", class: "button"
         
 
-= render 'customize'
+= render 'send_info_modal'
+

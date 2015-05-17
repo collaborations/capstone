@@ -1,0 +1,36 @@
+%div#institution-modal.reveal-modal
+  %h4= "What information do you want to send?"
+  %div.row
+    %div#notify-buttons.columns.small-12.large-3
+      %button#select-all-options= "Select All"
+      %button#remove-all-options= "Deselect All"
+    %div#notify-options.columns.small-12.large-9
+      / = form_tag nil, :data => { :abide => "ajax" }, remote: true, action: nil, id: "institution-modal-form" do
+      %form#institution-modal-form{ data: { :abide => "ajax" } }
+        = hidden_field_tag :message_type
+        = hidden_field_tag :institution_id, @id
+        %ul.small-block-grid-3.large-block-grid-5#customization-options
+          %li
+            = check_box_tag :address
+            = label_tag "Address"
+          %li
+            = check_box_tag :phone
+            = label_tag "Phone Number"
+          %li
+            = check_box_tag :amenities
+            = label_tag "Amenities"
+          %li
+            = check_box_tag :restrictions
+            = label_tag "Restrictions"
+          %li
+            = check_box_tag :hours
+            = label_tag "Hours"
+        %div#send-email
+          = label_tag "What email should we send it to?"
+          = email_field_tag :email, nil, { placeholder: "name@example.com", pattern: "email" }
+          %small.error= "You must have a valid email for us to email you."
+        %div#send-text
+          = label_tag "What number should we send it to?"
+          = telephone_field_tag :sms, nil, { placeholder: "0123456789", pattern: "\\d{10}" }
+          %small.error= "Please enter your 10 digit phone number (including area code)."
+        = submit_tag "Send Information", { id: "send-information", class: "button" }

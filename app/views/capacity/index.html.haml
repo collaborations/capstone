@@ -6,8 +6,11 @@
     %p= t('capacity.description.update_detail')
   %h3#capacity-warning= "WARNING: You have gone above your max capacity."
 
+  - if @max_capacity_prompt
+    %p= "It looks like you haven't set your max capacity yet. The tracker will still work though."
   %div#capacity_view
-    / GRAPH GETS INJECTED HERE
+  / GRAPH GETS INJECTED HERE
+
 
   %ul#capacity_controls.small-block-grid-2.medium-block-grid-2.large-block-grid-2
     %li
@@ -22,7 +25,7 @@
     %div.small-3.columns
       %p#remaining-label= "Remaining Capacity:"
     %div.small-3.columns
-      %h3#remaining= 100
+      %h3#remaining= @total
     %div.small-3.columns
 
   %ul#capacity_controls_del.small-block-grid-2.medium-block-grid-2.large-block-grid-2

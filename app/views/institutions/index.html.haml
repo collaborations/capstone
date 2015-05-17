@@ -4,32 +4,32 @@
 %div
   %ul#filter-settings.small-block-grid-2.large-block-grid-7
     %li.toggle
-      %span.filter-title Number of People
-      %button#btn-individual.filter-btn-deselected Individual
-      %button#btn-family.filter-btn-deselected Family
+      %span.filter-title= "Number of People"
+      %button#btn-individual.filter-btn-deselected= "Individual"
+      %button#btn-family.filter-btn-deselected= "Family"
     %li.toggle
-      %span.filter-title Gender
-      %button#btn-male.filter-btn-deselected Male
-      %button#btn-female.filter-btn-deselected Female
+      %span.filter-title= "Gender"
+      %button#btn-male.filter-btn-deselected= "Male"
+      %button#btn-female.filter-btn-deselected= "Female"
     %li.toggle
-      %span.filter-title Age
-      %button#btn-age.filter-btn-deselected ____
+      %span.filter-title= "Age"
+      %button#btn-age.filter-btn-deselected= "____"
     %li.toggle
-      %span.filter-title Disability
-      %button#btn-physical.filter-btn-deselected Physical
-      %button#btn-mental.filter-btn-deselected Mental
+      %span.filter-title= "Disability"
+      %button#btn-physical.filter-btn-deselected= "Physical"
+      %button#btn-mental.filter-btn-deselected= "Mental"
     %li.toggle
-      %span.filter-title Miscellaneous
-      %button#btn-veteran.filter-btn-deselected Veteran
-      %button#btn-victimofabuse.filter-btn-deselected Victim of Abuse
+      %span.filter-title= "Miscellaneous"
+      %button#btn-veteran.filter-btn-deselected= "Veteran"
+      %button#btn-victimofabuse.filter-btn-deselected= "Victim of Abuse"
     %li.filter
-      %span.filter-title Show
-      %button#btn-all.filter-btn-deselected All
-      %button#btn-opennow.filter-btn-deselected Open Now
+      %span.filter-title= "Show"
+      %button#btn-all.filter-btn-deselected= "All"
+      %button#btn-opennow.filter-btn-deselected= "Open Now"
     %li.filter
-      %span.filter-title Sort By
-      %button#btn-distance.filter-btn-deselected Distance
-      %button#btn-name.filter-btn-deselected Name
+      %span.filter-title= "Sort By"
+      %button#btn-distance.filter-btn-deselected= "Distance"
+      %button#btn-name.filter-btn-deselected= "Name"
 
 %div.row
   %div.small-11.large-5.columns#google-map-aerial
@@ -41,13 +41,13 @@
         %div.small-6.large-6.columns
           %h3.row.small-12.large-12.institution-name= institution.name
           %p.row.small-12.large-12.institution-distance= "Distance: " + getDistance(institution).to_s
-          %p.row.small-12.large-12.institution-hours= getHours(institution)
+          %p.row.small-12.large-12.institution-hours= getHours(institution.id)
           %div.row
             %div.small-4.large-4.columns
             %div.small-8.large-8.columns= link_to("View More Details", "/institution/" + institution.id.to_s)
         %div.small-6.large-6.columns
-          %ul.small-block-grid-2.large-block-grid-5.amenities-list
+          %ul.small-block-grid-2.medium-block-grid-3.large-block-grid-4.amenities-list
             - institution.amenities.each do |amenity|
               %li
                 =embedded_amenity(amenity)
-
+                

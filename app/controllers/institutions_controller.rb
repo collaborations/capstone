@@ -1,5 +1,4 @@
 class InstitutionsController < ApplicationController
-  before_action :load_google_maps, only: [:amenity, :index, :show]
   before_action :set_amenity, only: [:edit, :update, :new]
   before_action :set_institution, only: [:show, :update, :destroy]
   before_action :authenticate_user!, only: [:edit, :update]
@@ -27,8 +26,10 @@ class InstitutionsController < ApplicationController
       lat += m[1]
       lat += m[2]
     end
-    gon.push(center: [lat/4, lon/4])
-
+    gon.push({
+      :latitude => lat/4,
+      :longitude => lon/4
+    })
   end
 
   # GET /amenity/1
@@ -46,7 +47,10 @@ class InstitutionsController < ApplicationController
       lat += m[1]
       lat += m[2]
     end
-    gon.push(center: [lat/4, lon/4])
+    gon.push({
+      :latitude => lat/4,
+      :longitude => lon/4
+    })
     
     @institutions = Amenity.find(params[:id]).institutions
     render 'index'
@@ -55,19 +59,17 @@ class InstitutionsController < ApplicationController
   # GET /institutions/1
   # GET /institutions/1.json
   def show
-    @message = {}
-    @hours = InstitutionHasAmenity.where(institution_id: @institution.id).first.hours
-    @location = Location.where(institution_id: @institution.id).first
-    @contact = Contact.where(institution_id: @institution.id).first
+    @id = @institution.id
+
+    @location = Location.where(institution_id: @id).first
     @restrictions = @institution.restrictions
     
-    @address = @location.streetLine1 + " "
-    if @location.streetLine2.present?
-      @address << @location.streetLine2
-    end
-    @address << @location.city + ", " + @location.state + " " + @location.zip.to_s
-
-    gon.push(address: @address)
+    address = @location.streetLine1 + " "
+    address << @location.streetLine2 + " " if @location.streetLine2.present?
+    address << @location.city + ", " + @location.state + " " + @location.zip.to_s
+    
+    gon.push({:address => address})
+    render 'show'
   end
 
   # GET /institutions/new
@@ -124,10 +126,6 @@ class InstitutionsController < ApplicationController
   end
 
   private
-    def load_google_maps
-      @load_google_maps = true
-    end
-
     # Use callbacks to share common setup or constraints between actions.
     def set_institution
       @institution = Institution.find(params[:id])

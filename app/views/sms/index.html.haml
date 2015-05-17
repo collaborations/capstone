@@ -1,8 +1,11 @@
+%h3= "Subscription List Messages"
+
 %div#subscribers
-  %p= "You have #{@subscribers.length}!"
+  %p= "You have " + pluralize(@subscribers.length, "subscriber") + "!"
 %div#warning
   %p= "This can be a powerful tool to help send out information to people in the area. Please try not to abuse this tool or else it may negatively impact how useful it is."
 %div#message
-  = form_tag({controller: "sms", action: "mass_text"}) do |f|
-    = f.text_area_tag
-    = submit_tag "Send Message"
+  = form_tag('/sms/notify', remote: true, data: { :abide => "ajax" }) do
+    = text_area_tag "message", nil, { required: true, maxlength: 1600 }
+    %small.error= "You have to have a message in order to send one,"
+    = submit_tag "Send Message", class: "button"

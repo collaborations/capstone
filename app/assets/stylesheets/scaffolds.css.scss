@@ -1,5 +1,9 @@
 @import 'variables';
 
+nav {
+  margin-bottom: $nav-bottom
+}
+
 body > div {
   width: $content-width;
   margin-left: auto;
@@ -23,10 +27,6 @@ pre {
   background-color: #eee;
   padding: 10px;
   font-size: 11px;
-}
-
-a {
-  color: #000;
 }
 
 div {

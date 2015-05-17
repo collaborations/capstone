@@ -12,28 +12,30 @@ function initialize(){
     $("#message_type")[0].value = type;
     if(type === "text"){
       $("#send-email").hide();
+      $("#email").attr("required", false);
       $("#send-text").show();
+      $("#sms").attr("required", true);
     } else {
       $("#send-email").show();
+      $("#email").attr("required", true);
       $("#send-text").hide();
+      $("#sms").attr("required", false);
     }
   });
-
   data = {};
-  $("#send-information").on("click", function(event){
+  $('#institution-modal-form').on('valid.fndtn.abide', function(event) {
     $.each($("#notify-options").find("input"), function(i, v){
       data[v.name] = (v.type === "checkbox") ? v.checked : v.value;     
     });
     var requestURL = (data["message_type"] === "text") ? "/sms/info" : "/mailer/info";
-    console.log(requestURL);
-    console.log(data);
     $.ajax({
       type: "POST",
       url: requestURL,
       data: data,
       success: function(response){
         alert("Success");
+        $('#institution-modal').foundation('reveal', 'close');
       }
-    });
-  }); 
+    });  
+  });
 }

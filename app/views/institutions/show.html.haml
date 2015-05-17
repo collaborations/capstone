@@ -71,10 +71,11 @@
         = "Subscribe"
       %small= "What's this?"
       %div.row
-        = form_tag('/sms/subscribe', method: :post) do
-          = text_field_tag "number"
+        = form_tag('/sms/subscribe', method: :post, data: { :abide => "ajax" }) do
+          = telephone_field_tag "number", nil, required: true
+          %small.error= "Please enter your 10 digit phone number (including area code)."
           = hidden_field_tag "id", @institution.id
-          = submit_tag "Opt In"
+          = submit_tag "Opt In", class: "button"
         
 
 = render 'send_info_modal'

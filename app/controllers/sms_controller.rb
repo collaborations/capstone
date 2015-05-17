@@ -17,26 +17,16 @@ class SmsController < ApplicationController
   end
 
   def info
-#     Parameters: {
-          # "message_type"=>"text",
-          # "institution_id"=>"4",
-          # "address"=>"false",       - Locations
-          # "phone"=>"false",         - Contact
-          # "amenities"=>"false",     - InstitutionHasAmenities
-          # "restrictions"=>"false",  - Restrictions
-          # "hours"=>"false",         - InstitutionDetails
-          # "email"=>"",
-          # "sms"=>"2063713424"
     begin
       id = params.require(:institution_id)
       number = params.require(:sms)
-      institution = Institution.where(id: params[:id]).first
-      message = []
+      institution = Institution.where(id: id).first
+      message = [institution.name]
 
       if params[:phone].to_bool
         contact = Contact.where(institution_id: id)
-        if contact.present? and contact.phone.present?
-          phone = contact.phone.split("-")
+        if contact.present? and contact.first.phone.present?
+          phone = contact.first.phone.split("-")
           message << sprintf("Phone: (%s)%s-%s", phone[0], phone[1], phone[2])
         end
       end
@@ -57,10 +47,10 @@ class SmsController < ApplicationController
       end
 
       if params[:amenities].to_bool
-        amenities = InstitutionHasAmenities.where(institution_id: id)
-        message << "Amenity".pluralize(amenities.size) if amenities.present?
+        amenities = InstitutionHasAmenity.joins(:amenity, :institution).where(institution_id: id).map(&:amenity)
+        message << "Amenity".pluralize(amenities.size) + ":" if amenities.present?
         amenities.each do |a|
-          message << a.name.capitalize
+          message << "- " + a.name.capitalize
         end
       end
 
@@ -72,8 +62,7 @@ class SmsController < ApplicationController
         end
       end
 
-      body = message.join("\n")
-      send_message([number], body)
+      send_message([number], message.join("\n"))
     rescue ActionController::ParameterMissing => e
       puts e.message
     end

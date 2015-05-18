@@ -58,13 +58,13 @@
       %h5= "Save Shelter Information"
       %div.row
         %p.columns.small-12.large-6= embedded_svg("email.svg", { class: "save-icon", alt: "Email me this!"})
-        %button.small-12.large-3{ name: "email", class: "columns small-12 large-6 label", "data-reveal-id" => "institution-modal" }= "Email"
+        %button.small-12.large-3{ name: "email", class: "columns small-12 large-6 label" }= "Email"
       %div.row
         %p.columns.small-12.large-6= embedded_svg("sms.svg", { class: "save-icon", alt: "Text this to me!"})
         %button.small-12.large-3{ name: "text", class: "columns small-12 large-6 label", "data-reveal-id" => "institution-modal" }= "Text"
       %div.row
         %p.columns.small-12.large-6= embedded_svg("printer.svg", { class: "save-icon", alt: "Print this for me!"})
-        %button.small-12.large-3{ name: "print", class: "columns small-12 large-6 label", "data-reveal-id" => "institution-modal" }= "Print"
+        = link_to("Email", "/institution/" + @id.to_s + "/print", { class: "columns small-12 large-3 button label" })
 
     %div#subscribe    
       %h5= "Subscribe"

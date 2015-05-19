@@ -1,0 +1,47 @@
+%h2= @institution.name
+
+%hr
+%div#address
+  %h4= "Address"
+  %p= @location.streetLine1
+  %p= @location.streetLine2 if @location.streetLine1.present?
+  %p= @location.city + ", " + @location.state + " " + @location.zip
+
+%hr
+%div#contact
+  %h4= "Contact"
+  - if @contact.email.present?
+    %div.row
+      %h5.columns.small-4.large-2= "Email:"
+      %span.columns.small-8.large-10= @contact.email
+
+  - if @contact.phone.present?
+    %div.row
+      %h5.columns.small-4.large-2= "Phone:"
+      %span.columns.small-8.large-10= @contact.phone
+
+  - if @contact.website.present?
+    %div.row
+      %h5.columns.small-4.large-2= "Website:"
+      %span.columns.small-8.large-10= link_to @contact.website
+
+%hr
+- if @details.present?
+  %div#hours 
+    %h4= "Hours"
+    %span= "Hours not yet available"
+
+%hr
+%div#amenities
+  %h4= "Amenities"
+  - @amenities.each do |a|
+    %div.row
+      %span.columns.small-4.large-2= a.name
+      %span.columns.small-8.large-10= a.desc
+
+/ %hr
+/ %div#restrictions
+/   %h4= "Restrictions"
+/   = @restrictions.each do |r|
+/     %span.small-4= r.name
+/     %span.small-8= r.desc

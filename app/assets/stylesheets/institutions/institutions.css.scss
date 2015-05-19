@@ -96,9 +96,6 @@ $amenity-circle-size: $amenity-size * 2;
     padding-left: $medium-spacing
   }
 
-  #get-info {
-    border: solid 1px black;
-  }
 
   #google-map-aerial, #google-map-street {
     border: solid 1px #AAA;
@@ -135,6 +132,7 @@ $amenity-circle-size: $amenity-size * 2;
   }
 
   #get-info {
+    border: solid 1px black;
     
     h5 {
       border-bottom: solid 1px #AAA;

@@ -34,14 +34,7 @@
 %hr
 %div#amenities
   %h4= "Amenities"
-  - @amenities.each do |a|
-    %div.row
-      %span.columns.small-4.large-2= a.name
-      %span.columns.small-8.large-10= a.desc
-
-/ %hr
-/ %div#restrictions
-/   %h4= "Restrictions"
-/   = @restrictions.each do |r|
-/     %span.small-4= r.name
-/     %span.small-8= r.desc
+  %div.row
+    - @amenities.each do |a|
+      %div.columns.small-4.large-2= a.name
+      %div.columns.small-8.large-10= a.desc

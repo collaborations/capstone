@@ -5,7 +5,7 @@ if($("#institution-modal").length){
 }
 
 if($("#institutions_print").length){
-  window.onload = window.print()
+  // window.onload = window.print();
 }
 
 function initialize(){

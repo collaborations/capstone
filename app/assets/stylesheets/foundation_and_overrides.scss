@@ -1,6 +1,10 @@
 // Required global settings and mixins for Foundation
 // @import "foundation/foundation-global";
+
+// Need to import this here since it foundation gets loaded first in application.css
 @import 'variables';
+
+
 // Settings file to override Foundation variables
 
 // You can find the variables for each component at the bottom of their

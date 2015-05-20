@@ -15,10 +15,10 @@
   -# Set the viewport width to device width for mobile
   %meta{ :name => "viewport", :content => "width=device-width, initial-scale=1.0" }
   %title= content_for?(:title) ? yield(:title) : t('defaults.title') + " - " + params[:controller].to_s.titleize
-  = stylesheet_link_tag "application-print", :media => 'print'
+  = stylesheet_link_tag "application-print", :media => 'all'
 
 %body
   %div{id: params[:controller] + '_' + params[:action]}
     = yield
 
-  = yield :javascripts
+  = javascript_include_tag "application-print"

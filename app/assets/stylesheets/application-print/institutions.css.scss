@@ -1,0 +1,42 @@
+#institutions_print {
+  margin-left: auto;
+  margin-right: auto;
+  width: 80%;
+
+  .row {
+    clear: both;
+    min-width: 500px;
+
+    .column-info {
+      float: left;
+      word-wrap: none;
+    }
+    
+    .column-label {
+      float: left;
+      font-weight: bold;
+      min-width: 20px;
+      width: 20%;
+    }
+  }
+
+  #address {
+    p {
+      font-style: italic;
+      margin-left: 10px;
+    }
+  }
+
+  h3, p {
+    margin-bottom: 5px;
+    margin-top: 5px;
+  }
+}
+
+#institutions_print > div {
+  border-top: 1px solid #AAA;
+  padding-bottom: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-top: 10px;
+}

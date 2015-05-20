@@ -1,40 +1,37 @@
 %h2= @institution.name
 
-%hr
 %div#address
-  %h4= "Address"
+  %h3= "Address"
   %p= @location.streetLine1
-  %p= @location.streetLine2 if @location.streetLine1.present?
+  - if @location.streetLine1.present?
+    %p= @location.streetLine2
   %p= @location.city + ", " + @location.state + " " + @location.zip
 
-%hr
 %div#contact
-  %h4= "Contact"
+  %h3= "Contact"
   - if @contact.email.present?
     %div.row
-      %h5.columns.small-4.large-2= "Email:"
-      %span.columns.small-8.large-10= @contact.email
+      %p.column-label= "Email:"
+      %p.column-info= @contact.email
 
   - if @contact.phone.present?
     %div.row
-      %h5.columns.small-4.large-2= "Phone:"
-      %span.columns.small-8.large-10= @contact.phone
+      %p.column-label= "Phone:"
+      %p.column-info= @contact.phone
 
   - if @contact.website.present?
     %div.row
-      %h5.columns.small-4.large-2= "Website:"
-      %span.columns.small-8.large-10= link_to @contact.website
+      %p.column-label= "Website:"
+      %a.column-info= full_url @contact.website
 
-%hr
 - if @details.present?
   %div#hours 
-    %h4= "Hours"
+    %h3= "Hours"
     %span= "Hours not yet available"
 
-%hr
 %div#amenities
-  %h4= "Amenities"
-  %div.row
-    - @amenities.each do |a|
-      %div.columns.small-4.large-2= a.name
-      %div.columns.small-8.large-10= a.desc
+  %h3= "Amenities"
+  - @amenities.each do |a|
+    %div.row
+      %p.column-label= a.name
+      %p.column-info= a.desc

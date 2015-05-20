@@ -22,7 +22,7 @@
   = csrf_meta_tags
 
 %body
-  = render 'shared/nav' unless @disable_nav
+  = render 'shared/nav' unless params[:controller] == "home"
   -if flash[:notice]
     %div.notice= flash[:notice]
   %div{id: params[:controller] + '_' + params[:action]}
@@ -30,4 +30,4 @@
 
   
   = javascript_include_tag "application"
-  = yield :javascripts
+

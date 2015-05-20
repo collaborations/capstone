@@ -1,6 +1,4 @@
-class HomeController < ApplicationController
-  before_filter :disable_nav
-  
+class HomeController < ApplicationController  
   def index
   end
 end

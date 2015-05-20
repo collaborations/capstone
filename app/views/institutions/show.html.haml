@@ -75,7 +75,7 @@
           %div= embedded_svg("sms.svg", { class: "save-icon", alt: "Text this to me!"})
           %span= "Text"
       %div.row
-        = link_to("/institution/" + @id.to_s + "/print", { class: "columns small-12 large-12 button label" }) do
+        = link_to(institution_print_path(@id), { class: "columns small-12 large-12 button label" }) do
           %div= embedded_svg("printer.svg", { class: "save-icon", alt: "Print this for me!"})
           %span= "Print"
 

@@ -18,7 +18,7 @@ Rails.application.routes.draw do
   get '/amenity/:id' => 'institutions#amenity', as: 'amenity'
 
   get '/institution/:id' => 'institutions#show'
-  get '/institution/:id/print' => 'institutions#print'
+  get '/institution/:id/print' => 'institutions#print', as: 'institution_print'
   
   get '/sms' => 'sms#index'
 

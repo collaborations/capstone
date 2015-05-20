@@ -4,10 +4,6 @@ if($("#institution-modal").length){
   initialize();
 }
 
-if($("#institutions_print").length){
-  // window.onload = window.print();
-}
-
 function initialize(){
   $("#select-all-options").on("click", function(){ $("#customization-options input").attr('checked', true); });
   $("#remove-all-options").on("click", function(){ $("#customization-options input").attr('checked', false); });

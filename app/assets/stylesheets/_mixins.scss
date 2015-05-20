@@ -1,4 +1,5 @@
 @import 'variables';
+@import 'foundation';
 
 // Amenity icons
 @mixin amenity-icon($size){
@@ -80,11 +81,11 @@ $filter-btn-disabled: false;
 $filter-btn-is-input: false;
 
 @mixin filter-btn-selected {
-  @include button($filter-btn-padding, $filter-btn-selected, $filter-btn-radius, $filter-btn-full-width, $filter-btn-disabled, $filter-btn-is-input);
+  @include button($filter-btn-padding, $filter-btn-selected, $filter-btn-radius, $filter-btn-full-width, $filter-btn-disabled);
 }
 
 @mixin filter-btn-deselected {
-  @include button($filter-btn-padding, $filter-btn-deselected, $filter-btn-radius, $filter-btn-full-width, $filter-btn-disabled, $filter-btn-is-input);
+  @include button($filter-btn-padding, $filter-btn-deselected, $filter-btn-radius, $filter-btn-full-width, $filter-btn-disabled);
 }
 
 // Search Style

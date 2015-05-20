@@ -5,7 +5,7 @@ gem 'rails', '4.2.0'
 # Use postgresql as the database for Active Record
 gem 'pg'
 # Use SCSS for stylesheets
-gem 'sass-rails', '~> 4.0.3'
+gem 'sass-rails', '~> 5.0.0'
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
 # Use CoffeeScript for .js.coffee assets and views
@@ -49,7 +49,7 @@ gem 'rails_config'
 
 # Using Foundation for styling
 gem 'compass-rails' # you need this or you get an err
-gem 'zurb-foundation'
+gem 'foundation-rails'
 
 # Using D3.js for data. https://github.com/logical42/d3_rails
 gem 'd3_rails'
@@ -61,6 +61,10 @@ gem 'gon'
 # Using Twilio for SMS
 # https://www.twilio.com
 gem 'twilio-ruby'
+
+# Using Faraday for HTTP requests
+gem 'faraday'
+
 
 group :development do
   gem 'capistrano-rails'

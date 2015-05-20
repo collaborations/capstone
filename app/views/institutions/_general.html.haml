@@ -1,11 +1,13 @@
-%div#general
-  %h2= "General Information"
-  %div.row
-    = f.label :name, "Org. Name"
-    = f.text_field :name
-  %div.row
-    = f.label :desc, "Description"
-    = f.text_area :desc
-  %div.row
-    = f.label :instructions, "Special instructions"
-    = f.text_area :instructions
+= form_tag(nil, remote: true, id: "form-general", :data => { abide: true } ) do
+  %div.columns.small-10.small-centered
+    = label_tag :name, "Org. Name"
+    = text_field_tag :name, nil, required: true, placeholder: "You have a name, don't you?"
+    %small.error= "Organization Name Required"
+  %div.columns.small-10.small-centered
+    = label_tag :desc, "Description"
+    = text_field_tag :desc, nil, placeholder: "We highly recommoned having a description!"
+  %div.columns.small-10.small-centered
+    = label_tag :instructions, "Special instructions"
+    = text_field_tag :instructions, nil, placeholder: "Anything special people should know?"
+  %div.columns.small-10.small-centered.clearfix
+    %button#form-general-save.small.right.hide= "Save"

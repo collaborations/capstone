@@ -1,3 +1,12 @@
-%div#amenities
-  %h2= "Amenities"
-  =collection_check_boxes(:institution, :amenity_ids, @amenities, :id, :name)
+= form_tag(nil, remote: true, id: "form-amenities", :data => { abide: true } ) do
+  %div.columns.small-10.small-centered
+    %ul#amenities-list.small-block-grid-4.large-block-grid-5
+      - @amenities.each do |a|
+        %li
+          %div= embedded_svg(a.img, { class: "amenity-img", alt: a.desc})
+          %span.amenity-label= a.name
+          %div.switch.small
+            %input{ id: a.name.downcase, type: "checkbox" }
+            %label{ for: a.name.downcase }
+  %div.columns.small-10.small-centered.clearfix
+    %button#form-location-save.small.right.hide= "Save"

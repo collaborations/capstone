@@ -84,6 +84,10 @@ $amenity-circle-size: $amenity-size * 2;
     .amenities-list {
       margin-top: 20px;
       @include amenity-icon(20px);
+
+      #amenity-bg {
+        background-color: null;
+      }
     }
   }
 

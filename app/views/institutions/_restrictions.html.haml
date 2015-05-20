@@ -1,9 +1,10 @@
-%div#restrictions
-  %h2= "Restrictions"
-  = f.fields_for :restrictions do |l|
+= form_tag(nil, remote: true, id: "form-restrictions", :data => { abide: true } ) do
+  %div.columns.small-10.small-centered
     %div.row
-      = l.label :name, "Restriction Name"
-      = l.text_field :name
+      = label_tag :name, "Restriction Name"
+      = text_field_tag :name
     %div.row
-      = l.label :desc, "Description"
-      = l.text_field :desc
+      = label_tag :desc, "Description"
+      = text_field_tag :desc
+  %div.columns.small-10.small-centered.clearfix
+    %button#form-restrictions-save.small.right.hide= "Save"

@@ -77,12 +77,19 @@ class InstitutionsController < ApplicationController
     @institution = Institution.new
     @institution.locations.build
     @institution.restrictions.build
+
+    @amenities = Amenity.all
+    @header = "New Institution"
+    render 'form'
   end
 
   # GET /institutions/1/edit
   def edit
     @institution = Institution.where(id: params[:id]).first
-    puts @institution
+
+    @amenities = Amenity.all
+    @header = "Editing " + @institution.name
+    render 'form'
   end
 
   # POST /institutions

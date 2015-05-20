@@ -10,6 +10,7 @@ module ApplicationHelper
   def embedded_amenity(amenity, options = {})
     @amenity = amenity
     @label = true if options[:label].present?
+    @no_color = true if options[:no_color].present?
     render 'shared/amenity'
   end
 

@@ -49,7 +49,7 @@ gem 'rails_config'
 
 # Using Foundation for styling
 gem 'compass-rails' # you need this or you get an err
-gem 'zurb-foundation'
+gem 'foundation-rails'
 
 # Using D3.js for data. https://github.com/logical42/d3_rails
 gem 'd3_rails'

@@ -2,6 +2,7 @@ class InstitutionsController < ApplicationController
   before_action :set_amenity, only: [:edit, :update, :new]
   before_action :set_institution, only: [:show, :update, :destroy]
   before_action :authenticate_user!, only: [:edit, :update]
+  before_action :disable_nav, only: [:print]
 
   # GET /institutions
   # GET /institutions.json
@@ -127,37 +128,25 @@ class InstitutionsController < ApplicationController
 
   def print
     begin
-      id = params.require(:institution_id)
-      institution = Institution.where(id: id).first
+      id = params.require(:id)
+      @institution = Institution.where(id: id).first
 
-      if params[:phone].to_bool
-        @contact = Contact.where(institution_id: id)
-        @contact = @contact.first if @contact.present?
-      end
+      @contact = Contact.where(institution_id: id)
+      @contact = @contact.first if @contact.present?
 
-      if params[:hours].to_bool
-        @details = InstitutionDetails.where(institution_id: id)
-        @details = details.first if @details.present? and @details.hours.present?
-      end
+      @details = InstitutionDetail.where(institution_id: id)
+      @details = @details.first if @details.present?
 
-      if params[:address].to_bool
-        @location = Location.where(institution_id: id)
-        @location = location.first if location.present?
-      end
+      @location = Location.where(institution_id: id)
+      @location = @location.first if @location.present?
 
-      if params[:amenities].to_bool
-        @amenities = InstitutionHasAmenity.joins(:amenity, :institution).where(institution_id: id).map(&:amenity)
-      end
+      @amenities = InstitutionHasAmenity.joins(:amenity, :institution).where(institution_id: id).map(&:amenity)
 
-      if params[:restrictions].to_bool
-        @restrictions = Restrictions.where(institution_id: id)
-        @restrictions = @restrictions.first.present?
-      end
+      # @restrictions = Restrictions.where(institution_id: id)
     rescue ActionController::ParameterMissing => e
       puts e.message
-      head :bad_request, content_type: "text/html"
     end
-    head :ok, content_type: "text/html"
+    render 'print'
   end
 
   private

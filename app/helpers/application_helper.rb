@@ -24,6 +24,14 @@ module ApplicationHelper
     raw doc
   end
 
+  def full_url(link)
+    if link.starts_with?("http://", "https://")
+      return link_to link, link
+    else
+      return link_to link, "http://#{link}" 
+    end
+  end
+
   def search_bar(options = {})
     @search_label = true if options[:label].present?
     render 'shared/search'

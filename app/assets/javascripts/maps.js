@@ -15,12 +15,9 @@ var icons = [
   iconURLPrefix + 'yellow-dot.png'
 ];
 
-$(document).on("page:change", function(){
-  if($("#google-map-aerial").length){
-    initializeMaps();
-  }
-});
-  
+if($("#google-map-aerial").length){
+  initializeMaps();
+}
 
 
 function initializeMaps(){

@@ -1,6 +1,6 @@
 %div.row#institution-header
   %div.row
-    %div.columns.small-12.large-6
+    %div.columns.small-12.large-8
       %h1#institution-name= @institution.name
       %div#address
         %p
@@ -10,8 +10,8 @@
         %p
           %em= @location.city + ", " + @location.state + " " + @location.zip.to_s
 
-    %div.columns.small-12.large-6
-      %ul.small-block-grid-2.large-block-grid-5.amenities-list
+    %div.columns.small-12.large-3
+      %ul.small-block-grid-6.medium-block-grid-4.large-block-grid-5.amenities-list
         - @institution.amenities.each do |amenity|
           %li
             =embedded_amenity(amenity)
@@ -26,7 +26,7 @@
           = "Website: "
           - link = getWebsite(@id)
           - if link.present?
-            = link_to link
+            = full_url link
           - else
             = "Not Listed"
         %p= "Hours: " + getHours(@id)
@@ -55,19 +55,33 @@
 
   %div#get-info.columns.small-12.large-2
     %div#save
-      %h5= "Save Shelter Information"
+      %h4= "Save Shelter Information"
+      / Only keeping this here until we review which we like more.
+      / %div.row
+      /   %p.columns.small-6.large-6= embedded_svg("email.svg", { class: "save-icon", alt: "Email me this!"})
+      /   %button.small-6.large-6{ name: "email", "data-reveal-id" => "institution-modal" }= "Email"
+      / %div.row
+      /   %p.columns.small-6.large-6= embedded_svg("sms.svg", { class: "save-icon", alt: "Text this to me!"})
+      /   %button.small-6.large-6{ name: "text", "data-reveal-id" => "institution-modal" }= "Text"
+      / %div.row
+      /   %p.columns.small-6.large-6= embedded_svg("printer.svg", { class: "save-icon", alt: "Print this for me!"})
+      /   = link_to("Print", "/institution/" + @id.to_s + "/print", { class: "columns small-6 large-6 button label" })
+      / Will want to delete this
       %div.row
-        %p.columns.small-12.large-6= embedded_svg("email.svg", { class: "save-icon", alt: "Email me this!"})
-        %button.small-12.large-3{ name: "email", class: "columns small-12 large-6 label", "data-reveal-id" => "institution-modal" }= "Email"
+        %button.small-12.large-12{ name: "email", "data-reveal-id" => "institution-modal" }
+          %div= embedded_svg("email.svg", { class: "save-icon", alt: "Email me this!"})
+          %span= "Email"
       %div.row
-        %p.columns.small-12.large-6= embedded_svg("sms.svg", { class: "save-icon", alt: "Text this to me!"})
-        %button.small-12.large-3{ name: "text", class: "columns small-12 large-6 label", "data-reveal-id" => "institution-modal" }= "Text"
+        %button.small-12.large-12{ name: "text", "data-reveal-id" => "institution-modal" }
+          %div= embedded_svg("sms.svg", { class: "save-icon", alt: "Text this to me!"})
+          %span= "Text"
       %div.row
-        %p.columns.small-12.large-6= embedded_svg("printer.svg", { class: "save-icon", alt: "Print this for me!"})
-        %button.small-12.large-3{ name: "print", class: "columns small-12 large-6 label", "data-reveal-id" => "institution-modal" }= "Print"
+        = link_to(institution_print_path(@id), { class: "columns small-12 large-12 button label" }) do
+          %div= embedded_svg("printer.svg", { class: "save-icon", alt: "Print this for me!"})
+          %span= "Print"
 
     %div#subscribe    
-      %h5= "Subscribe"
+      %h4= "Subscribe"
       %div.row
         = form_tag('/sms/subscribe', method: :post, data: { :abide => "ajax" }) do
           = telephone_field_tag "number", nil, required: true, pattern: "\\d{10}"
@@ -77,4 +91,3 @@
         
 
 = render 'send_info_modal'
-

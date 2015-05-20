@@ -16,4 +16,4 @@
 //= require d3
 //= require_tree .
 
-$(document).foundation();
+$(function(){ $(document).foundation(); });

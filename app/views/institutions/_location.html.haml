@@ -1,0 +1,18 @@
+%div#locations
+  %h2= "Location"
+  = f.fields_for :locations do |l|
+    %div.row
+      = l.label :streetLine1, "Street Line 1"
+      = l.text_field :streetLine1
+    %div.row
+      = l.label :streetLine2, "Street Line 2"
+      = l.text_field :streetLine2
+    %div.row
+      = l.label :city, "City"
+      = l.text_field :city
+    %div.row
+      = l.label :state, "State"
+      = l.text_field :state
+    %div.row
+      = l.label :zip, "Zip Code"
+      = l.text_field :zip

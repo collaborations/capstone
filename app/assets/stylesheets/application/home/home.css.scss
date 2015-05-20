@@ -12,7 +12,7 @@
   }
 
   #amenities_list {
-    background-color: $background-color;
+    background-color: $primary-bg;
 
     @include amenity-icon(60px);
   }

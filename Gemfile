@@ -62,6 +62,10 @@ gem 'gon'
 # https://www.twilio.com
 gem 'twilio-ruby'
 
+# Using Faraday for HTTP requests
+gem 'faraday'
+
+
 group :development do
   gem 'capistrano-rails'
 

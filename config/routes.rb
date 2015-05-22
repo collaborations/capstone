@@ -8,7 +8,9 @@ Rails.application.routes.draw do
   
   match '/capacity/get' => 'capacity#get', via: :post
   match '/capacity/update' => 'capacity#update', via: :post
-
+  
+  match '/institution/email' => 'institutions#email', via: :post
+  
   match '/sms/info' => 'sms#info', via: :post
   match '/sms/notify' => 'sms#notify', via: :post
   match '/sms/subscribe' => 'sms#subscribe', via: :post
@@ -19,6 +21,7 @@ Rails.application.routes.draw do
 
   get '/institution/:id' => 'institutions#show'
   get '/institution/:id/print' => 'institutions#print', as: 'institution_print'
+
   
   get '/sms' => 'sms#index'
 

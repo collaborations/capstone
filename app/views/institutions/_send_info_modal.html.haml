@@ -1,11 +1,11 @@
-%div#institution-modal.reveal-modal
+%div#institution-modal.reveal-modal{ data: { reveal: true }}
   %h4= "What information do you want to send?"
   %div.row
     %div#notify-buttons.columns.small-12.large-3
       %button#select-all-options= "Select All"
       %button#remove-all-options= "Deselect All"
     %div#notify-options.columns.small-12.large-9
-      %form#institution-modal-form{ data: { :abide => "ajax" } }
+      = form_tag(nil, method: :post, id: "institution-modal-form", data: { :abide => "ajax" }) do
         = hidden_field_tag :message_type
         = hidden_field_tag :institution_id, @id
         %ul.small-block-grid-3.large-block-grid-5#customization-options
@@ -26,10 +26,10 @@
             = label_tag "Hours"
         %div#send-email
           = label_tag "What email should we send it to?"
-          = email_field_tag :email, nil, { placeholder: "name@example.com", pattern: "email" }
+          = email_field_tag :email, nil, { placeholder: "name@example.com", pattern: "\\w+@\\w+\\.\\w+" }
           %small.error= "You must have a valid email for us to email you."
         %div#send-text
           = label_tag "What number should we send it to?"
-          = telephone_field_tag :sms, nil, { placeholder: "0123456789", pattern: "\\d{10}" }
+          = phone_field_tag :sms, nil, { placeholder: "0123456789", pattern: "\\d{10}" }
           %small.error= "Please enter your 10 digit phone number (including area code)."
         = submit_tag "Send Information", { id: "send-information", class: "button" }

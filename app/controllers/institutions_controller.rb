@@ -92,6 +92,13 @@ class InstitutionsController < ApplicationController
     render 'form'
   end
 
+  def email
+    id = params.require(:institution_id)
+    email = params.require(:institution_id)
+    options = {}
+    NotificationMailer.institution_details(id, email)
+  end
+
   # POST /institutions
   # POST /institutions.json
   def create

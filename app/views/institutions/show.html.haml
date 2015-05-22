@@ -56,17 +56,6 @@
   %div#get-info.columns.small-12.large-2
     %div#save
       %h4= "Save Shelter Information"
-      / Only keeping this here until we review which we like more.
-      / %div.row
-      /   %p.columns.small-6.large-6= embedded_svg("email.svg", { class: "save-icon", alt: "Email me this!"})
-      /   %button.small-6.large-6{ name: "email", "data-reveal-id" => "institution-modal" }= "Email"
-      / %div.row
-      /   %p.columns.small-6.large-6= embedded_svg("sms.svg", { class: "save-icon", alt: "Text this to me!"})
-      /   %button.small-6.large-6{ name: "text", "data-reveal-id" => "institution-modal" }= "Text"
-      / %div.row
-      /   %p.columns.small-6.large-6= embedded_svg("printer.svg", { class: "save-icon", alt: "Print this for me!"})
-      /   = link_to("Print", "/institution/" + @id.to_s + "/print", { class: "columns small-6 large-6 button label" })
-      / Will want to delete this
       %div.row
         %button.small-12.large-12{ name: "email", "data-reveal-id" => "institution-modal" }
           %div= embedded_svg("email.svg", { class: "save-icon", alt: "Email me this!"})
@@ -89,5 +78,4 @@
           = hidden_field_tag "id", @institution.id
           = submit_tag "Opt In", { class: "button", id: "opt-in" }
         
-
 = render 'send_info_modal'

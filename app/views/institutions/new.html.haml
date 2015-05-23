@@ -1,0 +1,16 @@
+%div#institutions_form.row
+  %h4= @header
+  %div.small-9.small-centered.columns
+    %ul.accordion{ :data => { :accordion => true } }
+      %li.accordion-navigation
+        %div#form-general.content.active
+          = render 'general'
+      %li.accordion-navigation
+        %div#form-location.content
+          = render 'location'
+      %li.accordion-navigation
+        %div#form-amenities.content
+          = render 'amenities'
+      %li.accordion-navigation
+        %div#form-restrictions.content
+          = render 'restrictions'

@@ -1,0 +1,34 @@
+%html
+  %head
+    %meta{ content: 'text/html; charset=UTF-8', "http-equiv" => 'Content-Type' }
+  %body
+    %h1= Step Stone Institution Information
+    %hr
+
+    %div#contact
+      - if @phone.present?
+        %div#phone
+          %strong= "Phone: "
+          %span= @phone
+    
+    - if @hours.present?
+      %div#hours
+        %strong= "Hours: "
+        %span= @hours
+
+    - if @address.present?
+      %div#address
+        %h3= "Address"
+        %p= @address.streetLine1
+        %p= @address.streetLine2 if @address.streetLine2.present?
+        %p= @location.city + ", " + @location.state + " " + @location.zip.to_s
+
+    - if @amenities.present?
+      - @amenities.each do |a|
+        %p= a.name
+
+    - if @restrictions.present?
+      - @restrictions.each do |r|
+        %p= a.name
+
+

@@ -89,7 +89,7 @@ class InstitutionsController < ApplicationController
   # POST /institutions.json
   def create
     @institution = Institution.new(institution_params)
-    puts params
+    getLatLong()
     respond_to do |format|
       if @institution.save
         format.html { redirect_to @institution, notice: 'Institution was successfully created.' }
@@ -104,6 +104,7 @@ class InstitutionsController < ApplicationController
   # PATCH/PUT /institutions/1
   # PATCH/PUT /institutions/1.json
   def update
+    getLatLong()
     respond_to do |format|
       if @institution.update(institution_params)
         format.html { redirect_to @institution, notice: 'Institution was successfully updated.' }
@@ -161,6 +162,18 @@ class InstitutionsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def institution_params
       params.require(:institution).permit(:name, :desc, :instructions, { :locations_attributes => [:streetLine1, :streetLine2, :city, :state, :zip]}, { :amenity_ids => []}, {:restrictions_attributes => [:name, :desc]}, :category)
+    end
+
+    def getLatLong
+      location = @institution.locations.first
+      address = location.streetLine1 + " "
+      address << location.streetLine2 + " " if location.streetLine2.present?
+      address << location.city + ", " + location.state + " " + location.zip.to_s
+      url = Settings.google.geocode.url + "api_key=" + Settings.google.geocode.token + "&address=" + address.sub(/\s/, "+")
+      response = JSON.parse(Faraday.get(url).body)['results']
+      data = response[0]['geometry']['location']
+      location.lat = data['lat']
+      location.long = data['lng']
     end
 end
   

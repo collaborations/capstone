@@ -1,13 +1,13 @@
-= form_tag(nil, remote: true, id: "form-general", :data => { abide: true } ) do
+/ = form_tag(nil, remote: true, id: "form-general", :data => { abide: true } ) do
+= form_for(@institution, remote: true) do |f|
   %div.columns.small-10.small-centered
-    = label_tag :name, "Org. Name"
-    = text_field_tag :name, nil, required: true, placeholder: "You have a name, don't you?"
-    %small.error= "Organization Name Required"
+    = f.label :name, "Org. Name"
+    = f.text_field :name, required: true, placeholder: "You have a name, don't you?"
   %div.columns.small-10.small-centered
-    = label_tag :desc, "Description"
-    = text_field_tag :desc, nil, placeholder: "We highly recommoned having a description!"
+    = f.label :desc, "Description"
+    = f.text_field :desc, placeholder: "We highly recommoned having a description!"
   %div.columns.small-10.small-centered
-    = label_tag :instructions, "Special instructions"
-    = text_field_tag :instructions, nil, placeholder: "Anything special people should know?"
+    = f.label :instructions, "Special instructions"
+    = f.text_field :instructions, placeholder: "Anything special people should know?"
   %div.columns.small-10.small-centered.clearfix
     %button#form-general-save.small.right.hide= "Save"

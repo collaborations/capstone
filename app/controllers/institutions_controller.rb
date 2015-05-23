@@ -75,21 +75,22 @@ class InstitutionsController < ApplicationController
   # GET /institutions/new
   def new
     @institution = Institution.new
-    @institution.locations.build
-    @institution.restrictions.build
-
+    @location = Location.new
     @amenities = Amenity.all
+    @restrictions = Restriction.new
     @header = "New Institution"
-    render 'form'
   end
 
   # GET /institutions/1/edit
   def edit
     @institution = Institution.where(id: params[:id]).first
-
+    @location = Location.where(institution_id: params[:id]).first
     @amenities = Amenity.all
+    # @currentAmenities = InstitutionHasAmenity.where(institution_id: params[:id]).map(&:amenity)
+    # @currentAmenities.each do |a|
+    #   puts a.name
+    # end
     @header = "Editing " + @institution.name
-    render 'form'
   end
 
   def email
@@ -103,7 +104,6 @@ class InstitutionsController < ApplicationController
   # POST /institutions.json
   def create
     @institution = Institution.new(institution_params)
-    puts params
     respond_to do |format|
       if @institution.save
         format.html { redirect_to @institution, notice: 'Institution was successfully created.' }

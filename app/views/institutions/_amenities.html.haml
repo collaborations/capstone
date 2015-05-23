@@ -6,7 +6,7 @@
           %div= embedded_svg(a.img, { class: "amenity-img", alt: a.desc})
           %span.amenity-label= a.name
           %div.switch.small
-            %input{ id: a.name.downcase, type: "checkbox" }
+            %input{ id: "toggle-#{a.name.downcase}", type: "checkbox" }
             %label{ for: a.name.downcase }
   %div.columns.small-10.small-centered.clearfix
     %button#form-location-save.small.right.hide= "Save"

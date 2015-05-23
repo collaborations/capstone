@@ -1,10 +1,12 @@
 Rails.application.routes.draw do
 
   devise_for :users
-  resources :institutions
   
-  resources :users
+  
   resources :capacity
+  resources :institutions
+  resources :location
+  resources :users
   
   match '/capacity/get' => 'capacity#get', via: :post
   match '/capacity/update' => 'capacity#update', via: :post
@@ -16,7 +18,7 @@ Rails.application.routes.draw do
   match '/sms/subscribe' => 'sms#subscribe', via: :post
 
   get '/about' => 'about#index'
-
+  get '/amenities/institutions/:id' => 'amenity#getAmenitiesByInstitution'
   get '/amenity/:id' => 'institutions#amenity', as: 'amenity'
 
   get '/institution/:id' => 'institutions#show'

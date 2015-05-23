@@ -1,18 +1,19 @@
-= form_tag(nil, remote: true, id: "form-location", :data => { abide: true } ) do
+/ = form_tag(nil, remote: true, id: "form-location", :data => { abide: true } ) do
+= form_for(@location, remote: true) do |f|
   %div.columns.small-10.small-centered
-    = label_tag :streetLine1, "Street Line 1"
-    = text_field_tag :streetLine1, nil, { required: true, placeholder: "1959 NE Pacific Street" }
+    = f.label :streetLine1, "Street Line 1"
+    = f.text_field :streetLine1, { required: true, placeholder: "1959 NE Pacific Street" }
   %div.columns.small-10.small-centered
-    = label_tag :streetLine2, "Street Line 2"
-    = text_field_tag :streetLine2
+    = f.label :streetLine2, "Street Line 2"
+    = f.text_field :streetLine2
   %div.columns.small-10.small-centered
-    = label_tag :city, "City"
-    = text_field_tag :city, nil, required: true, placeholder: "Seattle"
+    = f.label :city, "City"
+    = f.text_field :city, {required: true, placeholder: "Seattle"}
   %div.columns.small-10.small-centered
-    = label_tag :state, "State"
-    = text_field_tag :state, nil, required: true, placeholder: "WA"
+    = f.label :state, "State"
+    = f.text_field :state, {required: true, placeholder: "WA"}
   %div.columns.small-10.small-centered
-    = label_tag :zip, "Zip Code"
-    = text_field_tag :zip, nil, required: true, placeholder: "98195", pattern: '\\d{5}'
+    = f.label :zip, "Zip Code"
+    = f.text_field :zip, {required: true, placeholder: "98195", pattern: '\\d{5}'}
   %div.columns.small-10.small-centered.clearfix
     %button#form-location-save.small.right.hide= "Save"

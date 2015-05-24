@@ -57,7 +57,7 @@ $amenity-circle-size: $amenity-size * 2;
     }
 
     .amenities-list {
-      @include amenity-icon(15px);
+      @include amenity-icon(25px);
     }
 	}
 }
@@ -83,7 +83,7 @@ $amenity-circle-size: $amenity-size * 2;
 
     .amenities-list {
       margin-top: 20px;
-      @include amenity-icon(20px);
+      @include amenity-icon(25px);
     }
   }
 

@@ -7,11 +7,23 @@
   $amenity-circle-size: $amenity-size * 2;
 
   .amenity-bg {
+    margin-bottom: 10px;
     height: $amenity-circle-size;
     width: $amenity-circle-size;
     -moz-border-radius: $amenity-circle-size; 
     -webkit-border-radius: $amenity-circle-size; 
     border-radius: $amenity-circle-size;
+
+    &:hover {
+      height: $amenity-circle-size + 10px;
+      width: $amenity-circle-size + 10px;
+      margin-bottom:0px;
+
+      .amenity-img {
+        height: $amenity-size + 10px;
+        width: $amenity-size + 10px;
+      }
+    }
   }
 
   .amenity-img {
@@ -91,6 +103,7 @@ $filter-btn-is-input: false;
 // Search Style
 @mixin search-btn {
   button.search  {
+    background-color:lightgray;
     background-image: url(image-path('search.png'));
     background-position: 50%;
     background-repeat: no-repeat

@@ -81,10 +81,12 @@
           %span= "Print"
 
     %div#subscribe    
-      %h4= "Subscribe"
+      %h5= "Recieve future alerts from here on your phone"
       %div.row
         = form_tag('/sms/subscribe', method: :post, data: { :abide => "ajax" }) do
-          = telephone_field_tag "number", nil, required: true, pattern: "\\d{10}"
+          %input{:type=>"tel", :placeholder=>"Enter your phone number"}
+
+          //= telephone_field_tag "number", nil, required: true, pattern: "\\d{10}"
           %small.error= "Please enter your 10 digit phone number (including area code)."
           = hidden_field_tag "id", @institution.id
           = submit_tag "Opt In", { class: "button", id: "opt-in" }

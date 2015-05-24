@@ -82,10 +82,12 @@ $filter-btn-is-input: false;
 
 @mixin filter-btn-selected {
   @include button($filter-btn-padding, $filter-btn-selected, $filter-btn-radius, $filter-btn-full-width, $filter-btn-disabled);
+  font-weight: lighter;
 }
 
 @mixin filter-btn-deselected {
   @include button($filter-btn-padding, $filter-btn-deselected, $filter-btn-radius, $filter-btn-full-width, $filter-btn-disabled);
+  font-weight: lighter;
 }
 
 // Search Style

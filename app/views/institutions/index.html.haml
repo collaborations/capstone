@@ -2,32 +2,34 @@
 = render 'shared/search'
 
 %div
-  %ul#filter-settings.small-block-grid-2.large-block-grid-7
+  %h3= "Showing [....]"
+  %ul#filter-settings.small-block-grid-2.large-block-grid-8
     %li.toggle
-      %span.filter-title= "Number of People"
+      %div.filter-title= "Number of People"
       %button#btn-individual.filter-btn-deselected= "Individual"
       %button#btn-family.filter-btn-deselected= "Family"
     %li.toggle
-      %span.filter-title= "Gender"
+      %div.filter-title= "Gender"
       %button#btn-male.filter-btn-deselected= "Male"
       %button#btn-female.filter-btn-deselected= "Female"
     %li.toggle
-      %span.filter-title= "Age"
-      %button#btn-age.filter-btn-deselected= "____"
+      %div.filter-title= "Age"
+      %input#btn-age.filter-btn-deselected{:type=>"number", :placeholder=>"Enter your age"}
     %li.toggle
-      %span.filter-title= "Disability"
+      %div.filter-title= "Disability"
       %button#btn-physical.filter-btn-deselected= "Physical"
       %button#btn-mental.filter-btn-deselected= "Mental"
     %li.toggle
-      %span.filter-title= "Miscellaneous"
+      %div.filter-title= "Miscellaneous"
       %button#btn-veteran.filter-btn-deselected= "Veteran"
       %button#btn-victimofabuse.filter-btn-deselected= "Victim of Abuse"
+    %li.vertical_line
     %li.filter
-      %span.filter-title= "Show"
+      %div.filter-title= "Show"
       %button#btn-all.filter-btn-deselected= "All"
       %button#btn-opennow.filter-btn-deselected= "Open Now"
     %li.filter
-      %span.filter-title= "Sort By"
+      %div.filter-title= "Sort By"
       %button#btn-distance.filter-btn-deselected= "Distance"
       %button#btn-name.filter-btn-deselected= "Name"
 

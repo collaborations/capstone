@@ -66,6 +66,10 @@ gem 'twilio-ruby'
 gem 'faraday'
 
 
+group :production do
+  gem 'execjs'
+end
+
 group :development do
   gem 'capistrano-rails'
 

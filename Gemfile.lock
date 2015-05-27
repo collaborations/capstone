@@ -243,6 +243,7 @@ DEPENDENCIES
   compass-rails
   d3_rails
   devise
+  execjs
   faraday
   foundation-rails
   gon

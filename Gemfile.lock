@@ -145,6 +145,10 @@ GEM
       mini_portile (~> 0.6.0)
     orm_adapter (0.5.0)
     pg (0.18.2)
+    pg_search (1.0.3)
+      activerecord (>= 3.1)
+      activesupport (>= 3.1)
+      arel
     rack (1.6.1)
     rack-test (0.6.3)
       rack (>= 1.0)
@@ -252,6 +256,7 @@ DEPENDENCIES
   jquery-rails
   nokogiri
   pg
+  pg_search
   rails (= 4.2.0)
   rails_config
   sass-rails (~> 5.0.0)

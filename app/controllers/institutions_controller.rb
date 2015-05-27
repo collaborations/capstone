@@ -6,9 +6,10 @@ class InstitutionsController < ApplicationController
   # GET /institutions
   # GET /institutions.json
   def index
-    @institutions = Institution.all
+    @institutions = Institution.search(params[:search])
     locations = Array.new(Array.new)
     for institution in @institutions do
+      puts institution.inspect
       locations.push([institution.name, institution.locations])  
     end
     # gon.locations2= locations
@@ -160,7 +161,7 @@ class InstitutionsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def institution_params
-      params.require(:institution).permit(:name, :desc, :instructions, { :locations_attributes => [:streetLine1, :streetLine2, :city, :state, :zip]}, { :amenity_ids => []}, {:restrictions_attributes => [:name, :desc]}, :category)
+      params.require(:institution).permit(:name, :desc, :instructions, :search, { :locations_attributes => [:streetLine1, :streetLine2, :city, :state, :zip]}, { :amenity_ids => []}, {:restrictions_attributes => [:name, :desc]}, :category)
     end
 end
   

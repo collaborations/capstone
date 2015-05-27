@@ -43,6 +43,10 @@ gem 'haml-rails'
 # http://www.nokogiri.org/
 gem 'nokogiri'
 
+# Use pg_search
+# https://github.com/Casecommons/pg_search
+gem 'pg_search'
+
 # Rails config: easiest way to add multi-environment yaml settings to Rails 3 or 4
 # https://github.com/railsconfig/rails_config
 gem 'rails_config'

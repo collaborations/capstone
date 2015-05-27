@@ -106,8 +106,10 @@ $filter-btn-is-input: false;
   div.search {
     height:40px;
     float:left;
+    padding:0px;
   }
-  button.search  {
+
+  input.search  {
     background-color:lightgray;
     background-image: url(image-path('search.png'));
     background-position: 50%;

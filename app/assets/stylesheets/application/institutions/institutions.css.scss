@@ -42,7 +42,12 @@ $amenity-circle-size: $amenity-size * 2;
 	}
 
 	#institutions_list {
-		
+		.institution-name {
+      font-size: $title-font;
+      float:left;
+      width:100%;
+    }
+
 		.institution {
 			padding-left: $medium-spacing;
 		}
@@ -112,15 +117,9 @@ $amenity-circle-size: $amenity-size * 2;
     }
   }
 
-  #institution-desc {
+  #institution-desc, #institution-restrictions {
     margin-bottom: $medium-spacing;
-
-    // TODO: Remove when ready to deploy
-    border: solid 1px black;
-  }
-
-  #institution-restrictions {
-    margin-bottom: $medium-spacing;
+    padding: $medium-spacing;
 
     // TODO: Remove when ready to deploy
     border: solid 1px black;

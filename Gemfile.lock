@@ -39,6 +39,9 @@ GEM
     arel (6.0.0)
     bcrypt (3.1.10)
     builder (3.2.2)
+    business_time (0.7.4)
+      activesupport (>= 3.1.0)
+      tzinfo
     capistrano (3.4.0)
       i18n
       rake (>= 10.0.0)
@@ -145,6 +148,10 @@ GEM
       mini_portile (~> 0.6.0)
     orm_adapter (0.5.0)
     pg (0.18.2)
+    pg_search (1.0.3)
+      activerecord (>= 3.1)
+      activesupport (>= 3.1)
+      arel
     rack (1.6.1)
     rack-test (0.6.3)
       rack (>= 1.0)
@@ -234,6 +241,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  business_time
   capistrano (~> 3.4.0)
   capistrano-bundler
   capistrano-passenger
@@ -243,6 +251,7 @@ DEPENDENCIES
   compass-rails
   d3_rails
   devise
+  execjs
   faraday
   foundation-rails
   gon
@@ -252,6 +261,7 @@ DEPENDENCIES
   jquery-rails
   nokogiri
   pg
+  pg_search
   rails (= 4.2.0)
   rails_config
   sass-rails (~> 5.0.0)

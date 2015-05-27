@@ -4,16 +4,7 @@ var map;
 var markers;
 var pan;
 var pins;
-var iconURLPrefix = 'http://maps.google.com/mapfiles/ms/icons/';
-var icons = [
-  iconURLPrefix + 'red-dot.png',
-  iconURLPrefix + 'green-dot.png',
-  iconURLPrefix + 'blue-dot.png',
-  iconURLPrefix + 'orange-dot.png',
-  iconURLPrefix + 'purple-dot.png',
-  iconURLPrefix + 'pink-dot.png',      
-  iconURLPrefix + 'yellow-dot.png'
-];
+var iconURL = 'http://maps.google.com/mapfiles/ms/icons/purple-dot.png';
 
 if($("#google-map-aerial").length){
   initializeMaps();
@@ -110,7 +101,7 @@ function setMarkers(){
       position: destination,
       map: map,
       content: description,
-      icon: icons[iconCounter]
+      icon: iconURL
     });
     pins.push(marker);
     var infowindow = new google.maps.InfoWindow({
@@ -122,11 +113,6 @@ function setMarkers(){
         infowindow.open(map, marker);
       }
     })(marker, i));
-    iconCounter++;
-    // We only have a limited number of possible icon colors, so we may have to restart the counter
-    if(iconCounter >= icons.length) {
-      iconCounter = 0;
-    }
   }
   autoCenter();
 }

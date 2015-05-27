@@ -55,11 +55,9 @@ class SmsController < ApplicationController
       end
 
       if params[:restrictions].present?
-        restrictions = Restrictions.where(institution_id: id)
-        message << "Restriction".pluralize(restrictions.size) if restrictions.present?
-        restrictions.each do |r|
-          message << r.name.capitalize
-        end
+        message << "Restrictions"
+        message << institution.instructions
+        
       end
 
       send_message([number], message.join("\n"))

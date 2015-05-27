@@ -103,15 +103,17 @@ $filter-btn-is-input: false;
 
 // Search Style
 @mixin search-btn {
+  div.search {
+    height:40px;
+    float:left;
+  }
   button.search  {
     background-color:lightgray;
     background-image: url(image-path('search.png'));
     background-position: 50%;
-    background-repeat: no-repeat
+    background-repeat: no-repeat;
+    width:40px;
   }
 
-  .small-10>input, button.search {
-    height:30px;
-  }
 
 }

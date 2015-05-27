@@ -77,6 +77,7 @@ class InstitutionsController < ApplicationController
     @institution = Institution.new
     @institution.locations.build
     @institution.restrictions.build
+    @institution.filter.build
   end
 
   # GET /institutions/1/edit

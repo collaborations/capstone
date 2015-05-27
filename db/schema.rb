@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150516120457) do
+ActiveRecord::Schema.define(version: 20150527064833) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -47,6 +47,22 @@ ActiveRecord::Schema.define(version: 20150516120457) do
     t.string   "email"
     t.integer  "institution_id"
     t.string   "website"
+  end
+
+  create_table "filters", force: :cascade do |t|
+    t.integer  "institution_id",                      null: false
+    t.boolean  "individual",          default: false
+    t.boolean  "family",              default: false
+    t.boolean  "male",                default: false
+    t.boolean  "female",              default: false
+    t.integer  "min_age",             default: 0
+    t.integer  "max_age",             default: 1000
+    t.boolean  "physical_disability", default: false
+    t.boolean  "mental_disability",   default: false
+    t.boolean  "veteran",             default: false
+    t.boolean  "abuse_victim",        default: false
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
   end
 
   create_table "institution_details", force: :cascade do |t|

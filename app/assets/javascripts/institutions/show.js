@@ -7,21 +7,20 @@ if($("#institution-modal").length){
 function initialize(){
   $("#select-all-options").on("click", function(){ $("#customization-options input").attr('checked', true); });
   $("#remove-all-options").on("click", function(){ $("#customization-options input").attr('checked', false); });
-  $("#get-info").find("button").on("click", function(event){ 
-    var type = event.target.name;
-    $("#message_type")[0].value = type;
-    if(type === "text"){
-      $("#send-email").hide();
-      $("#email").attr("required", false);
-      $("#send-text").show();
-      $("#sms").attr("required", true);
-    } else {
-      $("#send-email").show();
-      $("#email").attr("required", true);
-      $("#send-text").hide();
-      $("#sms").attr("required", false);
-    }
-  });
+  $("button[name='email']").on("click", function(){
+    $("#send-email").show();
+    $("#email").attr("required", true);
+    $("#send-text").hide();
+    $("#sms").attr("required", false);
+    $("#message_type")[0].value = "email";
+  })
+  $("button[name='text']").on("click", function(){
+    $("#send-email").hide();
+    $("#email").attr("required", false);
+    $("#send-text").show();
+    $("#sms").attr("required", true);
+    $("#message_type")[0].value = "text";
+  })
   data = {};
   $('#institution-modal-form').on('valid.fndtn.abide', function(event) {
     $.each($("#notify-options").find("input"), function(i, v){

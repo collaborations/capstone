@@ -50,7 +50,7 @@ ActiveRecord::Schema.define(version: 20150527064833) do
   end
 
   create_table "filters", force: :cascade do |t|
-    t.integer  "institution_id",                      null: false
+    t.integer  "institution_id"
     t.boolean  "individual",          default: false
     t.boolean  "family",              default: false
     t.boolean  "male",                default: false

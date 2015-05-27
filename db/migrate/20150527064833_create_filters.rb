@@ -1,7 +1,7 @@
 class CreateFilters < ActiveRecord::Migration
   def change
     create_table :filters do |t|
-      t.integer :institution_id, null: false
+      t.integer :institution_id
       t.boolean :individual, default: false
       t.boolean :family, default: false
       t.boolean :male, default: false

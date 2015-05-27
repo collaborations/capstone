@@ -5,7 +5,8 @@
       %button#select-all-options= "Select All"
       %button#remove-all-options= "Deselect All"
     %div#notify-options.columns.small-12.large-9
-      %form#institution-modal-form{ data: { :abide => "ajax" } }
+      / %form#institution-modal-form{ 'data-abide' => true }
+      = form_tag('/sms/info', id: "institution-modal-form", data: { remote: true, abide: true } ) do
         = hidden_field_tag :message_type
         = hidden_field_tag :institution_id, @id
         %ul.small-block-grid-3.large-block-grid-5#customization-options
@@ -30,6 +31,6 @@
           %small.error= "You must have a valid email for us to email you."
         %div#send-text
           = label_tag "What number should we send it to?"
-          = telephone_field_tag :sms, nil, { placeholder: "0123456789", pattern: "\\d{10}" }
+          = telephone_field_tag :sms, nil, { placeholder: "0123456789", pattern: "^\\d{10}$" }
           %small.error= "Please enter your 10 digit phone number (including area code)."
-        = submit_tag "Send Information", { id: "send-information", class: "button" }
+        %button#send-information{ type: "submit" }= "Send Information"

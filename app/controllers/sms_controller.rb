@@ -23,7 +23,7 @@ class SmsController < ApplicationController
       institution = Institution.where(id: id).first
       message = [institution.name]
 
-      if params[:phone].to_bool
+      if params[:phone].present?
         contact = Contact.where(institution_id: id)
         if contact.present? and contact.first.phone.present?
           phone = contact.first.phone.split("-")
@@ -31,13 +31,13 @@ class SmsController < ApplicationController
         end
       end
 
-      if params[:hours].to_bool
+      if params[:hours].present?
         # details = InstitutionDetails.where(institution_id: id)
         # details = details.first if details.present? and details.hours.present?
         message << "Hours: MF"
       end
 
-      if params[:address].to_bool
+      if params[:address].present?
         address = Location.where(institution_id: id)
         address = address.first if address.present?
         message << "Address:"
@@ -46,7 +46,7 @@ class SmsController < ApplicationController
         message << sprintf("%s, %s %s", address.city, address.state, address.zip)
       end
 
-      if params[:amenities].to_bool
+      if params[:amenities].present?
         amenities = InstitutionHasAmenity.joins(:amenity, :institution).where(institution_id: id).map(&:amenity)
         message << "Amenity".pluralize(amenities.size) + ":" if amenities.present?
         amenities.each do |a|
@@ -54,7 +54,7 @@ class SmsController < ApplicationController
         end
       end
 
-      if params[:restrictions].to_bool
+      if params[:restrictions].present?
         restrictions = Restrictions.where(institution_id: id)
         message << "Restriction".pluralize(restrictions.size) if restrictions.present?
         restrictions.each do |r|

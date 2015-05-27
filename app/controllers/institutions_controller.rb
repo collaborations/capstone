@@ -25,10 +25,12 @@ class InstitutionsController < ApplicationController
       long += loc.long
       gon.markers << ["<h4>#{i.name}</h4>", loc.lat, loc.long]
     end
-    gon.push({
-      :latitude => lat/gon.markers.length,
-      :longitude => long/gon.markers.length
-    })
+    unless lat == 0 and long == 0
+      gon.push({
+        :latitude => lat/gon.markers.length,
+        :longitude => long/gon.markers.length
+      })
+    end
   end
 
   # GET /amenity/1
@@ -53,10 +55,12 @@ class InstitutionsController < ApplicationController
       long += loc.long
       gon.markers << ["<h4>#{i.name}</h4>", loc.lat, loc.long]
     end
-    gon.push({
-      :latitude => lat/gon.markers.length,
-      :longitude => long/gon.markers.length
-    })
+    unless lat == 0 and long == 0
+      gon.push({
+        :latitude => lat/gon.markers.length,
+        :longitude => long/gon.markers.length
+      })
+    end
     render 'index'
   end
 

@@ -1,33 +1,44 @@
 %div#filters
   %h2= "Filters"
-  %ul.small-block-grid-3.large-block-grid-6
-    %li
-      = f.label :individual, "Individual"
-      = f.check_box :individual
-    %li
-      = f.label :family, "Family"
-      = f.check_box :family
-    %li
-      = f.label :male, "Male"
-      = f.check_box :male
-    %li
-      = f.label :female, "Female"
-      = f.check_box :female
-    %li
-      = f.label :min_age, "Minimum Age"
-      = f.check_box :min_age
-    %li
-      = f.label :max_age, "Maximum Age"
-      = f.number_field :max_age
-    %li
-      = f.label :physical_disability, "Physical Disability"
-      = f.number_field :physical_disability
-    %li
-      = f.label :mental_disability, "Mental Disability"
-      = f.check_box :mental_disability
-    %li
-      = f.label :veteran, "Veteran"
-      = f.check_box :veteran
-    %li
-      = f.label :abuse_victim, "Victim of Abuse"
-      = f.check_box :abuse_victim
+  = f.fields_for :filter do |t|
+    %ul.small-block-grid-2.large-block-grid-4
+      %li.row
+        %h4.columns.small-12.large-12= "Group Restrictions"
+        %div.columns.small-6.large-6
+          = t.label :individual, "Individual"
+          = t.check_box :individual
+        %div.columns.small-6.large-6
+          = t.label :family, "Family"
+          = t.check_box :family
+      %li.row
+        %h4.columns.small-12.large-12= "Gender Restrictions"
+        %div.columns.small-6.large-6
+          = t.label :male, "Male"
+          = t.check_box :male
+        %div.columns.small-6.large-6
+          = t.label :female, "Female"
+          = t.check_box :female
+      %li.row
+        %h4.columns.small-12.large-12= "Age Restrictions"
+        %div.columns.small-6.large-6
+          = t.label :min_age, "Minimum Age"
+          = t.number_field :min_age
+        %div.columns.small-6.large-6
+          = t.label :max_age, "Maximum Age"
+          = t.number_field :max_age
+      %li.row
+        %h4.columns.small-12.large-12= "Disability Services"
+        %div.columns.small-6.large-6
+          = t.label :physical_disability, "Physical Disability"
+          = t.check_box :physical_disability
+        %div.columns.small-6.large-6
+          = t.label :mental_disability, "Mental Disability"
+          = t.check_box :mental_disability
+      %li.row
+        %h4.columns.small-12.large-12= "Misc"
+        %div.columns.small-6.large-6
+          = t.label :veteran, "Veteran"
+          = t.check_box :veteran
+        %div.columns.small-6.large-6
+          = t.label :abuse_victim, "Victim of Abuse"
+          = t.check_box :abuse_victim

@@ -1,13 +1,4 @@
 class Institution < ActiveRecord::Base
-	include PgSearch
-	multisearchable :against => :name,
-					:using => {
-					    tsearch:    {dictionary: 'english'},
-					    trigram:    {threshold:  0.1},
-					    dmetaphone: {}
- 					},
-					:ignoring => :accents
-
 	has_many :institution_has_amenities
 	has_many :amenities, through: :institution_has_amenities
 	has_many :locations
@@ -21,12 +12,23 @@ class Institution < ActiveRecord::Base
 	accepts_nested_attributes_for :amenities  
 	accepts_nested_attributes_for :restrictions
 
+	include PgSearch
+	pg_search_scope :all_scope, :against => {:name => 'A'},
+					:associated_against	=> {
+						:amenities => :name
+					},
+					:using => {
+					    tsearch:    {dictionary: 'english'},
+					    trigram:    {threshold:  0.1},
+					    dmetaphone: {}
+ 					}
+
+
 	def self.search(search)
-		if search
-			temp = PgSearch.multisearch(search)
-			temp.map { |s| s.searchable }
+		if search and search != ""
+			Institution.all_scope(search)
 		else
-			find(:all)
+			Institution.all
 		end
 	end
 

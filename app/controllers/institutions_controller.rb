@@ -7,6 +7,7 @@ class InstitutionsController < ApplicationController
   # GET /institutions.json
   def index
     @institutions = Institution.search(params[:search])
+
     locations = Array.new(Array.new)
     for institution in @institutions do
       puts institution.inspect

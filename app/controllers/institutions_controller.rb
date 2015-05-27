@@ -6,9 +6,9 @@ class InstitutionsController < ApplicationController
   # GET /institutions
   # GET /institutions.json
   def index
-    @institutions = Institution.all
     locations = {}
     gon.markers = []
+    @institutions = Institution.search(params[:search])
 
     lat = 0
     long = 0
@@ -164,7 +164,7 @@ class InstitutionsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def institution_params
-      params.require(:institution).permit(:name, :desc, :instructions, { :locations_attributes => [:streetLine1, :streetLine2, :city, :state, :zip]}, { :amenity_ids => []}, {:restrictions_attributes => [:name, :desc]}, :category, { :filter_attributes => [:individual, :family, :male, :female, :min_age, :max_age, :physical_disability, :mental_disability, :veteran, :abuse_victim] })
+      params.require(:institution).permit(:name, :desc, :instructions, :search, { :locations_attributes => [:streetLine1, :streetLine2, :city, :state, :zip]}, { :amenity_ids => []}, {:restrictions_attributes => [:name, :desc]}, :category, { :filter_attributes => [:individual, :family, :male, :female, :min_age, :max_age, :physical_disability, :mental_disability, :veteran, :abuse_victim] })
     end
 
     def getLatLong(institution)

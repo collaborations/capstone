@@ -14,6 +14,7 @@
 //= require jquery_ujs
 //= require foundation
 //= require d3
+//= require skrollr
 //= require_tree .
 
 $(function(){ $(document).foundation(); });

@@ -10,7 +10,7 @@
         %p
           %em= @location.city + ", " + @location.state + " " + @location.zip.to_s
 
-    %div.columns.small-12.large-3
+    %div.columns.small-12.large-3#offered_amenity
       %ul.small-block-grid-6.medium-block-grid-4.large-block-grid-5.amenities-list
         - @institution.amenities.each do |amenity|
           %li
@@ -55,7 +55,7 @@
 
   %div#get-info.columns.small-12.large-2
     %div#save
-      %h4= "Save Shelter Information"
+      %h4= "Save Information"
       / Only keeping this here until we review which we like more.
       / %div.row
       /   %p.columns.small-6.large-6= embedded_svg("email.svg", { class: "save-icon", alt: "Email me this!"})
@@ -80,7 +80,8 @@
           %div= embedded_svg("printer.svg", { class: "save-icon", alt: "Print this for me!"})
           %span= "Print"
 
-    %div#subscribe    
+    %div#subscribe
+      %h3= "Text Alerts"    
       %h5= "Recieve future alerts from here on your phone"
       %div.row
         = form_tag('/sms/subscribe', method: :post, data: { :abide => "ajax" }) do

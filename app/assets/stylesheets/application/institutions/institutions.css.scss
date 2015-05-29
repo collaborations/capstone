@@ -42,7 +42,9 @@ $amenity-circle-size: $amenity-size * 2;
       width: 75%;
       clear:both;
       height: 45px;
-      border:1px solid #008CBA;
+      border:1px solid black;
+      border-radius: 5px;
+
     }
 
     .filter-btn-deselected {
@@ -50,6 +52,7 @@ $amenity-circle-size: $amenity-size * 2;
       width: 75%;
       clear:both;
       height:45px;
+      border-radius: 5px;
     }
 	}
 	
@@ -98,16 +101,20 @@ $amenity-circle-size: $amenity-size * 2;
 
     }
 
+    .offered_amenity {
+      width: 33%;
+    }
+
     .amenities-list {
       margin-top: 20px;
-      @include amenity-icon(20px);
+      @include amenity-icon(35px);
     }
   }
 
   .restriction, .description {
     padding-left: $medium-spacing
-  }
 
+  }
 
   #google-map-aerial, #google-map-street {
     border: solid 1px #AAA;
@@ -129,18 +136,15 @@ $amenity-circle-size: $amenity-size * 2;
     }
   }
 
-  #institution-desc {
+  #institution-desc.row, #institution-restrictions{
     margin-bottom: $medium-spacing;
 
     // TODO: Remove when ready to deploy
     border: solid 1px black;
-  }
-
-  #institution-restrictions {
-    margin-bottom: $medium-spacing;
-
-    // TODO: Remove when ready to deploy
-    border: solid 1px black;
+    padding: 10px;
+    &:hover{
+      background-color: blue;
+    }
   }
 
   #get-info {
@@ -163,6 +167,9 @@ $amenity-circle-size: $amenity-size * 2;
     border: solid 1px black;
 
     #subscribe {
+      margin-top: 15px;
+      padding-top:15px;
+      border-top: solid 1px black;
       .button {
         width: 100%;
       }

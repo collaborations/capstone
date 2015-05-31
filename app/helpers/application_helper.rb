@@ -1,16 +1,8 @@
 module ApplicationHelper
 
-  def breadcrumbs
-    @url = request.env['PATH_INFO'].sub(/\A\//, '').split("/")
-    if @url.size >= 1
-      render 'shared/breadcrumbs'
-    end
-  end
-
   def embedded_amenity(amenity, options = {})
-    @amenity = amenity
     @label = true if options[:label].present?
-    render 'shared/amenity'
+    render 'shared/amenity', amenity: amenity 
   end
 
   def embedded_svg(filename, options = {})

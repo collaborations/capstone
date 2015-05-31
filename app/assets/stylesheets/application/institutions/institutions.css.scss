@@ -117,7 +117,6 @@ $amenity-circle-size: $amenity-size * 2;
     }
 
     .amenities-list {
-      //margin: 20px;
       @include amenity-icon(35px);
     }
 
@@ -127,12 +126,7 @@ $amenity-circle-size: $amenity-size * 2;
         margin:10px;
       }
       .amenities-list {
-    //     margin-top: 10px;
         @include amenity-icon(25px);
-
-    //     li {
-    //       margin-left:5px;
-    //     }
       }
     }
   }

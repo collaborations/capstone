@@ -25,14 +25,44 @@ module InstitutionsHelper
   # Any individual institution pages can use the instance variable, however if
   # there is a loop over multiple institutions (institutions#list), it needs to
   # be provided.
+  # 
+  # This is absolutely terrible code, but it works for right now.
 	def getHours(institution_id = nil)
     id = (institution_id.present?) ? institution_id : @institution.id
-  	temp = Hours.where(institution_id: id).first
-    if temp.present?
-      return temp
-    else
-      return [t('hours.missing')]
+    time_format = t('hours.time.format')
+
+  	h = Hours.where(institution_id: id).first
+    hours = []
+
+    temp = [ 
+              [ "Monday", h[:mon_open], h[:mon_close]],
+              [ "Tuesday", h[:tue_open], h[:tue_close]],
+              [ "Wednesday", h[:wed_open], h[:wed_close]],
+              [ "Thursday", h[:thu_open], h[:thu_close]],
+              [ "Friday", h[:fri_open], h[:fri_close]],
+              [ "Saturday", h[:sat_open], h[:sat_close]],
+              [ "Sunday", h[:sun_open], h[:sun_close]]
+           ]
+    
+    temp.each do |t|
+      open = t[1].present? ? t[1].strftime(time_format) : nil
+      close = t[2].present? ? t[2].strftime(time_format) : nil
+      if open.present? and close.present?
+        hours << { day: t[0], hours: open + "-" + close}
+      else
+        hours << { day: t[0] }
+      end
     end
+
+    # Whether the institution is current open
+    c_time = Time.now
+    h_today = temp[c_time.wday]
+    BusinessTime::Config.beginning_of_workday = h_today[1].to_s
+    BusinessTime::Config.end_of_workday = h_today[2].to_s
+    open = c_time.during_business_hours?
+
+
+    render 'shared/hours', hours: hours, open: open
 	end
 
   def getPhone(institution_id)

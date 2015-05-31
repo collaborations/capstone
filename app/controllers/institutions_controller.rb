@@ -77,6 +77,7 @@ class InstitutionsController < ApplicationController
     @institution = Institution.new
     @institution.locations.build
     @institution.restrictions.build
+    @institution.build_hours
   end
 
   # GET /institutions/1/edit
@@ -160,7 +161,11 @@ class InstitutionsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def institution_params
-      params.require(:institution).permit(:name, :desc, :instructions, { :locations_attributes => [:streetLine1, :streetLine2, :city, :state, :zip]}, { :amenity_ids => []}, {:restrictions_attributes => [:name, :desc]}, :category)
+      params.require(:institution).permit(:name, :desc, :instructions, :category,
+        { :locations_attributes => [:id, :institution_id, :streetLine1, :streetLine2, :city, :state, :zip]}, 
+        { :amenity_ids => []}, 
+        { :restrictions_attributes => [:name, :desc]},
+        { :hours_attributes => [:id, :institution_id, :mon_open, :mon_close, :tue_open, :tue_close, :wed_open, :wed_close, :thu_open, :thu_close, :fri_open, :fri_close, :sat_open, :sat_close, :sun_open, :sun_close]})
     end
 end
   

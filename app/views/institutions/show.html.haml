@@ -27,9 +27,7 @@
         %div.row
           %h5.columns.small-4.large-3= "Website:"
           %p.columns.small-8.large-9= getWebsite(@id)
-        %div#hours-list
-          - getHours.each do |h|
-            %p= h.to_s
+        = getHours
 
       %div#google-map-aerial.columns.small-12.large-4
         = loading_spinner()

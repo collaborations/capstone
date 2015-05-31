@@ -14,12 +14,18 @@ $amenity-circle-size: $amenity-size * 2;
   margin-right: auto;
 }
 
+
+
 #institutions_index, #institutions_amenity {
 	@include search-btn();
 
 	div.row {
 		max-width: 100%;
 	}
+
+  .accordion{
+    margin: 1em;
+  }
 
 	#filter-settings {
     text-align: center;
@@ -62,7 +68,12 @@ $amenity-circle-size: $amenity-size * 2;
 	}
 
 	#institutions_list {
-		
+		.institution-name {
+      font-size: $title-font;
+      float:left;
+      width:100%;
+    }
+
 		.institution {
 			padding-left: $medium-spacing;
 		}
@@ -77,7 +88,7 @@ $amenity-circle-size: $amenity-size * 2;
     }
 
     .amenities-list {
-      @include amenity-icon(15px);
+      @include amenity-icon(25px);
     }
 	}
 }
@@ -101,13 +112,28 @@ $amenity-circle-size: $amenity-size * 2;
 
     }
 
-    .offered_amenity {
-      width: 33%;
+    #offered_amenity {
+      border-left: solid 1px black;
     }
 
     .amenities-list {
-      margin-top: 20px;
+      //margin: 20px;
       @include amenity-icon(35px);
+    }
+
+    @media screen and (max-width: $mobile-width) {
+      #offered_amenity{
+        border-left:none;
+        margin:10px;
+      }
+      .amenities-list {
+    //     margin-top: 10px;
+        @include amenity-icon(25px);
+
+    //     li {
+    //       margin-left:5px;
+    //     }
+      }
     }
   }
 
@@ -136,15 +162,13 @@ $amenity-circle-size: $amenity-size * 2;
     }
   }
 
-  #institution-desc.row, #institution-restrictions{
+  #institution-desc, #institution-restrictions {
     margin-bottom: $medium-spacing;
+    padding: $medium-spacing;
 
     // TODO: Remove when ready to deploy
     border: solid 1px black;
-    padding: 10px;
-    &:hover{
-      background-color: blue;
-    }
+    padding: 1em;
   }
 
   #get-info {
@@ -175,5 +199,4 @@ $amenity-circle-size: $amenity-size * 2;
       }
     }
   }
-
 }

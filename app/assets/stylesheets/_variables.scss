@@ -2,6 +2,9 @@
 $primary-bg: #FBFFEE;
 $secondary-bg: #FBFFEE;
 
+// Home Margin
+$margin-side: 10%;
+
 $content-width: 80%;
 $header-text-color: #F2A990;
 $label-color: #A4A5A0;
@@ -23,6 +26,13 @@ $large-spacing: 40px;
 $spinkit-spinner-margin: 0 auto !default;
 $spinkit-spinner-color: #333 !default;
 
+// Font Size
+$amenity-font: 17pt;
+$title-font: 22pt;
 
 // Colors
 $white: #EEE;
+
+// Screen Sizes
+$mobile-width: 440px;
+$desktop-width: 900px;

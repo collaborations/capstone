@@ -17,24 +17,24 @@ $amenity-circle-size: $amenity-size * 2;
 
 
 #institutions_index, #institutions_amenity {
-	@include search-btn();
+  @include search-btn();
 
-	div.row {
-		max-width: 100%;
-	}
+  div.row {
+    max-width: 100%;
+  }
 
   .accordion{
     margin: 1em;
   }
 
-	#filter-settings {
+  #filter-settings {
     text-align: center;
 
-		.vertical_line{
+    .vertical_line{
       width: 1px;
       height: 150px;
       border-left: 1px solid black;
-      padding:0px;
+      padding: 0px;
     }
     .filter-title {
       width: 100%;
@@ -46,9 +46,9 @@ $amenity-circle-size: $amenity-size * 2;
     .filter-btn-selected {
       @include filter-btn-selected();
       width: 75%;
-      clear:both;
+      clear: both;
       height: 45px;
-      border:1px solid black;
+      border: 1px solid black;
       border-radius: 5px;
 
     }
@@ -56,27 +56,27 @@ $amenity-circle-size: $amenity-size * 2;
     .filter-btn-deselected {
       @include filter-btn-deselected();
       width: 75%;
-      clear:both;
-      height:45px;
+      clear: both;
+      height: 45px;
       border-radius: 5px;
     }
-	}
-	
-	#google-map-aerial {
-		height: 400px;
+  }
+  
+  #google-map-aerial {
+    height: 400px;
     border: 1px solid #AAA;
-	}
+  }
 
-	#institutions_list {
-		.institution-name {
+  #institutions_list {
+    .institution-name {
       font-size: $title-font;
-      float:left;
-      width:100%;
+      float: left;
+      width: 100%;
     }
 
-		.institution {
-			padding-left: $medium-spacing;
-		}
+    .institution {
+      padding-left: $medium-spacing;
+    }
 
     .institution:not(:first-child) {
       padding-top: 10px;
@@ -90,7 +90,7 @@ $amenity-circle-size: $amenity-size * 2;
     .amenities-list {
       @include amenity-icon(25px);
     }
-	}
+  }
 }
 
 #institutions_show {
@@ -122,8 +122,8 @@ $amenity-circle-size: $amenity-size * 2;
 
     @media screen and (max-width: $mobile-width) {
       #offered_amenity{
-        border-left:none;
-        margin:10px;
+        border-left: none;
+        margin: 10px;
       }
       .amenities-list {
         @include amenity-icon(25px);
@@ -186,7 +186,7 @@ $amenity-circle-size: $amenity-size * 2;
 
     #subscribe {
       margin-top: 15px;
-      padding-top:15px;
+      padding-top: 15px;
       border-top: solid 1px black;
       .button {
         width: 100%;

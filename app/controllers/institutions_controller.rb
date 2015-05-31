@@ -2,6 +2,7 @@ class InstitutionsController < ApplicationController
   before_action :set_amenity, only: [:edit, :update, :new]
   before_action :set_institution, only: [:show, :update, :destroy]
   before_action :authenticate_user!, only: [:edit, :update]
+  before_action :load_google_maps, only: [:amenity, :index, :show]
 
   # GET /institutions
   # GET /institutions.json

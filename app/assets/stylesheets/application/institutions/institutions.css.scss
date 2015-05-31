@@ -14,6 +14,8 @@ $amenity-circle-size: $amenity-size * 2;
   margin-right: auto;
 }
 
+
+
 #institutions_index, #institutions_amenity {
 	@include search-btn();
 
@@ -21,18 +23,42 @@ $amenity-circle-size: $amenity-size * 2;
 		max-width: 100%;
 	}
 
-	#filter-settings {
+  .accordion{
+    margin: 1em;
+  }
 
-		button {
-			width: 100%;
-		}
+	#filter-settings {
+    text-align: center;
+
+		.vertical_line{
+      width: 1px;
+      height: 150px;
+      border-left: 1px solid black;
+      padding:0px;
+    }
+    .filter-title {
+      width: 100%;
+      clear: both;
+    }
+
+
 
     .filter-btn-selected {
       @include filter-btn-selected();
+      width: 75%;
+      clear:both;
+      height: 45px;
+      border:1px solid black;
+      border-radius: 5px;
+
     }
 
     .filter-btn-deselected {
       @include filter-btn-deselected();
+      width: 75%;
+      clear:both;
+      height:45px;
+      border-radius: 5px;
     }
 	}
 	
@@ -86,16 +112,29 @@ $amenity-circle-size: $amenity-size * 2;
 
     }
 
+    #offered_amenity {
+      border-left: solid 1px black;
+    }
+
     .amenities-list {
-      margin-top: 20px;
-      @include amenity-icon(25px);
+      @include amenity-icon(35px);
+    }
+
+    @media screen and (max-width: $mobile-width) {
+      #offered_amenity{
+        border-left:none;
+        margin:10px;
+      }
+      .amenities-list {
+        @include amenity-icon(25px);
+      }
     }
   }
 
   .restriction, .description {
     padding-left: $medium-spacing
-  }
 
+  }
 
   #google-map-aerial, #google-map-street {
     border: solid 1px #AAA;
@@ -123,6 +162,7 @@ $amenity-circle-size: $amenity-size * 2;
 
     // TODO: Remove when ready to deploy
     border: solid 1px black;
+    padding: 1em;
   }
 
   #get-info {
@@ -145,10 +185,12 @@ $amenity-circle-size: $amenity-size * 2;
     border: solid 1px black;
 
     #subscribe {
+      margin-top: 15px;
+      padding-top:15px;
+      border-top: solid 1px black;
       .button {
         width: 100%;
       }
     }
   }
-
 }

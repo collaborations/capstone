@@ -9,7 +9,7 @@
   .amenity-bg {
     margin-bottom: 10px;
     height: $amenity-circle-size;
-    width: $amenity-circle-size;
+    max-width: $amenity-circle-size;
     -moz-border-radius: $amenity-circle-size; 
     -webkit-border-radius: $amenity-circle-size; 
     border-radius: $amenity-circle-size;
@@ -99,6 +99,7 @@ $filter-btn-is-input: false;
 
 @mixin filter-btn-deselected {
   @include button($filter-btn-padding, $filter-btn-deselected, $filter-btn-radius, $filter-btn-full-width, $filter-btn-disabled);
+  color: white;
 }
 
 // Search Style

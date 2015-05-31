@@ -62,7 +62,8 @@ function autoCenter() {
 function generateMap(){
   var mapOptions = {
     zoom: 12,
-    center: initialLocation
+    center: initialLocation,
+    scrollwheel: false
   }
   map = new google.maps.Map($("#google-map-aerial")[0], mapOptions);
   if(gon.markers){

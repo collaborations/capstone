@@ -6,77 +6,25 @@ class InstitutionsController < ApplicationController
   # GET /institutions
   # GET /institutions.json
   def index
-    locations = {}
-    gon.markers = []
     @institutions = Institution.search(params[:search])
+    set_locations()
 
-    lat = 0
-    long = 0
-    
-    @institutions.each do |i|
-      loc = i.locations.first
-      if loc.lat.present? and loc.long.present?
-        puts loc.lat
-        puts loc.long
-      else
-        getLatLong(i)
-      end
-      lat += loc.lat
-      long += loc.long
-      gon.markers << ["<h4>#{i.name}</h4>", loc.lat, loc.long]
-    end
-    unless lat == 0 and long == 0
-      gon.push({
-        :latitude => lat/gon.markers.length,
-        :longitude => long/gon.markers.length
-      })
-    end
   end
 
   # GET /amenity/1
   def amenity
     @institutions = Amenity.find(params[:id]).institutions
 
-    locations = {}
-    gon.markers = []
-
-    lat = 0
-    long = 0
-    
-    @institutions.each do |i|
-      loc = i.locations.first
-      if loc.lat.present? and loc.long.present?
-        puts loc.lat
-        puts loc.long
-      else
-        getLatLong(i)
-      end
-      lat += loc.lat
-      long += loc.long
-      gon.markers << ["<h4>#{i.name}</h4>", loc.lat, loc.long]
-    end
-    unless lat == 0 and long == 0
-      gon.push({
-        :latitude => lat/gon.markers.length,
-        :longitude => long/gon.markers.length
-      })
-    end
+    set_locations()
     render 'index'
   end
 
   # GET /institutions/1
   # GET /institutions/1.json
   def show
-    @id = @institution.id
-
-    @location = Location.where(institution_id: @id).first
+    @location = Location.where(institution_id: @institution.id).first
     @restrictions = @institution.restrictions
-    
-    address = @location.streetLine1 + " "
-    address << @location.streetLine2 + " " if @location.streetLine2.present?
-    address << @location.city + ", " + @location.state + " " + @location.zip.to_s
-    
-    gon.push({:address => address})
+    set_locations()
     render 'show'
   end
 
@@ -169,6 +117,33 @@ class InstitutionsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def institution_params
       params.require(:institution).permit(:name, :desc, :instructions, :search, { :locations_attributes => [:streetLine1, :streetLine2, :city, :state, :zip]}, { :amenity_ids => []}, {:restrictions_attributes => [:name, :desc]}, :category, { :filter_attributes => [:individual, :family, :male, :female, :min_age, :max_age, :physical_disability, :mental_disability, :veteran, :abuse_victim] })
+    end
+
+    def set_locations
+      lat = 0
+      long = 0
+      @locations = {}
+      gon.markers = []
+      institutions = @institution.present? ? [@institution] : @institutions
+      institutions.each do |i|
+        loc = i.locations.first
+        if loc.lat.present? and loc.long.present?
+          puts "Locations exist for #{i.name} { lat: #{loc.lat}, long:#{loc.long}"
+        else
+          getLatLong(i)
+          # Update data with current database values
+          loc = i.locations.first
+        end
+        lat += loc.lat
+        long += loc.long
+        gon.markers << ["<h4>#{i.name}</h4>", loc.lat, loc.long]
+      end
+      unless lat == 0 and long == 0
+        gon.push({
+          :latitude => lat/gon.markers.length,
+          :longitude => long/gon.markers.length
+        })
+      end
     end
 
     def getLatLong(institution)

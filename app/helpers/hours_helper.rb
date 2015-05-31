@@ -10,39 +10,42 @@ module HoursHelper
   def getHours(institution_id = nil)
     id = (institution_id.present?) ? institution_id : @institution.id
     time_format = t('hours.time.format')
+    days = Date::DAYNAMES
 
     h = Hours.where(institution_id: id).first
     hours = []
-
     temp = [ 
-              [ "Monday", h[:mon_open], h[:mon_close]],
-              [ "Tuesday", h[:tue_open], h[:tue_close]],
-              [ "Wednesday", h[:wed_open], h[:wed_close]],
-              [ "Thursday", h[:thu_open], h[:thu_close]],
-              [ "Friday", h[:fri_open], h[:fri_close]],
-              [ "Saturday", h[:sat_open], h[:sat_close]],
-              [ "Sunday", h[:sun_open], h[:sun_close]]
+              [ h[:sun_open], h[:sun_close] ],
+              [ h[:mon_open], h[:mon_close] ],
+              [ h[:tue_open], h[:tue_close] ],
+              [ h[:wed_open], h[:wed_close] ],
+              [ h[:thu_open], h[:thu_close] ],
+              [ h[:fri_open], h[:fri_close] ],
+              [ h[:sat_open], h[:sat_close] ]
            ]
     
-    temp.each do |t|
-      open = t[1].present? ? t[1].strftime(time_format) : nil
-      close = t[2].present? ? t[2].strftime(time_format) : nil
+    temp.each_with_index do |t, i|
+      open = t[0].present? ? t[0].strftime(time_format) : nil
+      close = t[1].present? ? t[1].strftime(time_format) : nil
       if open.present? and close.present?
-        hours << { day: t[0], hours: open + "-" + close}
-      else
-        hours << { day: t[0] }
+        hours << { day: days[i], hours: open + "-" + close}
       end
     end
 
     # Whether the institution is current open
     c_time = Time.now
     h_today = temp[c_time.wday]
-    BusinessTime::Config.beginning_of_workday = h_today[1].to_s
-    BusinessTime::Config.end_of_workday = h_today[2].to_s
+
+    if h_today[0].present? and h_today[1].present?
+      BusinessTime::Config.work_week = [:sun, :mon, :tue, :wed, :thu, :fri, :sat]
+      BusinessTime::Config.beginning_of_workday = h_today[0].strftime(time_format)
+      BusinessTime::Config.end_of_workday = h_today[1].strftime(time_format)
+    end
     open = c_time.during_business_hours?
 
-
-    render 'shared/hours', hours: hours, open: open
+    if hours.present?
+      @hours_present = true
+      render 'shared/hours', hours: hours, open: open
+    end
   end
-  
 end

@@ -1,9 +1,11 @@
-- if hours.present?
-  %div#hours-open
-    - if open
-      %p.label.success= t('hours.open')
-    - else
-      %p.label.alert= t('hours.closed')
+- if @hours_present
+  %div.row
+    %h5.columns.small-4.large-12= t('hours.default')
+    %div.columns.small-8.large-12
+      - if open
+        %p.label.success= t('hours.open')
+      - else
+        %p.label.alert= t('hours.closed')
   %table#hours-list
     %thead
       %th= t('hours.header.days')
@@ -14,5 +16,3 @@
           %tr
             %td= h[:day]
             %td= h[:hours]
-- else
-  %p= t('hours.missing')

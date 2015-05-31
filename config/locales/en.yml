@@ -52,6 +52,7 @@ en:
 
   hours:
     closed: "Closed"
+    default: "Hours"
     header:
       days: "Day"
       hours: "Hours Open"

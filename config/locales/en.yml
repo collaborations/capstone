@@ -37,3 +37,8 @@ en:
     search_placeholder: "Enter the name of a shelter, food bank, etc."
     statement: "Helping Seattle's homeless find what they need, when they need it most"
 
+  sms:
+    subscribe:
+      existing: "You were already subscribed to %{name}!"
+      success: "You have successfully subscribed to %{name}!"
+

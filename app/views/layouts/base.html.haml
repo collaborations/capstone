@@ -23,8 +23,7 @@
 
 %body
   = render 'shared/nav' unless params[:controller] == "home"
-  -if flash[:notice]
-    %div.notice= flash[:notice]
+  = render 'shared/flash'
   %div{id: params[:controller] + '_' + params[:action]}
     = yield
 

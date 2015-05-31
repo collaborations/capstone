@@ -1,0 +1,4 @@
+%div#flash-message
+  - flash.each do |name, message|
+    %p= name.to_s
+    %p= message.to_s

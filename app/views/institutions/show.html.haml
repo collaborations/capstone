@@ -70,10 +70,8 @@
       %h3= "Text Alerts"    
       %h5= "Recieve future alerts from here on your phone"
       %div.row
-        = form_tag('/sms/subscribe', method: :post, data: { :abide => "ajax" }) do
-          %input{:type=>"tel", :placeholder=>"Enter your phone number"}
-
-          //= telephone_field_tag "number", nil, required: true, pattern: "\\d{10}"
+        = form_tag('/sms/subscribe', id: "sms-subscribe-form", data: { remote: true, abide: true } ) do
+          = telephone_field_tag "number", nil, required: true, pattern: "\\d{10}"
           %small.error= "Please enter your 10 digit phone number (including area code)."
           = hidden_field_tag "id", @institution.id
           = submit_tag "Opt In", { class: "button", id: "opt-in" }

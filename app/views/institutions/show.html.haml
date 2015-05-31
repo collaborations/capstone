@@ -21,15 +21,15 @@
   %div#institution-info.columns.small-12.large-9
     %div.row
       %div#institution-details.columns.small-12.large-8
-        %p= "Phone: " + getPhone(@id)
+        %p= "Phone: " + getPhone
         %p
           = "Website: "
-          - link = getWebsite(@id)
+          - link = getWebsite
           - if link.present?
             = full_url link
           - else
             = "Not Listed"
-        %p= "Hours: " + getHours(@id)
+        %p= "Hours: " + getHours
 
       %div#google-map-aerial.columns.small-12.large-4
         = loading_spinner()
@@ -62,7 +62,7 @@
           %div= embedded_svg("sms.svg", { class: "save-icon", alt: "Text this to me!"})
           %span= "Text"
       %div.row
-        = link_to(institution_print_path(@id), { class: "columns small-12 large-12 button label" }) do
+        = link_to(institution_print_path, { class: "columns small-12 large-12 button label" }) do
           %div= embedded_svg("printer.svg", { class: "save-icon", alt: "Print this for me!"})
           %span= "Print"
 

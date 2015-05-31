@@ -7,7 +7,7 @@
     %div#notify-options.columns.small-12.large-9
       = form_tag('/sms/info', id: "institution-modal-form", data: { remote: true, abide: true } ) do
         = hidden_field_tag :message_type
-        = hidden_field_tag :institution_id, @id
+        = hidden_field_tag :institution_id, @institution.id
         %ul.small-block-grid-3.large-block-grid-5#customization-options
           %li
             = check_box_tag :address

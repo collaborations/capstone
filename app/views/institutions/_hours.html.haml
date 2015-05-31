@@ -1,0 +1,75 @@
+%div#hours
+  %h2= "Hours"
+  = f.fields_for :hours do |h|
+    %ul.small-block-grid-2.large-block-grid-7
+      %li
+        %h5.row= "Monday"
+        %div.row
+          = h.label :mon_open, "Open"
+        %div.row
+          = h.time_field :mon_open
+        %div.row
+          = h.label :mon_close, "Close"
+        %div.row
+          = h.time_field :mon_close
+      %li
+        %h5.row= "Tuesday"
+        %div.row
+          = h.label :tue_open, "Open"
+        %div.row
+          = h.time_field :tue_open
+        %div.row
+          = h.label :tue_close, "Close"
+        %div.row
+          = h.time_field :tue_close
+      %li
+        %h5.row= "Wednesday"
+        %div.row
+          = h.label :wed_open, "Open"
+        %div.row
+          = h.time_field :wed_open
+        %div.row
+          = h.label :wed_close, "Close"
+        %div.row
+          = h.time_field :wed_close
+      %li
+        %h5.row= "Thursday"
+        %div.row
+          = h.label :thu_open, "Open"
+        %div.row
+          = h.time_field :thu_open
+        %div.row
+          = h.label :thu_close, "Close"
+        %div.row
+          = h.time_field :thu_close
+      %li
+        %h5.row= "Friday"
+        %div.row
+          = h.label :fri_open, "Open"
+        %div.row
+          = h.time_field :fri_open
+        %div.row
+          = h.label :fri_close, "Close"
+        %div.row
+          = h.time_field :fri_close
+      %li
+        %h5.row= "Saturday"
+        %div.row
+          = h.label :sat_open, "Open"
+        %div.row
+          = h.time_field :sat_open
+        %div.row
+          = h.label :sat_close, "Close"
+        %div.row
+          = h.time_field :sat_close
+      %li
+        %h5.row= "Sunday"
+        %div.row
+          = h.label :sun_open, "Open"
+        %div.row
+          = h.time_field :sun_open
+        %div.row
+          = h.label :sun_close, "Close"
+        %div.row
+          = h.time_field :sun_close
+        

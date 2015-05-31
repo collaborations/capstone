@@ -20,31 +20,25 @@ module InstitutionsHelper
 		rand(0..100)
 	end
 
-	def getHours
-		# details = InstitutionDetail.where(institution_id: @institution.id)
-    #   if details.present? and details.first.hours.present?
-    #     return details.first.hours
-    #   else
-    #     return "Not Listed"
-    #   end
-    "Not Listed"
-	end
-
   def getPhone
     contact = Contact.where(institution_id: @institution.id)
     if contact.present? and contact.first.phone.present?
       phone = contact.first.phone.split("-")
       return sprintf("(%s)%s-%s", phone[0], phone[1], phone[2])
     else
-      return "Not Listed"
+      return t('contact.phone.missing')
     end
   end
 
   def getWebsite
-    contact = Contact.where(institution_id: @institution.id)
-    if contact.present? and contact.first.website.present?
-      contact.first.website
+    contact = Contact.where(institution_id: @institution.id).first
+    if contact.present?
+      if contact.website.present?
+        return full_url contact.website
+      end
     end
+
+    return t('contact.website.missing')
   end
 
 end

@@ -18,6 +18,7 @@ $amenity-circle-size: $amenity-size * 2;
 
 #institutions_index, #institutions_amenity {
   @include search-btn();
+  @include custom-btn($padding: rem-calc(2));
 
   div.row {
     max-width: 100%;

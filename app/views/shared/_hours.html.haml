@@ -1,0 +1,18 @@
+- if hours.present?
+  %div.row
+    %h5.columns.small-4.large-12= t('hours.default')
+    %div.columns.small-8.large-12
+      - if open
+        %p.label.success= t('hours.open')
+      - else
+        %p.label.alert= t('hours.closed')
+  %table#hours-list
+    %thead
+      %th= t('hours.header.days')
+      %th= t('hours.header.time')
+    %tbody
+      - hours.each do |h|
+        - if h[:hours].present?
+          %tr
+            %td= h[:day]
+            %td= h[:hours]

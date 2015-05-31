@@ -46,15 +46,21 @@
 
   %div.small-12.large-7.columns#institutions_list
     - @institutions.each do |institution|
+      - dropdown_id = "hours-dropdown-#{institution.id}"
+      %div.f-dropdown.small{ id: dropdown_id, data: { dropdown: { content: true } } }
+        = getHours(institution.id)
       %div.institution.row
         %div.small-12.large-6.columns
           =link_to institution.name, institution_path(institution), class: "row small-12 large-12 institution-name"
           %p.row.small-12.large-12.institution-distance= "Distance: " + getDistance.to_s
-          %p.row.small-12.large-12.institution-hours= getHours
+          %p.row.small-12.large-12.institution-hours
+            - if @hours_present
+              %a.custom-button{ data: { dropdown: dropdown_id }, aria: { expanded: "false", controls: dropdown_id } }= "Click here for hours"
+            - else
+              %span= t('hours.missing')
           %div.row.small-8.large-8= link_to("View More Details", "/institution/" + institution.id.to_s)
         %div.small-12.large-6.columns
           %ul.small-block-grid-5.large-block-grid-5.amenities-list
             - institution.amenities.each do |amenity|
               %li
                 =embedded_amenity(amenity)
-                

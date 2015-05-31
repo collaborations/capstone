@@ -34,6 +34,7 @@ class InstitutionsController < ApplicationController
     @institution.locations.build
     @institution.restrictions.build
     @institution.filter = Filter.new
+    @institution.build_hours
   end
 
   # GET /institutions/1/edit
@@ -116,7 +117,12 @@ class InstitutionsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def institution_params
-      params.require(:institution).permit(:name, :desc, :instructions, :search, { :locations_attributes => [:streetLine1, :streetLine2, :city, :state, :zip]}, { :amenity_ids => []}, {:restrictions_attributes => [:name, :desc]}, :category, { :filter_attributes => [:individual, :family, :male, :female, :min_age, :max_age, :physical_disability, :mental_disability, :veteran, :abuse_victim] })
+      params.require(:institution).permit(:name, :desc, :instructions, :category,
+        { :locations_attributes => [:id, :institution_id, :streetLine1, :streetLine2, :city, :state, :zip]}, 
+        { :amenity_ids => []}, 
+        { :restrictions_attributes => [:name, :desc]},
+        { :hours_attributes => [:id, :institution_id, :mon_open, :mon_close, :tue_open, :tue_close, :wed_open, :wed_close, :thu_open, :thu_close, :fri_open, :fri_close, :sat_open, :sat_close, :sun_open, :sun_close]},
+        { :filter_attributes => [:individual, :family, :male, :female, :min_age, :max_age, :physical_disability, :mental_disability, :veteran, :abuse_victim]} )
     end
 
     def set_locations
@@ -158,7 +164,6 @@ class InstitutionsController < ApplicationController
       location.lat = data['lat']
       location.long = data['lng']
       location.save
-      puts data
     end
 end
   

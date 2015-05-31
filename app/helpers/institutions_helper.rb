@@ -21,12 +21,13 @@ module InstitutionsHelper
 	end
 
 	def getHours(institution_id)
-		details = InstitutionDetail.where(institution_id: institution_id)
-    if details.present? and details.first.hours.present?
-      return details.first.hours
-    else
-      return "Not Listed"
-    end
+  	# details = InstitutionDetail.where(institution_id: institution_id)
+    #   if details.present? and details.first.hours.present?
+    #     return details.first.hours
+    #   else
+    #     return "Not Listed"
+    #   end
+    "Not Listed"
 	end
 
   def getPhone(institution_id)

@@ -4,6 +4,7 @@ class Institution < ActiveRecord::Base
 	has_many :locations
 	has_many :restrictions
   has_many :subscribers
+  has_one :hour
   has_one :contact
   has_one :institution_detail
 
@@ -11,5 +12,6 @@ class Institution < ActiveRecord::Base
 	accepts_nested_attributes_for :locations
 	accepts_nested_attributes_for :amenities  
 	accepts_nested_attributes_for :restrictions
+  accepts_nested_attributes_for :hour
 
 end

@@ -1,4 +1,22 @@
-// Loading Spinner
+/*
+ * In this file, things are listed in the following order. 
+ * If you add a style to this file, document it here. 
+ *
+ *  1. Hours (open/closed)
+ *  2. Spinners (loading spinners)
+ *
+ */
+
+// 1. Hours
+.open {
+  color: green;
+}
+
+.closed {
+  color: red;
+}
+
+// 2. Spinners
 .spinner {
   margin: 100px auto;
   width: 50px;

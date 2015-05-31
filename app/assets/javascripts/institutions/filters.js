@@ -1,6 +1,9 @@
 // Toggle filter button
 $("li.toggle > button").on("click", function(){
   btn = $(this);
+  id = btn.parent()[0].id.split('-')[1];
+  buttons = $("li#filter-" + id)[0].children;
+
   if( btn.hasClass("filter-btn-selected") ){
     btn.removeClass("filter-btn-selected");
     btn.addClass("filter-btn-deselected");
@@ -17,9 +20,6 @@ $("#btn-distance").on("click", { selector: ".institution-distance" } , sort);
 //Sort the institutions list in the view.
 //Call using jQuery and pass in a CSS selector as 'selector'
 function sort(event){
-  if(typeof event.data.selector === 'undefined'){
-    console.log("Sort method for filters was not called properly. Selector is undefined");
-  }
   var map = {};
   var sorted = [];
   

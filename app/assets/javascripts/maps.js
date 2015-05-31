@@ -1,3 +1,4 @@
+var currentLocation;
 var geocoder;
 var initialLocation;
 var map;
@@ -5,47 +6,53 @@ var markers;
 var pan;
 var pins;
 var iconURL = 'http://maps.google.com/mapfiles/ms/icons/purple-dot.png';
+var cLocIconUrl = 'http://maps.google.com/mapfiles/ms/icons/red-dot.png';
 
-if($("#google-map-aerial").length){
-  initializeMaps();
+window.onload = initializeGoogleMapsAPI;
+
+function initializeGoogleMapsAPI(){
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src = 'https://maps.googleapis.com/maps/api/js?v=3.exp' +
+      '&signed_in=true&callback=initialize';
+  document.body.appendChild(script);
 }
 
+function googleMapsCallback(){
+  google.maps.event.addDomListener(window, 'load', initializeMaps);
+}
 
 function initializeMaps(){
-  geocoder = new google.maps.Geocoder();
-  if(gon.useCurrentLocation){
-    // Try W3C Geolocation (Preferred)
-    if(navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        function(position){
-          initialLocation = new google.maps.LatLng(position.coords.latitude,position.coords.longitude);
-          generateMap();
-        },
-        function(){ geoLocationCallback(true) });
-    } else {
-      geoLocationCallback(false);
-    }
-  } else if(typeof(gon.address) !== 'undefined'){
-    // Need to lookup coordinates
-    geocoder.geocode({'address': gon.address}, function(results, status){
-      console.log("Have to look up using address, lat/long were not given.");
-      if (status == google.maps.GeocoderStatus.OK) {
-        initialLocation = results[0].geometry.location;
-        generateMap();
-        var marker = new google.maps.Marker({
-            map: map,
-            position: initialLocation
-        });
-      } else {
-        alert("Geocode was not successful for the following reason: " + status);
-      }
-    });
-  } else if(typeof(gon.latitude) !== 'undefined' && typeof(gon.longitude) !== 'undefined'){
+  setCurrentLocation();
+
+  if(typeof(gon.latitude) !== 'undefined' && typeof(gon.longitude) !== 'undefined'){
+    // Geocoordinates were provided
     initialLocation = new google.maps.LatLng(gon.latitude, gon.longitude);
     generateMap();
+  } else if(typeof(gon.address) !== 'undefined'){
+    // Need to lookup address
+    addressLookup(gon.address);
   } else {
-    alert("Address not specified");
+    alert("Error loading Google maps, please reload the page.");
   }
+}
+
+// Look up geocoordinates from an address and use that as the initial location.
+function addressLookup(address){
+  geocoder = new google.maps.Geocoder();
+
+  geocoder.geocode({'address': address}, function(results, status){
+    if (status == google.maps.GeocoderStatus.OK) {
+      initialLocation = results[0].geometry.location;
+      generateMap();
+      var marker = new google.maps.Marker({
+          map: map,
+          position: initialLocation
+      });
+    } else {
+      console.log("Geocode was not successful for the following reason: " + status);
+    }
+  });
 }
 
 function autoCenter() {
@@ -60,12 +67,16 @@ function autoCenter() {
 }
 
 function generateMap(){
-  var mapOptions = {
-    zoom: 12,
-    center: initialLocation,
-    scrollwheel: false
+  // Verify the streetview doesn't already exist on the page
+  if(map === undefined){
+    var mapOptions = {
+      zoom: 12,
+      center: initialLocation,
+      scrollwheel: false
+    }
+    map = new google.maps.Map($("#google-map-aerial")[0], mapOptions);
   }
-  map = new google.maps.Map($("#google-map-aerial")[0], mapOptions);
+
   if(gon.markers){
     markers = gon.markers;
     setMarkers();
@@ -76,20 +87,61 @@ function generateMap(){
 }
 
 function generateStreetView(){
-  var panoramaOptions = {
-    position: initialLocation,
-    pov: {
-      heading: 34,
-      pitch: 10
-    }
-  };
-  pan = new google.maps.StreetViewPanorama($("#google-map-street")[0], panoramaOptions);
-  map.setStreetView(pan);
+  // Verify the streetview doesn't already exist on the page
+  if(pan === undefined){
+    var panoramaOptions = {
+      position: initialLocation,
+      pov: {
+        heading: 34,
+        pitch: 10
+      }
+    };
+    pan = new google.maps.StreetViewPanorama($("#google-map-street")[0], panoramaOptions);
+    map.setStreetView(pan);
+  }
 }
 
-function geoLocationCallback(errorFlag){
-  alert((errorFlag) ? "Geolocation service failed." : "Your browser doesn't support geolocation. Defaulting to Seattle.");
-  initialLocation = new google.maps.LatLng(47.614848,-122.3359058);
+function getCurrentLocation(){
+  // Attempt to get geolocation
+  if(navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(
+      function(position){ //Success
+        // Convert to Google Maps Geocode
+        currentLocation = new google.maps.LatLng(position.coords.latitude,position.coords.longitude);
+        setCurrentLocation();
+      },
+      function(error){    //Failure
+        switch(error.code) {
+          case error.PERMISSION_DENIED:
+            console.log("User denied the request for Geolocation.");
+            break;
+          case error.POSITION_UNAVAILABLE:
+            console.log("Location information is unavailable.");
+            break;
+          case error.TIMEOUT:
+            console.log("The request to get user location timed out.");
+            break;
+          case error.UNKNOWN_ERROR:
+            console.log("An unknown error occurred.");
+            break;
+        }
+      });
+  } else {
+    console.log("Your browser does not support geolocation.");
+  } 
+}
+
+function setCurrentLocation(){
+  if(map === undefined){
+    generateMap();
+  }
+  console.log(map)
+  // Create marker
+  var marker = new google.maps.Marker({
+    position: currentLocation,
+    map: map,
+    title: 'Hello World!'
+  });
 }
 
 function setMarkers(){

@@ -20,14 +20,19 @@ module InstitutionsHelper
 		rand(0..100)
 	end
 
-	def getHours(institution_id)
-  	# details = InstitutionDetail.where(institution_id: institution_id)
-    #   if details.present? and details.first.hours.present?
-    #     return details.first.hours
-    #   else
-    #     return "Not Listed"
-    #   end
-    "Not Listed"
+  # Use parameter if provided, otherwise use instance variable.
+  # 
+  # Any individual institution pages can use the instance variable, however if
+  # there is a loop over multiple institutions (institutions#list), it needs to
+  # be provided.
+	def getHours(institution_id = nil)
+    id = (institution_id.present?) ? institution_id : @institution.id
+  	temp = Hours.where(institution_id: id).first
+    if temp.present?
+      return temp
+    else
+      return [t('hours.missing')]
+    end
 	end
 
   def getPhone(institution_id)
@@ -36,15 +41,19 @@ module InstitutionsHelper
       phone = contact.first.phone.split("-")
       return sprintf("(%s)%s-%s", phone[0], phone[1], phone[2])
     else
-      return "Not Listed"
+      return t('contact.phone.missing')
     end
   end
 
   def getWebsite(institution_id)
-    contact = Contact.where(institution_id: institution_id)
-    if contact.present? and contact.first.website.present?
-      contact.first.website
+    contact = Contact.where(institution_id: institution_id).first
+    if contact.present?
+      if contact.website.present?
+        return full_url contact.website
+      end
     end
+
+    return t('contact.website.missing')
   end
 
 end

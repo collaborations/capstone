@@ -21,15 +21,15 @@
   %div#institution-info.columns.small-12.large-9
     %div.row
       %div#institution-details.columns.small-12.large-8
-        %p= "Phone: " + getPhone(@id)
-        %p
-          = "Website: "
-          - link = getWebsite(@id)
-          - if link.present?
-            = full_url link
-          - else
-            = "Not Listed"
-        %p= "Hours: " + getHours(@id)
+        %div.row
+          %h5.columns.small-4.large-3= "Phone:"
+          %p.columns.small-8.large-9= getPhone(@id)
+        %div.row
+          %h5.columns.small-4.large-3= "Website:"
+          %p.columns.small-8.large-9= getWebsite(@id)
+        %div#hours-list
+          - getHours.each do |h|
+            %p= h.to_s
 
       %div#google-map-aerial.columns.small-12.large-4
         = loading_spinner()

@@ -2,6 +2,7 @@ class InstitutionsController < ApplicationController
   before_action :set_amenity, only: [:edit, :update, :new]
   before_action :set_institution, only: [:show, :update, :destroy]
   before_action :authenticate_user!, only: [:edit, :update]
+  before_action :get_amenity_from_referrer, only: [:show]
 
   # GET /institutions
   # GET /institutions.json
@@ -52,7 +53,9 @@ class InstitutionsController < ApplicationController
       :longitude => lon/4
     })
     
-    @institutions = Amenity.find(params[:id]).institutions
+    @amenity = Amenity.find(params[:id])
+    @institutions = @amenity.institutions if @amenity.present?
+
     render 'index'
   end
 
@@ -158,9 +161,23 @@ class InstitutionsController < ApplicationController
       @amenities = Amenity.all
     end
 
+    # Get the amenity from the referrer
+    def get_amenity_from_referrer
+      # Make sure the referrer is there
+      if request.referrer.present?
+        # /amenity/6 -> ["", "amenity", "6"]
+        path = URI(request.referer).path.split("/")
+        if path[1] == "amenity" and path[2] =~ /\d+/
+          temp = Amenity.find(path[2])
+          @amenity = temp if temp.present?
+        end
+      end
+    end
+
     # Never trust parameters from the scary internet, only allow the white list through.
     def institution_params
       params.require(:institution).permit(:name, :desc, :instructions, { :locations_attributes => [:streetLine1, :streetLine2, :city, :state, :zip]}, { :amenity_ids => []}, {:restrictions_attributes => [:name, :desc]}, :category)
     end
+
 end
   

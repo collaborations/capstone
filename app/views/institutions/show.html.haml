@@ -91,3 +91,12 @@
         
 
 = render 'send_info_modal'
+
+- content_for :breadcrumbs do
+  %ul.breadcrumbs
+    %li 
+      = link_to 'HOME', (root_path)
+    - if @amenity.present?
+      %li= link_to @amenity.name, ("amenity/" + @amenity.id.to_s)
+    %li.current= @institution.name
+

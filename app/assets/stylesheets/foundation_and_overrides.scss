@@ -96,6 +96,7 @@ $row-width: 90%;
 // $font-weight-normal: normal !default;
 // $font-weight-bold: bold !default;
 
+
 $white       : #FFFFFF;
 $ghost       : #FAFAFA;
 $snow        : #F9F9F9;
@@ -379,8 +380,8 @@ $body-bg: $primary-bg;
 
 // We use this to control the maximum number of block grid elements per row
 // $block-grid-elements: 12;
-$block-grid-default-spacing: rem-calc(20);
-$align-block-grid-to-grid: false;
+// $block-grid-default-spacing: rem-calc(20);
+// $align-block-grid-to-grid: false;
 
 // Enables media queries for block-grid classes. Set to false if writing semantic HTML.
 // $block-grid-media-queries: true;
@@ -391,29 +392,30 @@ $align-block-grid-to-grid: false;
 // $include-html-nav-classes: $include-html-classes;
 
 // We use this to set the background color for the breadcrumb container.
-// $crumb-bg: scale-color($secondary-color, $lightness: 55%);
+$crumb-bg: $nav-bg;
 
 // We use these to set the padding around the breadcrumbs.
-// $crumb-padding: rem-calc(9 14 9);
-// $crumb-side-padding: rem-calc(12);
+$crumb-padding: rem-calc(17 14 9);
+$crumb-side-padding: rem-calc(12);
+$crumb-top-padding: rem-calc(56);
 
 // We use these to control border styles.
 // $crumb-function-factor: -10%;
-// $crumb-border-size: 1px;
+$crumb-border-size: 0px;
 // $crumb-border-style: solid;
-// $crumb-border-color: scale-color($crumb-bg, $lightness: $crumb-function-factor);
+//$crumb-border-color: none;
 // $crumb-radius: $global-radius;
 
 // We use these to set various text styles for breadcrumbs.
-// $crumb-font-size: rem-calc(11);
-// $crumb-font-color: $primary-color;
-// $crumb-font-color-current: $oil;
-// $crumb-font-color-unavailable: $aluminum;
-// $crumb-font-transform: uppercase;
+$crumb-font-size: rem-calc(15);
+//$crumb-font-color: $primary-color;
+$crumb-font-color-current: $oil;
+//$crumb-font-color-unavailable: $aluminum;
+$crumb-font-transform: uppercase;
 // $crumb-link-decor: underline;
 
 // We use these to control the slash between breadcrumbs
-// $crumb-slash-color: $base;
+//$crumb-slash-color: $base;
 // $crumb-slash: "/";
 
 // 05. Buttons

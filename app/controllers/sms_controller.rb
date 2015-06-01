@@ -130,7 +130,6 @@ class SmsController < ApplicationController
         rescue Twilio::REST::RequestError => e
           puts e.message
         end
-        puts @client
       end
     end
 

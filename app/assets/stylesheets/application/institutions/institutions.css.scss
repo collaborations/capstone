@@ -22,10 +22,6 @@ ul.breadcrumbs{
   @include search-btn();
   @include custom-btn($padding: rem-calc(2));
 
-  div.row {
-    max-width: 100%;
-  }
-
   .accordion{
     margin: 1em;
   }
@@ -109,15 +105,10 @@ ul.breadcrumbs{
       p {
         margin-bottom: 0px;
       }
-
-    }
-
-    #offered_amenity {
-      border-left: solid 1px black;
     }
 
     .amenities-list {
-      @include amenity-icon(35px);
+      @include amenity-icon(30px);
     }
 
     @media screen and (max-width: $mobile-width) {
@@ -126,7 +117,7 @@ ul.breadcrumbs{
         margin: 10px;
       }
       .amenities-list {
-        @include amenity-icon(25px);
+        @include amenity-icon(20px);
       }
     }
   }

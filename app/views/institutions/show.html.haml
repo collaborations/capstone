@@ -1,20 +1,19 @@
 %div.row#institution-header
-  %div.row
-    %div.columns.small-12.large-7
-      %h1#institution-name= @institution.name
-      %div#address
-        %p
-          %em= @location.streetLine1
-        %p
-          %em= @location.streetLine2 if @location.streetLine2.present?
-        %p
-          %em= @location.city + ", " + @location.state + " " + @location.zip.to_s
+  %div.columns.small-12.large-6
+    %h2#institution-name= @institution.name
+    %div#address
+      %p
+        %em= @location.streetLine1
+      %p
+        %em= @location.streetLine2 if @location.streetLine2.present?
+      %p
+        %em= @location.city + ", " + @location.state + " " + @location.zip.to_s
 
-    %div.columns.small-12.large-5#offered_amenity
-      %ul.small-block-grid-5.medium-block-grid-5.large-block-grid-5.amenities-list
-        - @institution.amenities.each do |amenity|
-          %li
-            =embedded_amenity(amenity)
+  %div.columns.small-12.large-5
+    %ul.small-block-grid-5.medium-block-grid-5.large-block-grid-5.amenities-list
+      - @institution.amenities.each do |amenity|
+        %li
+          =embedded_amenity(amenity)
 
 
 %div.row

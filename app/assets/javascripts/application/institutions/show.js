@@ -35,7 +35,7 @@ function initializeInstitution(){
       flashMessage("success", "Successfully subscribed to the mailing list.");
     })
     .on("ajax:failure", function(e, data, status, xhr){
-      console.log("FAILURE")
+      console.log("SMS subscription failed.")
     })
 
   // Close the modal form and flash a message.
@@ -45,6 +45,6 @@ function initializeInstitution(){
       flashMessage("success", "Message has been sent!");
     })
     .on("ajax:failure", function(e, data, status, xhr){
-      console.log("FAILURE")
+      console.log("Send info form failed.")
     })
 }

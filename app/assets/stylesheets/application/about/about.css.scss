@@ -72,7 +72,8 @@
 	}
 
 	#slide-2 {
-		background-image:url(image-path("soft-background.jpg"));
+		background-image:url(image-path(""));
+	    background-color: white;
 	    background-position: center center;
 	    background-repeat: no-repeat;
 	    background-attachment: fixed;
@@ -96,7 +97,7 @@
 	}
 
 	#slide-3 {
-		background-image:url(image-path("pikes.jpg"));
+		background-image:url(image-path("pioneer-square.jpg"));
 	    background-position: center center;
 	    background-repeat: no-repeat;
 	    background-attachment: fixed;
@@ -142,8 +143,7 @@
 	    	}
 		    h2 {
 		    	color:white;
-		    	width:260px;
-		    }
+		    	width:260px;		    }
 	    }
 	}
 

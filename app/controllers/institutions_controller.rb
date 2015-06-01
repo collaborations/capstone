@@ -85,8 +85,18 @@ class InstitutionsController < ApplicationController
       id = params.require(:id)
       @institution = Institution.where(id: id).first
 
-      @contact = Contact.where(institution_id: id)
-      @contact = @contact.first if @contact.present?
+      contact = Contact.where(institution_id: id)
+      contact = contact.first if contact.present?
+      @contact = []
+      if contact.email.present?
+        @contact << { label: "Email: ", info: contact.email }
+      end
+      if contact.phone.present?
+        @contact << { label: "Phone: ", info: contact.phone }
+      end
+      if contact.website.present?
+        @contact << { label: "Website: ", info: contact.website }
+      end
 
       @details = InstitutionDetail.where(institution_id: id)
       @details = @details.first if @details.present?
@@ -94,7 +104,11 @@ class InstitutionsController < ApplicationController
       @location = Location.where(institution_id: id)
       @location = @location.first if @location.present?
 
-      @amenities = InstitutionHasAmenity.joins(:amenity, :institution).where(institution_id: id).map(&:amenity)
+      @amenities = []
+      InstitutionHasAmenity.joins(:amenity, :institution).where(institution_id: id).map(&:amenity).each do |a|
+        @amenities << a.name
+      end
+      @amenities = @amenities.join(", ")
 
       # @restrictions = Restrictions.where(institution_id: id)
     rescue ActionController::ParameterMissing => e

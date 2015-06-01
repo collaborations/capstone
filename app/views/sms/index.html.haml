@@ -3,9 +3,10 @@
 %div#subscribers
   %p= "You have " + pluralize(@subscribers.length, "subscriber") + "!"
 %div#warning
-  %p= "This can be a powerful tool to help send out information to people in the area. Please try not to abuse this tool or else it may negatively impact how useful it is."
+  %p.panel= t('sms.mass_text.warning')
 %div#message
-  = form_tag('/sms/notify', remote: true, data: { :abide => "ajax" }) do
-    = text_area_tag "message", nil, { required: true, maxlength: 1600 }
-    %small.error= "You have to have a message in order to send one,"
-    = submit_tag "Send Message", class: "button"
+  - if @subscribers.length > 0
+    = form_tag('/sms/notify', id: "sms-mass-text-form", data: { abide: true, remote: true }) do
+      = text_area_tag "message", nil, { required: true, maxlength: 1600 }
+      %small.error= "You have to have a message in order to send one,"
+      = submit_tag "Send Message", class: "button"

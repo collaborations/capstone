@@ -1,8 +1,8 @@
 class SmsController < ApplicationController
   before_action :authenticate_user!, only: [:index, :notify]
+  before_action :check_subscribers, only: [:index]
 
   def index
-    @subscribers = Subscriber.where(institution_id: current_user.institution_id)
   end
 
   # This should notify all subscribers by sending them a message.
@@ -77,14 +77,20 @@ class SmsController < ApplicationController
       id = params.require(:id)
       # Check if phone number exists in database for given institution
       subscriber = Subscriber.where({phone: number, institution_id: id})
+      name = Institution.find(id).name
       if subscriber.present?
-        flash[:notice] = "Already Subscribed"
+        message = t('sms.subscribe.existing', name: name)
       else
-        Subscriber.create(phone: number, institution_id: id)
+        if Subscriber.create(phone: number, institution_id: id)
+          message = t('sms.subscribe.success', name: name)
+        end
       end
       redirect_to '/institution/' + id.to_s
     rescue => e
       puts e
+    end
+    if message.present?
+      send_message([number], message)
     end
   end
 
@@ -104,6 +110,14 @@ class SmsController < ApplicationController
   end
 
   private
+    def check_subscribers
+      @subscribers = Subscriber.where(institution_id: current_user.institution_id)
+      if @subscribers.length == 0
+        flash[:warning] = t('sms.subscribe.empty')
+      end
+    end
+
+
     def send_message(numbers, message)
       @client = Twilio::REST::Client.new Settings.twilio.sid, Settings.twilio.auth
       numbers.each do |num|
@@ -116,7 +130,6 @@ class SmsController < ApplicationController
         rescue Twilio::REST::RequestError => e
           puts e.message
         end
-        puts @client
       end
     end
 

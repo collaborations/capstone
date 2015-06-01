@@ -10,7 +10,6 @@
 
 %div
   %h3= t('home.search_categories')
-  = puts institutions_path()
   %ul#amenities_list.small-block-grid-2.large-block-grid-5
     - Amenity.all.each do |amenity|
       %li

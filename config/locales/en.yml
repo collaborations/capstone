@@ -38,7 +38,10 @@ en:
     statement: "Helping Seattle's homeless find what they need, when they need it most"
 
   sms:
+    mass_text:
+      warning: "This can be a powerful tool to help send out information to people in the area. Please try not to abuse this tool or else it may negatively impact how useful it is."
     subscribe:
+      empty: "Unfortunately you don't have any subscribers yet. People can sign up by subscribing on your institution page."
       existing: "You were already subscribed to %{name}!"
       success: "You have successfully subscribed to %{name}!"
 

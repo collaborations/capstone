@@ -1,8 +1,8 @@
 class SmsController < ApplicationController
   before_action :authenticate_user!, only: [:index, :notify]
+  before_action :check_subscribers, only: [:index]
 
   def index
-    @subscribers = Subscriber.where(institution_id: current_user.institution_id)
   end
 
   # This should notify all subscribers by sending them a message.
@@ -110,6 +110,14 @@ class SmsController < ApplicationController
   end
 
   private
+    def check_subscribers
+      @subscribers = Subscriber.where(institution_id: current_user.institution_id)
+      if @subscribers.length == 0
+        flash[:notice] = t('sms.subscribers.empty')
+      end
+    end
+
+
     def send_message(numbers, message)
       @client = Twilio::REST::Client.new Settings.twilio.sid, Settings.twilio.auth
       numbers.each do |num|

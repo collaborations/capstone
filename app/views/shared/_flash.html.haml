@@ -1,4 +1,6 @@
 %div#flash-message
-  - flash.each do |name, message|
-    %p= name.to_s
-    %p= message.to_s
+  - flash.each do |type, message|
+    %div.alert-box.radius{ class: type, data: { alert: true } }
+      %span= message
+      %a.close
+        &= "×"

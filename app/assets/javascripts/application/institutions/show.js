@@ -1,10 +1,10 @@
 var data;
 
 if($("#institution-modal").length){
-  initialize();
+  initializeInstitution();
 }
 
-function initialize(){
+function initializeInstitution(){
   $("#select-all-options").on("click", function(){ $("#customization-options input").attr('checked', true); });
   $("#remove-all-options").on("click", function(){ $("#customization-options input").attr('checked', false); });
   $("button[name='email']").on("click", function(){
@@ -45,11 +45,4 @@ function initialize(){
     .on("ajax:failure", function(e, data, status, xhr){
       console.log("FAILURE")
     })
-}
-
-function flashMessage(type, message){
-  _message = "<div data-alert class='alert-box " + type + " radius'>" + message + "<a href='#' class='close'>&times;</a></div>"
-  $("#flash-message").append(_message);
-  $(document).foundation('alert', 'reflow');
-  $("html, body").animate({ scrollTop: 0 }, "slow");
 }

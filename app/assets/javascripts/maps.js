@@ -13,17 +13,17 @@ window.onload = initializeGoogleMapsAPI;
 function initializeGoogleMapsAPI(){
   var script = document.createElement('script');
   script.type = 'text/javascript';
-  script.src = 'https://maps.googleapis.com/maps/api/js?v=3.exp' +
-      '&signed_in=true&callback=initialize';
+  script.src = gon.google_maps_url
   document.body.appendChild(script);
 }
 
-function googleMapsCallback(){
-  google.maps.event.addDomListener(window, 'load', initializeMaps);
-}
+// function googleMapsCallback(){
+//   google.maps.event.addDomListener(window, 'load', initializeMaps);
+// }
 
 function initializeMaps(){
-  setCurrentLocation();
+  pins = new Array();
+  getCurrentLocation();
 
   if(typeof(gon.latitude) !== 'undefined' && typeof(gon.longitude) !== 'undefined'){
     // Geocoordinates were provided
@@ -58,8 +58,7 @@ function addressLookup(address){
 function autoCenter() {
   //  Create a new viewpoint bound
   var bounds = new google.maps.LatLngBounds();
-  //  Go through each...
-  for (var i = 0; i < markers.length; i++) {  
+  for (var i = 0; i < pins.length; i++) {  
       bounds.extend(pins[i].position);
   }
   //  Fit these bounds to the map
@@ -67,38 +66,32 @@ function autoCenter() {
 }
 
 function generateMap(){
-  // Verify the streetview doesn't already exist on the page
-  if(map === undefined){
-    var mapOptions = {
-      zoom: 12,
-      center: initialLocation,
-      scrollwheel: false
-    }
-    map = new google.maps.Map($("#google-map-aerial")[0], mapOptions);
+  var mapOptions = {
+    zoom: 12,
+    center: initialLocation,
+    scrollwheel: false
   }
+  map = new google.maps.Map($("#google-map-aerial")[0], mapOptions);
 
   if(gon.markers){
     markers = gon.markers;
     setMarkers();
   }
   if($("#google-map-street").length){
-    generateStreetView()
+    generateStreetView();
   }
 }
 
 function generateStreetView(){
-  // Verify the streetview doesn't already exist on the page
-  if(pan === undefined){
-    var panoramaOptions = {
-      position: initialLocation,
-      pov: {
-        heading: 34,
-        pitch: 10
-      }
-    };
-    pan = new google.maps.StreetViewPanorama($("#google-map-street")[0], panoramaOptions);
-    map.setStreetView(pan);
-  }
+  var panoramaOptions = {
+    position: initialLocation,
+    pov: {
+      heading: 34,
+      pitch: 10
+    }
+  };
+  pan = new google.maps.StreetViewPanorama($("#google-map-street")[0], panoramaOptions);
+  map.setStreetView(pan);
 }
 
 function getCurrentLocation(){
@@ -132,21 +125,27 @@ function getCurrentLocation(){
 }
 
 function setCurrentLocation(){
-  if(map === undefined){
-    generateMap();
-  }
-  console.log(map)
   // Create marker
   var marker = new google.maps.Marker({
     position: currentLocation,
+    icon: cLocIconUrl,
     map: map,
-    title: 'Hello World!'
+    title: "Current Location"
   });
+  pins.push(marker);
+  var infowindow = new google.maps.InfoWindow({
+      content: "You are here!",
+      maxWidth: 160
+  });
+
+  google.maps.event.addListener(marker, 'click', function() {
+    infowindow.open(map,marker);
+  });
+  autoCenter();
 }
 
 function setMarkers(){
   // Add the markers and infowindows to the map
-  pins = new Array();
   var iconCounter = 0;
   for (var i = 0; i < markers.length; i++) {  
     var description = markers[i][0];
@@ -168,7 +167,5 @@ function setMarkers(){
       }
     })(marker, i));
   }
-  if (pins.length > 1) {
-    autoCenter();  
-  }
+  autoCenter();  
 }

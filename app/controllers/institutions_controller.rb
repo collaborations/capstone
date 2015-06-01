@@ -9,7 +9,6 @@ class InstitutionsController < ApplicationController
   def index
     @institutions = Institution.search(params[:search])
     set_locations()
-
   end
 
   # GET /amenity/1
@@ -137,7 +136,7 @@ class InstitutionsController < ApplicationController
         end
         lat += loc.lat
         long += loc.long
-        gon.markers << ["<h4>#{i.name}</h4>", loc.lat, loc.long]
+        gon.markers << [i.name, loc.lat, loc.long]
       end
       unless lat == 0 and long == 0
         gon.push({

@@ -76,7 +76,6 @@ gem 'faraday'
 # Use business_time to do our time management.
 gem 'business_time'
 
-
 group :production do
   gem 'execjs'
 end

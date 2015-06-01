@@ -7,6 +7,10 @@
 
 
 #home_index {
+  margin-top: 20px;
+  margin-left: $margin-side;
+  margin-right: $margin-side;
+
   h3 {
     color: $header-text-color;
   }
@@ -27,15 +31,21 @@
     .logo {
       // max-height: 30%;
       max-width: 500px;
+      border-right: 2px solid black;
     }
     .statement {
       padding-top: 10%;
       padding-bottom: 10%;
+      float:left;
+      margin-left: 5%;
     }
   }
 
   #search {
     clear: both;
+    h3 {
+      background-image: url('dot.jpg');
+    }
     .row {
       max-width: none;
     }    
@@ -51,5 +61,15 @@
   .statement {
     font-size: 20pt;
     line-height: 100%;
+  }
+
+  @media screen and (max-width: $mobile-width) {
+    .statement {
+      display: none;
+    }
+
+    #header > .logo {
+      border: 0;
+    }
   }
 }

@@ -28,6 +28,7 @@ function initializeMaps(){
   } else if(typeof(gon.address) !== 'undefined'){
     // Need to lookup coordinates
     geocoder.geocode({'address': gon.address}, function(results, status){
+      console.log("Have to look up using address, lat/long were not given.");
       if (status == google.maps.GeocoderStatus.OK) {
         initialLocation = results[0].geometry.location;
         generateMap();
@@ -61,7 +62,8 @@ function autoCenter() {
 function generateMap(){
   var mapOptions = {
     zoom: 12,
-    center: initialLocation
+    center: initialLocation,
+    scrollwheel: false
   }
   map = new google.maps.Map($("#google-map-aerial")[0], mapOptions);
   if(gon.markers){
@@ -114,5 +116,7 @@ function setMarkers(){
       }
     })(marker, i));
   }
-  autoCenter();
+  if (pins.length > 1) {
+    autoCenter();  
+  }
 }

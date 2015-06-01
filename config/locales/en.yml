@@ -22,6 +22,7 @@
 en:
   defaults:
     title: "Step Stone"
+
   capacity:
     title: "Capacity"
     description:
@@ -30,10 +31,38 @@ en:
       standby: "Guests who previously signed up"
       update_detail: "The tracked capacity will be updated in real-time on the Step Stone site."
 
+  contact:
+    phone:
+      default: "Phone:"
+      missing: "Number not listed"
+      placeholder: "(000)000-0000"
+    website:
+      default: "Website:"
+      missing: "Not listed"
+
+
+
   home:
     title: "Step Stone"
     search_categories: "Search by categories"
     search_name: "Search by name"
     search_placeholder: "Enter the name of a shelter, food bank, etc."
     statement: "Helping Seattle's homeless find what they need, when they need it most"
+    view_all: "View All"
+
+  hours:
+    closed: "Closed"
+    default: "Hours"
+    header:
+      days: "Day"
+      hours: "Hours Open"
+    missing: "Hours not listed"
+    open: "Open"
+    time:
+      format: "%l:%M%p"
+
+
+  institutions:
+    title: "Institutions"
+
 

@@ -4,13 +4,16 @@ class Institution < ActiveRecord::Base
 	has_many :locations
 	has_many :restrictions
 	has_many :subscribers
-	has_one :contact
+	
+  has_one :contact
+  has_one :filter
+  has_one :hours
 	has_one :institution_detail
-	has_one :filter
 
-	accepts_nested_attributes_for :contact
-	accepts_nested_attributes_for :locations
 	accepts_nested_attributes_for :amenities  
+  accepts_nested_attributes_for :contact
+  accepts_nested_attributes_for :hours
+  accepts_nested_attributes_for :locations
 	accepts_nested_attributes_for :restrictions
   accepts_nested_attributes_for :filter
 

@@ -1,6 +1,6 @@
 %div.row#institution-header
   %div.row
-    %div.columns.small-12.large-8
+    %div.columns.small-12.large-7
       %h1#institution-name= @institution.name
       %div#address
         %p
@@ -10,8 +10,8 @@
         %p
           %em= @location.city + ", " + @location.state + " " + @location.zip.to_s
 
-    %div.columns.small-12.large-3
-      %ul.small-block-grid-6.medium-block-grid-4.large-block-grid-5.amenities-list
+    %div.columns.small-12.large-5#offered_amenity
+      %ul.small-block-grid-5.medium-block-grid-5.large-block-grid-5.amenities-list
         - @institution.amenities.each do |amenity|
           %li
             =embedded_amenity(amenity)
@@ -21,17 +21,15 @@
   %div#institution-info.columns.small-12.large-9
     %div.row
       %div#institution-details.columns.small-12.large-8
-        %p= "Phone: " + getPhone(@id)
-        %p
-          = "Website: "
-          - link = getWebsite(@id)
-          - if link.present?
-            = full_url link
-          - else
-            = "Not Listed"
-        %p= "Hours: " + getHours(@id)
+        %div.row
+          %h5.columns.small-4.large-3= "Phone:"
+          %p.columns.small-8.large-9= getPhone
+        %div.row
+          %h5.columns.small-4.large-3= "Website:"
+          %p.columns.small-8.large-9= getWebsite
+        = getHours
 
-      %div#google-map-aerial.columns.small-12.large-4
+      %div#google-map-aerial.columns.small-12.large-6
         = loading_spinner()
 
     %div#google-map-street.row
@@ -52,7 +50,7 @@
 
   %div#get-info.columns.small-12.large-2
     %div#save
-      %h4= "Save Shelter Information"
+      %h4= "Save Information"
       %div.row
         %button.small-12.large-12{ name: "email", "data-reveal-id" => "institution-modal" }
           %div= embedded_svg("email.svg", { class: "save-icon", alt: "Email me this!"})
@@ -62,15 +60,16 @@
           %div= embedded_svg("sms.svg", { class: "save-icon", alt: "Text this to me!"})
           %span= "Text"
       %div.row
-        = link_to(institution_print_path(@id), { class: "columns small-12 large-12 button label" }) do
+        = link_to(institution_print_path, { class: "columns small-12 large-12 button label" }) do
           %div= embedded_svg("printer.svg", { class: "save-icon", alt: "Print this for me!"})
           %span= "Print"
 
-    %div#subscribe    
-      %h4= "Subscribe"
+    %div#subscribe
+      %h3= "Text Alerts"    
+      %h5= "Recieve future alerts from here on your phone"
       %div.row
         = form_tag('/sms/subscribe', method: :post, data: { :abide => "ajax" }) do
-          = telephone_field_tag "number", nil, required: true, pattern: "\\d{10}"
+          %input{:type=>"tel", :placeholder=>"Enter your phone number"}
           %small.error= "Please enter your 10 digit phone number (including area code)."
           = hidden_field_tag "id", @institution.id
           = submit_tag "Opt In", { class: "button", id: "opt-in" }

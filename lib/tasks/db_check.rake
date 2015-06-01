@@ -3,6 +3,7 @@ LB = "=" * 80
 namespace :db do
   desc "Run all database checks"
   task :check do
+    Rake::Task["db:check:contacts"].invoke
     Rake::Task["db:check:hours"].invoke
     Rake::Task["db:check:locations"].invoke
   end
@@ -11,6 +12,36 @@ namespace :db do
     # VARIABLE SETUP
     task :setup_variables do
       INSTITUTION_JUSTIFY = Institution.all.length.to_s.split('').length
+    end
+
+    # Contact
+    desc "Checks status of institution contact records"
+    task :contacts => [:environment, :setup_variables] do
+      puts ["\n\n", LB, "Checking Contacts", LB].join("\n")
+      c_total = Contact.all.length
+      CONTACT_JUSTIFY = c_total.to_s.split('').length
+
+      i_total = 0
+      Institution.all.each do |i|
+        if i.contact.nil?
+          puts "FAILED: No CONTACT records for INSTITUTION: #{i.id} - #{i.name}"
+        elsif i.contact.instance_of? Contact
+          i_total += 1
+          puts "--> OK: 1 CONTACT record  for INSTITUTION: #{i.id.to_s.rjust(INSTITUTION_JUSTIFY)} - #{i.name}"
+        elsif i.contact.instance_of? Contact::ActiveRecord_Relation
+          puts "WARNING: More than one CONTACT record for INSTITUTION: #{i.id} - #{i.name}"
+        end
+      end
+
+      puts "\n"
+      puts "In total there #{(c_total == 1) ? 'is' : 'are' } #{c_total} CONTACT #{'record'.pluralize(c_total)}"
+
+      # Check to see that the number of Institution and Contact records match (ONE-ONE relationship).
+      if i_total != c_total
+        puts "\n\n"
+        puts "WARNING: Number of INSTITUTIONS records (#{i_total}) and CONTACT records (#{c_total}) differ."
+      end
+      puts "\n\n"
     end
 
     # Hours

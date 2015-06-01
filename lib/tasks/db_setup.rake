@@ -1,5 +1,23 @@
 namespace :db do
   namespace :setup do
+    # Contact
+    desc "Ensures every Institution has an contact object"
+    task :contacts => :environment do
+      Institution.all.each do |i|
+        if i.contact.nil?
+          i.contact = Contact.create(institution_id: i.id)
+          if i.save
+            puts "--> OK: Created CONTACT for INSTITUTION: #{i.id} - #{i.name}"
+          else
+            puts "FAILED: Failed to create missing CONTACT for INSTITUTION: #{i.id} - #{i.name}"
+          end
+        elsif i.contact.instance_of? Contact::ActiveRecord_Relation
+          puts "WARNING: More than one CONTACT record for INSTITUTION: #{i.id} - #{i.name}"
+        end
+      end
+    end
+
+
     # Filters
     desc "Ensures every Institution has a filters object"
     task :filters => :environment do

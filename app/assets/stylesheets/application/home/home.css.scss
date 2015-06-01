@@ -16,8 +16,6 @@
   }
 
   #amenities_list {
-    background-color: $primary-bg;
-
     @include amenity-icon(60px);
   }
 

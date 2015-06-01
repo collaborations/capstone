@@ -15,6 +15,8 @@ Rails.application.routes.draw do
 
   get '/about' => 'about#index'
 
+  get '/account' => 'account#index', as: 'account'
+
   get '/amenity/:id' => 'institutions#amenity', as: 'amenity'
 
   get '/institution/:id' => 'institutions#show'

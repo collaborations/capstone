@@ -1,6 +1,6 @@
 // Background
-$primary-bg: #FBFFEE;
-$secondary-bg: #FBFFEE;
+$primary-bg: #ffffff;
+$secondary-bg: #ffffff;
 
 // Home Margin
 $margin-side: 10%;
@@ -13,7 +13,7 @@ $label-color: #A4A5A0;
 $button-bg: #008CBA;
 
 // Nav Bar
-$nav-bg: #cda8a0;
+$nav-bg: #94cff7;
 $nav-hover: #ab8680;
 $nav-height: 45px;
 $nav-bottom: 40px;
@@ -33,6 +33,10 @@ $title-font: 22pt;
 // Colors
 $white: #EEE;
 
+
 // Screen Sizes
 $mobile-width: 440px;
 $desktop-width: 900px;
+
+// Breadcrumbs 
+$breadcrumb-bg: $nav-bg;

@@ -14,7 +14,9 @@ $amenity-circle-size: $amenity-size * 2;
   margin-right: auto;
 }
 
-
+ul.breadcrumbs{
+  padding-left: 3em;
+}
 
 #institutions_index, #institutions_amenity {
   @include search-btn();
@@ -63,8 +65,7 @@ $amenity-circle-size: $amenity-size * 2;
   
   #google-map-aerial {
     height: 400px;
-    border: 1px solid #AAA;
-  }
+	}
 
   #institutions_list {
     .institution-name {

@@ -14,7 +14,6 @@ class InstitutionsController < ApplicationController
   # GET /amenity/1
   def amenity
     @institutions = Amenity.find(params[:id]).institutions
-
     set_locations()
     render 'index'
   end
@@ -25,7 +24,6 @@ class InstitutionsController < ApplicationController
     @location = Location.where(institution_id: @institution.id).first
     @restrictions = @institution.restrictions
     set_locations()
-    render 'show'
   end
 
   # GET /institutions/new
@@ -39,7 +37,6 @@ class InstitutionsController < ApplicationController
   # GET /institutions/1/edit
   def edit
     @institution = Institution.where(id: params[:id]).first
-    puts @institution
   end
 
   # POST /institutions
@@ -127,16 +124,14 @@ class InstitutionsController < ApplicationController
       institutions = @institution.present? ? [@institution] : @institutions
       institutions.each do |i|
         loc = i.locations.first
-        if loc.lat.present? and loc.long.present?
-          puts "Locations exist for #{i.name} { lat: #{loc.lat}, long:#{loc.long}"
-        else
+        if !loc.lat.present? or !loc.long.present?
           getLatLong(i)
           # Update data with current database values
           loc = i.locations.first
         end
         lat += loc.lat
         long += loc.long
-        gon.markers << [i.name, loc.lat, loc.long]
+        gon.markers << [i.id, i.name, loc.lat, loc.long]
       end
       unless lat == 0 and long == 0
         gon.push({
@@ -151,7 +146,6 @@ class InstitutionsController < ApplicationController
       address = location.streetLine1 + " "
       address << location.streetLine2 + " " if location.streetLine2.present?
       address << location.city + ", " + location.state + " " + location.zip.to_s
-      puts "Requesting geocode for: " + address
       url = Settings.google.geocode.url + "api_key=" + Settings.google.geocode.token + "&address=" + address.sub(/\s/, "+")
       response = JSON.parse(Faraday.get(url).body)['results']
       data = response[0]['geometry']['location']

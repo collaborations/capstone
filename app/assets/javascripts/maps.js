@@ -1,5 +1,4 @@
 var currentLocation;
-var geocoder;
 var initialLocation;
 var map;
 var markers;
@@ -16,10 +15,6 @@ function initializeGoogleMapsAPI(){
   script.src = gon.google_maps_url
   document.body.appendChild(script);
 }
-
-// function googleMapsCallback(){
-//   google.maps.event.addDomListener(window, 'load', initializeMaps);
-// }
 
 function initializeMaps(){
   pins = new Array();
@@ -39,7 +34,7 @@ function initializeMaps(){
 
 // Look up geocoordinates from an address and use that as the initial location.
 function addressLookup(address){
-  geocoder = new google.maps.Geocoder();
+  var geocoder = new google.maps.Geocoder();
 
   geocoder.geocode({'address': address}, function(results, status){
     if (status == google.maps.GeocoderStatus.OK) {
@@ -102,6 +97,7 @@ function getCurrentLocation(){
         // Convert to Google Maps Geocode
         currentLocation = new google.maps.LatLng(position.coords.latitude,position.coords.longitude);
         setCurrentLocation();
+        getDistanceMatrix();
       },
       function(error){    //Failure
         switch(error.code) {
@@ -122,6 +118,31 @@ function getCurrentLocation(){
   } else {
     console.log("Your browser does not support geolocation.");
   } 
+}
+
+function getDistanceMatrix(){
+  var service = new google.maps.DistanceMatrixService();
+  var destinations = [];
+  $.each(markers, function(i, v){
+    destinations.push(new google.maps.LatLng(v[2], v[3]));
+  });
+
+  service.getDistanceMatrix({
+      origins: [currentLocation],
+      destinations: destinations,
+      travelMode: google.maps.TravelMode.WALKING,
+      unitSystem: google.maps.UnitSystem.IMPERIAL
+    }, processDistanceMatrix);
+}
+
+function processDistanceMatrix(response, status) {
+  if (status == google.maps.DistanceMatrixStatus.OK) {
+    $.each(response.rows[0].elements, function(i, v){
+      id = markers[i][0];
+      $("#distance-" + id).text(v.distance.text);
+      $("#distance-container-" + id).fadeIn();
+    });
+  }
 }
 
 function setCurrentLocation(){
@@ -148,8 +169,8 @@ function setMarkers(){
   // Add the markers and infowindows to the map
   var iconCounter = 0;
   for (var i = 0; i < markers.length; i++) {  
-    var description = markers[i][0];
-    var destination = new google.maps.LatLng(markers[i][1], markers[i][2]);
+    var description = markers[i][1];
+    var destination = new google.maps.LatLng(markers[i][2], markers[i][3]);
     var marker = new google.maps.Marker({
       position: destination,
       map: map,

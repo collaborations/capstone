@@ -40,16 +40,20 @@
             %button#btn-distance.filter-btn-deselected= "Distance"
             %button#btn-name.filter-btn-deselected= "Name"
 
-%div.row
-  %div.small-12.large-5.columns#google-map-aerial
+%div.row.collapse
+  %div#google-map-aerial.columns.small-12.large-5.center
     = loading_spinner()
 
-  %div.small-12.large-7.columns#institutions_list
+  %div#institutions_list.columns.small-12.large-7
     - @institutions.each do |institution|
       %div.institution.row
         %div.small-12.large-6.columns
           =link_to institution.name, institution_path(institution), class: "row small-12 large-12 institution-name"
-          %p.row.small-12.large-12.institution-distance= "Distance: " + getDistance.to_s
+          %div.row.small-12.large-12
+            %div.hide{ id: "distance-container-#{institution.id}" }
+              %span= "Distance: "
+              %span{ id: "distance-#{institution.id}" }
+
           %p.row.small-12.large-12.institution-hours= getHours
           %div.row.small-8.large-8= link_to("View More Details", "/institution/" + institution.id.to_s)
         %div.small-12.large-6.columns

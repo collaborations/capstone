@@ -30,6 +30,9 @@
           - else
             = "Not Listed"
         %p= "Hours: " + getHours
+        %p.hide{ id: "distance-container-#{@institution.id}" }
+          %span= "Distance: "
+          %span{ id: "distance-#{@institution.id}" }
 
       %div#google-map-aerial.columns.small-12.large-4
         = loading_spinner()

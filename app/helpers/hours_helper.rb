@@ -11,7 +11,6 @@ module HoursHelper
     @hours_present = false  # Need to set to false in case of looping in a view
     id = (institution_id.present?) ? institution_id : @institution.id
     time_format = t('hours.time.format')
-    _days = Date::DAYNAMES
 
     h = Hours.where(institution_id: id).first
     hours = []

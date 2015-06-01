@@ -34,6 +34,7 @@ class InstitutionsController < ApplicationController
     @institution.restrictions.build
     @institution.filter = Filter.new
     @institution.build_hours
+    @institution.build_contact
   end
 
   # GET /institutions/1/edit
@@ -129,9 +130,10 @@ class InstitutionsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def institution_params
-      params.require(:institution).permit(:name, :desc, :instructions, :category,
+      params.require(:institution).permit(:name, :desc, :instructions,
         { :locations_attributes => [:id, :institution_id, :streetLine1, :streetLine2, :city, :state, :zip]}, 
-        { :amenity_ids => []}, 
+        { :amenity_ids => []},
+        { :contact_attributes => [:id, :institution_id, :phone, :email, :website]},
         { :restrictions_attributes => [:name, :desc]},
         { :hours_attributes => [:id, :institution_id, :mon_open, :mon_close, :tue_open, :tue_close, :wed_open, :wed_close, :thu_open, :thu_close, :fri_open, :fri_close, :sat_open, :sat_close, :sun_open, :sun_close]},
         { :filter_attributes => [:individual, :family, :male, :female, :min_age, :max_age, :physical_disability, :mental_disability, :veteran, :abuse_victim]} )

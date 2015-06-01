@@ -194,3 +194,18 @@ ul.breadcrumbs{
     }
   }
 }
+
+#institutions_new, #institutions_edit {
+  #institution_form > div {
+    margin-left: 8%;
+    margin-right: 8%;
+    padding-left: 2%;
+    padding-right: 2%;
+  }
+
+  #institution_form > div:not(:first-child) {
+    border-top: solid #888 1px;
+    margin-top: 20px;
+    padding-top: 20px;
+  }
+}

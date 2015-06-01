@@ -1,44 +1,44 @@
 %div#filters
   %h2= "Filters"
   = f.fields_for :filter do |t|
-    %ul.small-block-grid-2.large-block-grid-4
+    %ul.small-block-grid-2.large-block-grid-5
       %li.row
-        %h4.columns.small-12.large-12= "Group Restrictions"
-        %div.columns.small-6.large-6
+        %h5.columns.small-12.large-12= "Group Restrictions"
+        %div
           = t.label :individual, "Individual"
           = t.check_box :individual
-        %div.columns.small-6.large-6
+        %div
           = t.label :family, "Family"
           = t.check_box :family
       %li.row
-        %h4.columns.small-12.large-12= "Gender Restrictions"
-        %div.columns.small-6.large-6
+        %h5.columns.small-12.large-12= "Gender Restrictions"
+        %div
           = t.label :male, "Male"
           = t.check_box :male
-        %div.columns.small-6.large-6
+        %div
           = t.label :female, "Female"
           = t.check_box :female
       %li.row
-        %h4.columns.small-12.large-12= "Age Restrictions"
-        %div.columns.small-6.large-6
+        %h5.columns.small-12.large-12= "Age Restrictions"
+        %div
           = t.label :min_age, "Minimum Age"
           = t.number_field :min_age
-        %div.columns.small-6.large-6
+        %div
           = t.label :max_age, "Maximum Age"
           = t.number_field :max_age
       %li.row
-        %h4.columns.small-12.large-12= "Disability Services"
-        %div.columns.small-6.large-6
+        %h5.columns.small-12.large-12= "Disability Services"
+        %div
           = t.label :physical_disability, "Physical Disability"
           = t.check_box :physical_disability
-        %div.columns.small-6.large-6
+        %div
           = t.label :mental_disability, "Mental Disability"
           = t.check_box :mental_disability
       %li.row
-        %h4.columns.small-12.large-12= "Misc"
-        %div.columns.small-6.large-6
+        %h5.columns.small-12.large-12= "Misc"
+        %div
           = t.label :veteran, "Veteran"
           = t.check_box :veteran
-        %div.columns.small-6.large-6
+        %div
           = t.label :abuse_victim, "Victim of Abuse"
           = t.check_box :abuse_victim

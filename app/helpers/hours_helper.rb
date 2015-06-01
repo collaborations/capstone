@@ -11,7 +11,7 @@ module HoursHelper
     @hours_present = false  # Need to set to false in case of looping in a view
     id = (institution_id.present?) ? institution_id : @institution.id
     time_format = t('hours.time.format')
-    days = Date::DAYNAMES
+    _days = Date::DAYNAMES
 
     h = Hours.where(institution_id: id).first
     hours = []
@@ -29,7 +29,10 @@ module HoursHelper
       open = t[0].present? ? t[0].strftime(time_format) : nil
       close = t[1].present? ? t[1].strftime(time_format) : nil
       if open.present? and close.present?
-        hours << { day: days[i], hours: open + "-" + close}
+        @hours_present = true
+        hours << open + "-" + close
+      else
+        hours << "Closed"
       end
     end
 
@@ -45,7 +48,6 @@ module HoursHelper
     open = c_time.during_business_hours?
 
     if hours.present?
-      @hours_present = true
       render 'shared/hours', hours: hours, open: open
     end
   end

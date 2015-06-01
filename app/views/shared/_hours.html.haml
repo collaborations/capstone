@@ -7,12 +7,10 @@
       - else
         %p.label.alert= t('hours.closed')
   %table#hours-list
-    %thead
-      %th= t('hours.header.days')
-      %th= t('hours.header.time')
     %tbody
-      - hours.each do |h|
-        - if h[:hours].present?
-          %tr
-            %td= h[:day]
-            %td= h[:hours]
+      %tr
+        - Date::DAYNAMES.each do |d|
+          %td= d
+      %tr
+        - hours.each do |h|
+          %td= h

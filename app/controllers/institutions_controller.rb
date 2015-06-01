@@ -43,6 +43,7 @@ class InstitutionsController < ApplicationController
   # POST /institutions.json
   def create
     @institution = Institution.new(institution_params)
+    getLatLong(@institution)
     respond_to do |format|
       if @institution.save
         format.html { redirect_to @institution, notice: 'Institution was successfully created.' }
@@ -119,7 +120,6 @@ class InstitutionsController < ApplicationController
     def set_locations
       lat = 0
       long = 0
-      @locations = {}
       gon.markers = []
       institutions = @institution.present? ? [@institution] : @institutions
       institutions.each do |i|
@@ -142,17 +142,20 @@ class InstitutionsController < ApplicationController
     end
 
     def getLatLong(institution)
-      location = institution.locations.first
-      address = location.streetLine1 + " "
-      address << location.streetLine2 + " " if location.streetLine2.present?
-      address << location.city + ", " + location.state + " " + location.zip.to_s
-      url = Settings.google.geocode.url + "api_key=" + Settings.google.geocode.token + "&address=" + address.sub(/\s/, "+")
-      response = JSON.parse(Faraday.get(url).body)['results']
-      data = response[0]['geometry']['location']
-      location.lat = data['lat']
-      location.long = data['lng']
-      location.save
-      puts data
+      begin
+        location = institution.locations.first
+        address = location.streetLine1 + " "
+        address << location.streetLine2 + " " if location.streetLine2.present?
+        address << location.city + ", " + location.state + " " + location.zip.to_s
+        url = Settings.google.geocode.url + "api_key=" + Settings.google.geocode.token + "&address=" + address.sub(/\s/, "+")
+        response = JSON.parse(Faraday.get(url).body)['results']
+        data = response[0]['geometry']['location']
+        location.lat = data['lat']
+        location.long = data['lng']
+        location.save
+      rescue NoMethodError => e
+        Rails.logger.error e
+      end
     end
 end
   

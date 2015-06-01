@@ -3,7 +3,7 @@
 %div#subscribers
   %p= "You have " + pluralize(@subscribers.length, "subscriber") + "!"
 %div#warning
-  %p.label.warning= t('sms.mass_text.warning')
+  %p.panel= t('sms.mass_text.warning')
 %div#message
   - if @subscribers.length > 0
     = form_tag('/sms/notify', id: "sms-mass-text-form", data: { abide: true, remote: true }) do

@@ -113,7 +113,7 @@ class SmsController < ApplicationController
     def check_subscribers
       @subscribers = Subscriber.where(institution_id: current_user.institution_id)
       if @subscribers.length == 0
-        flash[:notice] = t('sms.subscribers.empty')
+        flash[:warning] = t('sms.subscribe.empty')
       end
     end
 

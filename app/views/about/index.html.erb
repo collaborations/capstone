@@ -1,0 +1,139 @@
+<div id="slides-container"> 
+	<div id="slides"
+		data-0="transform: translate(0%,0%)"
+		data-50p=""
+		data-150p="transform: translate(0%,-50%)"
+		data-200p=""
+		data-300p="transform: translate(0%,-100%)"
+		data-350p=""
+		data-450p="transform: translate(0%,-150%)"
+	> 
+		<div id="slide-1" class="slide">
+			<div class="caption">
+				<h1>Step Stone</h1>
+				<p>Helping Seattle's homeless find what they need, when they need it most</p>
+			</div>
+			<div id="scroll-down">
+				<p>Scroll down to learn more</p>
+			</div>
+		</div>
+		<div id="slide-2" class="slide">
+			<div class="caption">
+				<h1>What is Step Stone</h1>
+				<p>We sought out to create a functional web application that can be used by the homeless in Seattle to find resources on where they can sleep, eat, and find their basic needs. We aim to connect people with information through the medium of the technologies that they aleady have.</p>
+			</div>
+			<iframe width="720" height="405" src="http://www.youtube.com/embed/WhXUmwT6YGc"       frameborder="0"></iframe>
+
+		</div>
+		<div id="slide-3" class="slide">
+			<div class="caption">
+			<h1>Inspiration</h1>
+			<p>Seattle is a hub for the homeless with its temperate weather and kind atmosphere. In 2015 alone, there was a 21% increase in the number of homeless in the Seattle area. With such a growing population, there have been steps to provide more resources for the homeless, such as food banks, shelters, and other non-profit institutions created to serve the homeless. However, with little funding, advertising of these institutions is less than minimal. Brochures and word of mouth have been the only real tools to help find resources. As a team, we wanted to be able to bridge this gap and serve information better through the technologies that the homeless already has access to.</p>
+			</div>
+		</div>
+		<div id="slide-4" class="slide">
+			<div>
+				<h1>Meet the Team</h1>
+			</div>
+			<div class="row">
+				<div class="person large-3 columns">
+					<%= image_tag("nikki-headshot.jpg", :size => "260x260") %>
+					<h2>Project Manager</h2>
+				</div>
+				<div class="person large-3 columns">
+					<%= image_tag("sweet-headshot.jpg", :size => "260x260") %>
+					<h2>Designer</h2>
+				</div>
+				<div class="person large-3 columns">
+					<%= image_tag("gino-headshot.jpg", :size => "260x260") %>
+					<h2>Developer</h2>
+				</div>
+				<div class="person large-3 columns">
+					<%= image_tag("daniel-headshot.jpg", :size => "260x260") %>
+					<h2>Developer</h2>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- 
+<div id="helper">
+	<div class="marker slide1"></div>
+	<div class="marker slide2"></div>
+	<div class="marker slide3"></div>
+	<div class="marker slide4"></div>
+</div>
+ -->
+<!-- <section id="slide-1" class="homeSlide">
+    <div class="bcg"
+        data-center="background-position: 50% 0px;"
+        data-top-bottom="background-position: 50% -100px;"
+        data-anchor-target="#slide-1"
+    >
+        <div class="hsContainer">
+            <div class="hsContent"
+                data-center="opacity: 1"
+                data-106-top="opacity: 0"
+                data-anchor-target="#slide-1 h2"
+            >
+                <h2>Fade out elements before <br>they leave viewport</h2>
+            </div>
+        </div>
+    </div>
+</section> -->
+
+<!-- <section id="slide-2">
+    <div class="bcg"
+        data-0="background-color:rgb(1,27,59);"
+        data-top="background-color:(0,0,0);"
+        data-anchor-target="#slide-2"
+    >
+        <div class="hsContainer">
+            <div class="hsContent">
+                <h2
+                    data--200-bottom="opacity: 0"
+                    data-center="opacity: 1"
+                    data-206-top="opacity: 1"
+                    data-106-top="opacity: 0"
+                    data-anchor-target="#slide-2 h2"
+                >
+                    Fade me in and out
+                </h2>
+            </div>
+        </div>
+    </div>
+</section> 
+
+<section id="slide-3" class="homeSlide">
+    <div class="bcg"
+        data-center="background-position: 0px 50%;"
+        data-bottom-top="background-position: 0px 40%;"
+        data-top-bottom="background-position: -40px 50%;"
+        data-anchor-target="#slide-3"
+    >
+        <div class="hsContainer">
+            <div class="hsContent">
+                <div class="plaxEl"
+                    data-106-top="opacity: 0"
+                    data-bottom="opacity: 1; position: fixed; top: 206px; width: 100%; left: 0;"
+                    data--30p-top="opacity: 1;"
+                    data--60p-top="opacity: 0;"
+                    data-anchor-target="#slide-3"
+                >
+                    <h2>Fixed element fading in and out</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</section> -->
+
+<script>
+  $(document).ready(function() {
+    var s = skrollr.init({
+      render: function(data) {
+        //Debugging - Log the current scroll position.
+        console.log(data.curTop);
+      }
+    });
+  });
+</script>

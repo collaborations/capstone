@@ -27,6 +27,8 @@ function initializeInstitution(){
     $("#email").attr("aria-invalid", false);
   });
 
+  $(".modal-close-button").on('click', function(){ $("#institution-modal").foundation('reveal', 'close'); });
+
   // Show alert when they successfully subscribe to a institution
   $("#sms-subscribe-form")
     .on('ajax:success', function(e, data, status, xhr){

@@ -41,7 +41,9 @@ en:
     mass_text:
       warning: "This can be a powerful tool to help send out information to people in the area. Please try not to abuse this tool or else it may negatively impact how useful it is."
     subscribe:
+      description: "Recieve future alerts from here on your phone"
       empty: "Unfortunately you don't have any subscribers yet. People can sign up by subscribing on your institution page."
       existing: "You were already subscribed to %{name}!"
+      title: "Text Alerts"
       success: "You have successfully subscribed to %{name}!"
 

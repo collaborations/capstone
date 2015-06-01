@@ -67,8 +67,7 @@
           %span= "Print"
 
     %div#subscribe
-      %h3= "Text Alerts"    
-      %h5= "Recieve future alerts from here on your phone"
+      %h4.has-tip{ data: { tooltip: true}, aria: { haspopup: true }, title: t('sms.subscribe.description')}= t('sms.subscribe.title')
       %div.row
         = form_tag('/sms/subscribe', id: "sms-subscribe-form", data: { remote: true, abide: true } ) do
           = telephone_field_tag "number", nil, required: true, pattern: "\\d{10}"

@@ -1,9 +1,9 @@
 // Place all the styles related to the Institutions controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
-
 @import 'mixins';
 @import 'variables';
+
 
 $amenity-size: 30px;
 $amenity-circle-size: $amenity-size * 2;
@@ -40,8 +40,6 @@ $amenity-circle-size: $amenity-size * 2;
       width: 100%;
       clear: both;
     }
-
-
 
     .filter-btn-selected {
       @include filter-btn-selected();

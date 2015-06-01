@@ -1,6 +1,13 @@
+@import "foundation/components/reveal";
+
 // Allow spacing
 .keep-spacing {
   white-space: pre-line;
+}
+
+// Used for modal X in corner
+.modal-close-button {
+  @include reveal-close($color: $reveal-close-color);
 }
 
 // Loading Spinner

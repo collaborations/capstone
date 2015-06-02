@@ -16,21 +16,29 @@
           %li
             =embedded_amenity(amenity)
 
-
+- getHours
 %div.row
   %div#institution-info.columns.small-12.large-10
-    %div.row
-      %div#institution-details.columns.small-12.large-8
-        %div.row
-          %h5.columns.small-4.large-3= "Phone:"
-          %p.columns.small-8.large-9= getPhone
-        %div.row
-          %h5.columns.small-4.large-3= "Website:"
-          %p.columns.small-8.large-9= getWebsite
-        %p.hide{ id: "distance-container-#{@institution.id}" }
-          %span= "Distance: "
-          %span{ id: "distance-#{@institution.id}" }
-        = getHours
+    %div#institution-details.columns.small-12.large-8
+      %p
+        %span.columns.small-4.large-3= "Phone:"
+        %span.columns.small-8.large-9= getPhone
+      %p
+        %span.columns.small-4.large-3= "Website:"
+        %span.columns.small-8.large-9= getWebsite
+      %p.hide{ id: "distance-container-#{@institution.id}" }
+        %span.columns.small-4.large-3= "Distance: "
+        %span.columns.small-8.large-9{ id: "distance-#{@institution.id}" }
+      - if @hours.present?
+        %p
+          %span.columns.small-4.large-3= "Hours:"
+          %span.columns.small-8.large-9
+            - if @open
+              %small.label.success= t('hours.open')
+            - else
+              %small.label.alert= t('hours.closed')
+      = render 'shared/hours'
+        
 
     %div.row
       %div#google-map-aerial.columns.small-12.large-6

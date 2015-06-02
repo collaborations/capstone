@@ -32,8 +32,8 @@ module HoursHelper
     work_days = Hash.new
 
     temp.each_with_index do |t, i|
-      open = t[0].present? ? t[0] : nil
-      close = t[1].present? ? t[1] : nil
+      open = (t[0].present?) ? t[0] : nil
+      close = (t[1].present?) ? t[1] : nil
 
       if open.present? and close.present?
         @hours_present = true
@@ -44,42 +44,12 @@ module HoursHelper
       end
     end
 
-    # Whether the institution is current open
-    c_time = Time.now.strftime(time_format_compare)
-    # h_today = temp[c_time.wday]
+    BusinessTime::Config.work_hours = work_days
 
-    # if h_today[0].present? and h_today[1].present?
-    #   BusinessTime::Config.work_week = work_days
-    #   BusinessTime::Config.beginning_of_workday = h_today[0].strftime(time_format_compare)
-    #   BusinessTime::Config.end_of_workday = h_today[1].strftime(time_format_compare)
-    # end
-    
-    
-    @open = Time.parse(c_time).during_business_hours?
-
-    puts "\n"*20
-    puts "="*20
-    puts work_days.to_json
-    puts "\n"
-    puts c_time
-    puts "\n"
-    puts Time.parse(c_time)
-    puts "\n"
-    puts BusinessTime::Config.work_week
-    puts "="*20
-    puts "\n"*20
-
-    if hours.present?
-      render 'shared/hours', hours: hours
+    # Whether the institution is currently open
+    if @hours_present
+      @open = Time.now.during_business_hours?
+      @hours = hours
     end
   end
 end
-
-
-# %div.row
-#   %h5.columns.small-4.large-12= t('hours.default')
-#   %div.columns.small-8.large-12
-#     - if open
-#       %p.label.success= t('hours.open')
-#     - else
-#       %p.label.alert= t('hours.closed')

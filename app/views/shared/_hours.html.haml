@@ -1,13 +1,9 @@
-- if hours.present?
-  - if @open
-    %p.label.success= t('hours.open')
-  - else
-    %p.label.alert= t('hours.closed')
+- if @hours.present?
   %table#hours-list
     %tbody
       %tr
         - Date::DAYNAMES.each do |d|
           %td= d
       %tr
-        - hours.each do |h|
+        - @hours.each do |h|
           %td= h

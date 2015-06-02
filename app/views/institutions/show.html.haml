@@ -20,17 +20,17 @@
 %div.row
   %div#institution-info.columns.small-12.large-10
     %div#institution-details.columns.small-12.large-8
-      %p
+      %p.row
         %span.columns.small-4.large-3= "Phone:"
         %span.columns.small-8.large-9= getPhone
-      %p
+      %p.row
         %span.columns.small-4.large-3= "Website:"
         %span.columns.small-8.large-9= getWebsite
-      %p.hide{ id: "distance-container-#{@institution.id}" }
+      %p.row.hide{ id: "distance-container-#{@institution.id}" }
         %span.columns.small-4.large-3= "Distance: "
         %span.columns.small-8.large-9{ id: "distance-#{@institution.id}" }
       - if @hours.present?
-        %p
+        %p.row
           %span.columns.small-4.large-3= "Hours:"
           %span.columns.small-8.large-9
             - if @open

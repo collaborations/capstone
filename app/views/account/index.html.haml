@@ -18,17 +18,3 @@
       %h4= "Send Text Alert"
       = link_to("/capacity") do
         = image_tag "email.svg", class: "edit_profile-icon"       
-
-
-
-%div.row
-  %h3= "Showing [....]"
-  %ul.accordion{data:{accordion:true}}
-    %li.accordion-navigation.small-12.large-8.columns
-      %a{href:"#filter"}= "Filter" 
-      %div#filter.content.active
-        %ul#filter-settings.small-block-grid-3.large-block-grid-5
-          %li.toggle#filter-people
-            %div.filter-title= "# of People"
-            %button#btn-individual.filter-btn-deselected= "Individual"
-            %button#btn-family.filter-btn-deselected= "Family"

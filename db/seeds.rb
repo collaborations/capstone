@@ -33,9 +33,9 @@ SeattleUnionGospelMission.contact = Contact.new({
 		phone: "206-723-1076",
 		website: "www.ugm.org"
 	})
-SeattleUnionGospelMission.institution_detail = InstitutionDetail.new({
-		hours: "No Hours Set"
-	})
+# SeattleUnionGospelMission.institution_detail = InstitutionDetail.new({
+# 		hours: "No Hours Set"
+# 	})
 SeattleUnionGospelMission.locations = [Location.new({
 		streetLine1: "318 2nd Ave Extension South",
 		city: "Seattle",
@@ -52,9 +52,9 @@ BallardHomelessClinic.contact = Contact.new({
 		phone: "206-782-5939",
 		website: "www.neighborcare.org/clinics/neighborcare-health-ballard-homeless-clinic-nyer-urness-house"
 	})
-BallardHomelessClinic.institution_detail = InstitutionDetail.new({
-		hours: "No Hours Set"
-	})
+# BallardHomelessClinic.institution_detail = InstitutionDetail.new({
+# 		hours: "No Hours Set"
+# 	})
 BallardHomelessClinic.locations = [Location.new({
 		streetLine1: "1753 NW 56th St",
 		streetLine2: "#200",
@@ -76,9 +76,9 @@ SacredHeartShelter = Institution.new({ name: "Sacred Heart Shelter",
 		phone: "206-284-4680",
 		website: "www.sacredheartseattle.com"
 	})
-SacredHeartShelter.institution_detail = InstitutionDetail.new({
-		hours: "No Hours Set"
-	})
+# SacredHeartShelter.institution_detail = InstitutionDetail.new({
+# 		hours: "No Hours Set"
+# 	})
  SacredHeartShelter.locations = [Location.new({
 		streetLine1: "205 2nd Ave N",
 		city: "Seattle",
@@ -95,9 +95,9 @@ SalvationArmyFoodBank.contact = Contact.new({
 		phone: "206-447-9944",
 		website: "www.salvationarmy.org"
 	})
-SalvationArmyFoodBank.institution_detail = InstitutionDetail.new({
-		hours: "No Hours Set"
-	})
+# SalvationArmyFoodBank.institution_detail = InstitutionDetail.new({
+# 		hours: "No Hours Set"
+# 	})
 SalvationArmyFoodBank.locations = [Location.new({
 		streetLine1: "1101 Pike St",
 		city: "Seattle",
@@ -115,9 +115,9 @@ StFrancisHouse.contact = Contact.new({
 		phone: "206-621-0945",
 		website: "www.stfrancishouseseattle.org"
 	})
-StFrancisHouse.institution_detail = InstitutionDetail.new({
-		hours: "No Hours Set"
-	})
+# StFrancisHouse.institution_detail = InstitutionDetail.new({
+# 		hours: "No Hours Set"
+# 	})
 StFrancisHouse.locations = [Location.new({
 		streetLine1: "169 12th Ave",
 		city: "Seattle",

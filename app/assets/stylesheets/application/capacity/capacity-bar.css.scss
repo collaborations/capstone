@@ -4,6 +4,7 @@ $cap-color-bg: #666;
 $cap-color-free: #9BE08B;
 $cap-color-reserved: #EF7B5C;
 $cap-color-standby: #66CFC3;
+$cap-color-text: white;
 $cap-height: 25px;
 $cap-meter-padding: 3px;
 $cap-spacing: 2px;
@@ -15,6 +16,7 @@ $cap-spacing: 2px;
   -webkit-border-radius: $cap-border-rad;
 
   background-color: $cap-color-bg;
+  color: $cap-color-text;
   font-size: 0;
   height: $cap-height;
   padding: $cap-meter-padding;
@@ -22,9 +24,11 @@ $cap-spacing: 2px;
 
   span {
     display: inline-block;
+    font-size: 12px;
     height: 100%;
     overflow: hidden;
     position: relative;
+    text-align: center;
   }
 
   span:first-child {

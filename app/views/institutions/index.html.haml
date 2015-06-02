@@ -69,15 +69,19 @@
                 - institution.amenities.each do |amenity|
                   %li
                     =embedded_amenity(amenity)
-            - getTodaysCapacity
-            - if @capacity.present?
+            - getTodaysCapacity(institution.id)
+            / - if @capacity.present?
+            - if true
               %div.columns.small-12.large-12
-                %p= "Capacity"
-                %div.capacity-meter
-                  %span.free= @capacity.free
-                  %span.reserved= @capacity.reserved
-                  %span.standby= @capacity.standby
-                  %span.total.hide= @capacity.total
+                %p= "Capacity:      40 spots left"
+                %div.total.hide
+                %div.capacity-meter{ id: "capacity-#{institution.id}" }
+                  %span.free{ style: "width: 10%"}= 10
+                  %span.reserved{ style: "width: 20%"}= 20
+                  %span.standby{ style: "width: 30%"}= 30
+                / %span.free
+                / %span.reserved
+                / %span.standby
       %div.row.f-dropdown.large{ id: dropdown_id, data: { dropdown: { content: true } } }
         -if @open
           %div.columns.small-12.large-12.label.success= t('hours.open')

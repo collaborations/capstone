@@ -14,11 +14,11 @@
       %div.row
         %p.column-label= c[:label]
         %p.column-info= c[:info]
-
-- if @details.present?
+- getHours
+- if @hours_present
   %div#hours.row
     %h3= "Hours"
-    = getHours
+    = render 'shared/hours'
 
 %div#amenities.row
   %h3= "Amenities"

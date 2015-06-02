@@ -18,9 +18,9 @@ class CapacityController < ApplicationController
     # ID should be passed in as a parameter and be the id of the institution
     if params[:id].present?
       id = params[:id]
-    else 
-      id = current_user.institution_id
     end
+
+    data = []
 
     # Should get total from the institution as the maximum number of spots allowed
     total = InstitutionDetail.where(institution_id: id).first.capacity
@@ -32,7 +32,7 @@ class CapacityController < ApplicationController
       @data = Capacity.new(institution: id)
       @data.save
     end
-
+    
     render json: [
                 {
                   type: "reserved",
@@ -74,4 +74,8 @@ class CapacityController < ApplicationController
               ]
   end
 
+  private
+    def getData
+
+    end
 end

@@ -1,6 +1,6 @@
 class InstitutionsController < ApplicationController
   before_action :set_amenity, only: [:edit, :update, :new]
-  before_action :set_institution, only: [:show, :update, :destroy]
+  before_action :set_institution, only: [:show, :update, :destroy, :print]
   before_action :authenticate_user!, only: [:edit, :update]
   before_action :load_google_maps, only: [:amenity, :index, :show]
   before_action :get_amenity_from_referrer, only: [:show]
@@ -84,25 +84,24 @@ class InstitutionsController < ApplicationController
 
   def print
     begin
-      id = params.require(:id)
-      @institution = Institution.where(id: id).first
+      load_contact_info()
 
-      @contact = Contact.where(institution_id: id)
-      @contact = @contact.first if @contact.present?
-
-      @details = InstitutionDetail.where(institution_id: id)
+      @details = InstitutionDetail.where(institution_id: @institution.id)
       @details = @details.first if @details.present?
 
-      @location = Location.where(institution_id: id)
+      @location = Location.where(institution_id: @institution.id)
       @location = @location.first if @location.present?
 
-      @amenities = InstitutionHasAmenity.joins(:amenity, :institution).where(institution_id: id).map(&:amenity)
+      @amenities = []
+      InstitutionHasAmenity.joins(:amenity, :institution).where(institution_id: @institution.id).map(&:amenity).each do |a|
+        @amenities << a.name
+      end
+      @amenities = @amenities.join(", ")
 
       # @restrictions = Restrictions.where(institution_id: id)
     rescue ActionController::ParameterMissing => e
       puts e.message
     end
-    render 'print'
   end
 
   private
@@ -180,5 +179,19 @@ class InstitutionsController < ApplicationController
       end
     end
 
+    def load_contact_info
+      contact = Contact.where(institution_id: @institution.id)
+      contact = contact.first if contact.present?
+      @contact = []
+      if contact.email.present?
+        @contact << { label: "Email: ", info: contact.email }
+      end
+      if contact.phone.present?
+        @contact << { label: "Phone: ", info: contact.phone }
+      end
+      if contact.website.present?
+        @contact << { label: "Website: ", info: contact.website }
+      end
+    end
 end
   

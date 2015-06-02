@@ -40,8 +40,6 @@ en:
       default: "Website:"
       missing: "Not listed"
 
-
-
   home:
     title: "Step Stone"
     search_categories: "Search by categories"
@@ -58,13 +56,12 @@ en:
       hours: "Hours Open"
     missing: "Hours not listed"
     open: "Open"
-    time:
-      format: "%l:%M%p"
-
+    time_format:
+      print: "%l:%M%p"
+      compare: "%k:%M"
 
   institutions:
     title: "Institutions"
-
 
   sms:
     mass_text:

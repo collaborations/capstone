@@ -1,5 +1,6 @@
-# capstone
+# Step Stone
 
-3/2 - Gino
-----------
-I will write instructions on setting up the once I get production set up.
+### Helping Seattle's homeless find what they need, when they need it most
+
+[Check out our site!][step-stone.me]
+

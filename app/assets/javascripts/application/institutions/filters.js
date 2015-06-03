@@ -1,22 +1,6 @@
-// Toggle filter button
-$("li.toggle > button").on("click", function(){
-  btn = $(this);
-  id = btn.parent()[0].id.split('-')[1];
-  buttons = $("li#filter-" + id)[0].children;
-
-  if( btn.hasClass("filter-btn-selected") ){
-    btn.removeClass("filter-btn-selected");
-    btn.addClass("filter-btn-deselected");
-  } else {
-    btn.removeClass("filter-btn-deselected");
-    btn.addClass("filter-btn-selected");
-  }
-});
-
 // Sort current institutions by name
 $("#btn-name").on("click", { selector: ".institution-name" } , sort);
 $("#btn-distance").on("click", { selector: ".institution-distance" } , sort);
-
 //Sort the institutions list in the view.
 //Call using jQuery and pass in a CSS selector as 'selector'
 function sort(event){

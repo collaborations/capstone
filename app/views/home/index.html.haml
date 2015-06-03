@@ -9,7 +9,9 @@
 = render 'shared/search'
 
 %div
-  %h3= t('home.search_categories')
+  %div.a_title
+    %h3= t('home.search_categories')
+    %span.dots
   %ul#amenities_list.small-block-grid-2.large-block-grid-5
     - Amenity.all.each do |amenity|
       %li

@@ -19,17 +19,7 @@ function initializeGoogleMapsAPI(){
 function initializeMaps(){
   pins = new Array();
   getCurrentLocation();
-
-  if(typeof(gon.latitude) !== 'undefined' && typeof(gon.longitude) !== 'undefined'){
-    // Geocoordinates were provided
-    initialLocation = new google.maps.LatLng(gon.latitude, gon.longitude);
-    generateMap();
-  } else if(typeof(gon.address) !== 'undefined'){
-    // Need to lookup address
-    addressLookup(gon.address);
-  } else {
-    alert("Error loading Google maps, please reload the page.");
-  }
+  generateMap();
 }
 
 // Look up geocoordinates from an address and use that as the initial location.
@@ -58,11 +48,25 @@ function autoCenter() {
   }
   //  Fit these bounds to the map
   map.fitBounds(bounds);
+  // This is needed to set the zoom after fitbounds, 
+  google.maps.event.addListener(map, 'zoom_changed', function() {
+      zoomChangeBoundsListener = 
+          google.maps.event.addListener(map, 'bounds_changed', function(event) {
+              if (this.getZoom() > 15 && this.initialZoom == true) {
+                  // Change max/min zoom here
+                  this.setZoom(15);
+                  this.initialZoom = false;
+              }
+          google.maps.event.removeListener(zoomChangeBoundsListener);
+      });
+  });
+  map.initialZoom = true;
+  map.fitBounds(bounds);
 }
 
 function generateMap(){
   var mapOptions = {
-    zoom: 12,
+    zoom: 15,
     center: initialLocation,
     scrollwheel: false
   }

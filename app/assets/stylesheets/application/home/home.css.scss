@@ -44,6 +44,54 @@
     }    
   }
 
+  // div.a_title {
+  //   //max-width: 40em;
+  //   padding: 0;
+  //   overflow-x: hidden;
+  //   list-style: none
+  // }
+    
+  // //   span{
+  // //     padding-right: 0.33em;
+  // //     background: white
+  // //   }
+  // // }
+
+  // <div class="article">
+  //     <span class="item">sandwichtoaster</span>
+  //     <span class="dots"></span>
+  //     <span class="price">$35</span>
+  // </div>
+  // And some new CSS:
+
+  .a_title{
+      display: flex;
+
+      h3{
+        flex: 1 0 auto;
+      }
+
+      .dots{
+        flex: 0 1 auto;
+      }
+  }
+
+
+  .dots::before{
+      display: block;
+      white-space: nowrap;
+      overflow: hidden;  
+      text-overflow: clip;
+      color: #F2A990;
+      padding: 0.7em 0 0 0.5em;
+
+      content: 
+      " • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • "
+      " • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • "
+      " • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • "
+      " • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • ";
+  }
+
   @include search-btn();
 
   .logo {

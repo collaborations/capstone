@@ -5,17 +5,16 @@
 %div
   %h2{class: 'dash'}= 'My Account'
   %h3= 'Seattle Union Gospel Mission: Mens Shelter'
-  %div.row.small-uncollapse
-  %ul.large-block-grid-3.small-block-grid-1.medium-block-grid-1
-    %li.li1
-      %h3= "Capacity Tracker"
+  %ul.large-block-grid-3
+    %li.capacity
+      %h4= "Capacity Tracker"
       = link_to("/capacity") do
         = image_tag "email.svg", class: "edit_profile-icon"
-    %li.li2
-      %h3= "Edit Profile"
+    %li.profile
+      %h4= "Edit Profile"
       = link_to("/capacity") do
         = image_tag "email.svg", class: "edit_profile-icon"
-    %li.li3
-      %h3= "Send Text Message Notification"
+    %li.notify
+      %h4= "Send Text Alert"
       = link_to("/capacity") do
         = image_tag "email.svg", class: "edit_profile-icon"       

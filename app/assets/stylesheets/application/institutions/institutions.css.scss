@@ -79,12 +79,13 @@ ul.breadcrumbs{
     }
 
     .institution:not(:last-child) {
-        border-bottom: 1px solid #AAA;
+        border-bottom: 1px solid $border-color;
         padding-bottom: 10px;
     }
 
     .amenities-list {
       @include amenity-icon(25px);
+      margin-top: 20px;
     }
   }
 }
@@ -93,7 +94,7 @@ ul.breadcrumbs{
   $maps-view-height: 200px;
 
   #institution-header {
-    border-bottom: solid 1px #AAA;
+    border-bottom: solid 1px $border-color;
     margin-bottom: $medium-spacing;
     padding-bottom: $medium-spacing;
 
@@ -128,7 +129,7 @@ ul.breadcrumbs{
   }
 
   #google-map-aerial, #google-map-street {
-    border: solid 1px #AAA;
+    border: solid 1px $border-color;
     height: $maps-view-height;
     padding-top: 50px;
 
@@ -157,10 +158,10 @@ ul.breadcrumbs{
   }
 
   #get-info {
-    border: solid 1px black;
-    
+    border: solid 1px $border-color;
+
     h4 {
-      border-bottom: solid 1px #AAA;
+      border-bottom: solid 1px $border-color;
       text-align: center;
     }
 
@@ -172,13 +173,10 @@ ul.breadcrumbs{
       margin-top: $small-spacing;
     }
 
-    // TODO: Remove when ready to deploy
-    border: solid 1px black;
-
     #subscribe {
       margin-top: 15px;
       padding-top: 15px;
-      border-top: solid 1px black;
+      border-top: solid 1px $border-color;
       .button {
         width: 100%;
       }
@@ -195,7 +193,7 @@ ul.breadcrumbs{
   }
 
   #institution_form > div:not(:first-child) {
-    border-top: solid #888 1px;
+    border-top: solid 1px $border-color;
     margin-top: 20px;
     padding-top: 20px;
   }

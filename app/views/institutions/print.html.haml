@@ -1,37 +1,25 @@
 %h2= @institution.name
 
-%div#address
+%div#address.row
   %h3= "Address"
   %p= @location.streetLine1
   - if @location.streetLine1.present?
     %p= @location.streetLine2
   %p= @location.city + ", " + @location.state + " " + @location.zip
 
-%div#contact
-  %h3= "Contact"
-  - if @contact.email.present?
-    %div.row
-      %p.column-label= "Email:"
-      %p.column-info= @contact.email
-
-  - if @contact.phone.present?
-    %div.row
-      %p.column-label= "Phone:"
-      %p.column-info= @contact.phone
-
-  - if @contact.website.present?
-    %div.row
-      %p.column-label= "Website:"
-      %a.column-info= full_url @contact.website
-
-- if @details.present?
-  %div#hours 
+- if @contact.present?
+  %div#contact.row
+    %h3= "Contact"
+    - @contact.each do |c|
+      %div.row
+        %p.column-label= c[:label]
+        %p.column-info= c[:info]
+- getHours
+- if @hours_present
+  %div#hours.row
     %h3= "Hours"
-    %span= "Hours not yet available"
+    = render 'shared/hours'
 
-%div#amenities
+%div#amenities.row
   %h3= "Amenities"
-  - @amenities.each do |a|
-    %div.row
-      %p.column-label= a.name
-      %p.column-info= a.desc
+  %p= @amenities

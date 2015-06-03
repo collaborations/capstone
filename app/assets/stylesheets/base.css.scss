@@ -1,0 +1,7 @@
+@import 'variables';
+
+body > div:not(.fixed) {
+  width: $content-width;
+  margin-left: auto;
+  margin-right: auto;
+}

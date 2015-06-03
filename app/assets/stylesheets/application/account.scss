@@ -1,30 +1,39 @@
 // Place all the styles related to the account controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+@import 'mixins';
+@import 'variables';
 
 .edit_profile-icon {
   width: 5em;
   height:5em;
 }
 
-[class*="block-grid-"] > li {
+
+li {
   display: block;
   float: left;
   height: auto;
   padding: 0 5em 4em;
   text-align: center;
+  margin: 1em;
 }
 
-.li1 {
-    background-color: #95DC75;
+.capacity {
+  background-color: #95DC75;
+  //margin: 1em;
 }
 
-.li2 {
+.profile {
   background-color: #60C7BA;
+  //margin: 1em;
+
 }
 
-.li3 {
+.notify {
   background-color: #2D98D5;
+  //margin: 1em;
+
 }
 
 

@@ -2,6 +2,7 @@
 // foundation.zurb.com
 // Licensed under MIT Open Source
 @import 'variables';
+@import url(http://fonts.googleapis.com/css?family=Lato);
 //
 
 // Table of Contents
@@ -88,7 +89,7 @@ $row-width: 90%;
 // - - - - - - - - - - - - - - - - - - - - - - - - -
 
 // We use these to define default font stacks
-// $font-family-sans-serif: "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif;
+// $font-family-sans-serif: font-family: 'Lato', sans-serif;
 // $font-family-serif: Georgia, Cambria, "Times New Roman", Times, serif;
 // $font-family-monospace: Consolas, "Liberation Mono", Courier, monospace;
 

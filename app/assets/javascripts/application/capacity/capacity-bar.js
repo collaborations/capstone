@@ -5,7 +5,8 @@ window.addEventListener('load', checkForCapacityBar);
 function checkForCapacityBar(){
   capacities = $(".capacity-bar");
   if(capacities.length > 0){
-    getCapacities();
+    getCapacities()
+    setInterval(getCapacities, 60000);
   }
 }
 

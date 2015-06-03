@@ -10,9 +10,12 @@ Rails.application.routes.draw do
   match '/capacity/get/ids' => 'capacity#getByID', via: :post
   match '/capacity/update' => 'capacity#update', via: :post
 
+  match '/institution/email' => 'institutions#email', via: :post
+
   match '/sms/info' => 'sms#info', via: :post
   match '/sms/notify' => 'sms#notify', via: :post
   match '/sms/subscribe' => 'sms#subscribe', via: :post
+
 
   get '/about' => 'about#index'
 

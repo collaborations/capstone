@@ -15,6 +15,6 @@
 //= require foundation
 //= require d3
 //= require skrollr
-//= require_tree .
+//= require_tree ./application
 
 $(function(){ $(document).foundation(); });

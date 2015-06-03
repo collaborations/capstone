@@ -1,9 +1,9 @@
 // Place all the styles related to the Institutions controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
-
 @import 'mixins';
 @import 'variables';
+
 
 $amenity-size: 30px;
 $amenity-circle-size: $amenity-size * 2;
@@ -14,15 +14,13 @@ $amenity-circle-size: $amenity-size * 2;
   margin-right: auto;
 }
 
-
+ul.breadcrumbs{
+  padding-left: 3em;
+}
 
 #institutions_index, #institutions_amenity {
   @include search-btn();
   @include custom-btn($padding: rem-calc(2));
-
-  div.row {
-    max-width: 100%;
-  }
 
   .accordion{
     margin: 1em;
@@ -41,8 +39,6 @@ $amenity-circle-size: $amenity-size * 2;
       width: 100%;
       clear: both;
     }
-
-
 
     .filter-btn-selected {
       @include filter-btn-selected();
@@ -65,8 +61,7 @@ $amenity-circle-size: $amenity-size * 2;
   
   #google-map-aerial {
     height: 400px;
-    border: 1px solid #AAA;
-  }
+	}
 
   #institutions_list {
     .institution-name {
@@ -84,12 +79,13 @@ $amenity-circle-size: $amenity-size * 2;
     }
 
     .institution:not(:last-child) {
-        border-bottom: 1px solid #AAA;
+        border-bottom: 1px solid $border-color;
         padding-bottom: 10px;
     }
 
     .amenities-list {
       @include amenity-icon(25px);
+      margin-top: 20px;
     }
   }
 }
@@ -98,7 +94,7 @@ $amenity-circle-size: $amenity-size * 2;
   $maps-view-height: 200px;
 
   #institution-header {
-    border-bottom: solid 1px #AAA;
+    border-bottom: solid 1px $border-color;
     margin-bottom: $medium-spacing;
     padding-bottom: $medium-spacing;
 
@@ -110,15 +106,10 @@ $amenity-circle-size: $amenity-size * 2;
       p {
         margin-bottom: 0px;
       }
-
-    }
-
-    #offered_amenity {
-      border-left: solid 1px black;
     }
 
     .amenities-list {
-      @include amenity-icon(35px);
+      @include amenity-icon(30px);
     }
 
     @media screen and (max-width: $mobile-width) {
@@ -127,7 +118,7 @@ $amenity-circle-size: $amenity-size * 2;
         margin: 10px;
       }
       .amenities-list {
-        @include amenity-icon(25px);
+        @include amenity-icon(20px);
       }
     }
   }
@@ -138,7 +129,7 @@ $amenity-circle-size: $amenity-size * 2;
   }
 
   #google-map-aerial, #google-map-street {
-    border: solid 1px #AAA;
+    border: solid 1px $border-color;
     height: $maps-view-height;
     padding-top: 50px;
 
@@ -167,10 +158,10 @@ $amenity-circle-size: $amenity-size * 2;
   }
 
   #get-info {
-    border: solid 1px black;
-    
+    border: solid 1px $border-color;
+
     h4 {
-      border-bottom: solid 1px #AAA;
+      border-bottom: solid 1px $border-color;
       text-align: center;
     }
 
@@ -182,16 +173,28 @@ $amenity-circle-size: $amenity-size * 2;
       margin-top: $small-spacing;
     }
 
-    // TODO: Remove when ready to deploy
-    border: solid 1px black;
-
     #subscribe {
       margin-top: 15px;
       padding-top: 15px;
-      border-top: solid 1px black;
+      border-top: solid 1px $border-color;
       .button {
         width: 100%;
       }
     }
+  }
+}
+
+#institutions_new, #institutions_edit {
+  #institution_form > div {
+    margin-left: 8%;
+    margin-right: 8%;
+    padding-left: 2%;
+    padding-right: 2%;
+  }
+
+  #institution_form > div:not(:first-child) {
+    border-top: solid 1px $border-color;
+    margin-top: 20px;
+    padding-top: 20px;
   }
 }

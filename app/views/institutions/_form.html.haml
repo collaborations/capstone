@@ -6,11 +6,14 @@
     = @job.errors.full_messages.each do |message|
       %li= message 
 
-  = render 'general', f: f
-  = render 'location', f: f
-  = render 'hours', f: f
-  = render 'amenities', f: f
-  = render 'restrictions', f: f
-  = render 'filters', f: f
+  %div#institution_form
+    = render 'general', f: f
+    = render 'location', f: f
+    = render 'contact', f: f
+    = render 'hours', f: f
+    = render 'institution_details', f: f
+    = render 'amenities', f: f
+    = render 'restrictions', f: f
+    = render 'filters', f: f
   
   = f.submit "Submit"

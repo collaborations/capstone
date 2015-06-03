@@ -26,4 +26,11 @@ class ApplicationController < ActionController::Base
       @user_institution = Institution.where(id: current_user.institution_id).first
     end
   end
+
+  def load_google_maps
+    gon.google_maps_url = Settings.google.maps.url + 
+                          "key=" + Settings.google.maps.token +
+                          "&callback=" + Settings.google.maps.callback
+    @load_google_maps = true
+  end
 end

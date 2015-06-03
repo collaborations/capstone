@@ -1,0 +1,5 @@
+class AvailableSpotsColumns < ActiveRecord::Migration
+  def change
+    add_column :capacities, :available, :integer, null: false, default: 100
+  end
+end

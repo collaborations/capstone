@@ -2,11 +2,20 @@
  * In this file, things are listed in the following order. 
  * If you add a style to this file, document it here. 
  *
- *  1. Spinners (loading spinners)
- *
+ *  1. Modal Close Button
+ *  2. Spinners (loading spinners)
+ *  3. White Space (allow)
  */
 
-// 1. Spinners
+@import "foundation/components/reveal";
+
+// 1. Modal Close Button
+.modal-close-button {
+  @include reveal-close($color: $reveal-close-color);
+}
+
+// 2. Spinners
+// Loading Spinner
 .spinner {
   margin: 100px auto;
   width: 50px;
@@ -58,4 +67,9 @@
     transform: scaleY(1.0);
     -webkit-transform: scaleY(1.0);
   }
+}
+
+// 3. White Space
+.keep-spacing {
+  white-space: pre-line;
 }

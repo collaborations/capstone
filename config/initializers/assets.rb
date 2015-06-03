@@ -12,7 +12,7 @@ Rails.application.config.assets.version = '1.0'
 Rails.application.config.assets.precompile += %w( application-print.css )
 
 # Javascript
-Rails.application.config.assets.precompile += %w( application-print.js )
+Rails.application.config.assets.precompile += %w( application-print.js  maps.js)
 
 # Add Modernizer to pipeline for Foundation
 Rails.application.config.assets.precompile += %w( vendor/modernizr.js )

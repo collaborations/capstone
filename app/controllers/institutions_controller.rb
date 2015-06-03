@@ -1,20 +1,20 @@
 class InstitutionsController < ApplicationController
   before_action :set_amenity, only: [:edit, :update, :new]
-  before_action :set_institution, only: [:show, :update, :destroy]
+  before_action :set_institution, only: [:show, :update, :destroy, :print]
   before_action :authenticate_user!, only: [:edit, :update]
+  before_action :load_google_maps, only: [:amenity, :index, :show]
+  before_action :get_amenity_from_referrer, only: [:show]
 
   # GET /institutions
   # GET /institutions.json
   def index
     @institutions = Institution.search(params[:search])
     set_locations()
-
   end
 
   # GET /amenity/1
   def amenity
     @institutions = Amenity.find(params[:id]).institutions
-
     set_locations()
     render 'index'
   end
@@ -25,7 +25,6 @@ class InstitutionsController < ApplicationController
     @location = Location.where(institution_id: @institution.id).first
     @restrictions = @institution.restrictions
     set_locations()
-    render 'show'
   end
 
   # GET /institutions/new
@@ -35,18 +34,19 @@ class InstitutionsController < ApplicationController
     @institution.restrictions.build
     @institution.filter = Filter.new
     @institution.build_hours
+    @institution.build_contact
   end
 
   # GET /institutions/1/edit
   def edit
     @institution = Institution.where(id: params[:id]).first
-    puts @institution
   end
 
   # POST /institutions
   # POST /institutions.json
   def create
     @institution = Institution.new(institution_params)
+    getLatLong(@institution)
     respond_to do |format|
       if @institution.save
         format.html { redirect_to @institution, notice: 'Institution was successfully created.' }
@@ -84,25 +84,24 @@ class InstitutionsController < ApplicationController
 
   def print
     begin
-      id = params.require(:id)
-      @institution = Institution.where(id: id).first
+      load_contact_info()
 
-      @contact = Contact.where(institution_id: id)
-      @contact = @contact.first if @contact.present?
-
-      @details = InstitutionDetail.where(institution_id: id)
+      @details = InstitutionDetail.where(institution_id: @institution.id)
       @details = @details.first if @details.present?
 
-      @location = Location.where(institution_id: id)
+      @location = Location.where(institution_id: @institution.id)
       @location = @location.first if @location.present?
 
-      @amenities = InstitutionHasAmenity.joins(:amenity, :institution).where(institution_id: id).map(&:amenity)
+      @amenities = []
+      InstitutionHasAmenity.joins(:amenity, :institution).where(institution_id: @institution.id).map(&:amenity).each do |a|
+        @amenities << a.name
+      end
+      @amenities = @amenities.join(", ")
 
       # @restrictions = Restrictions.where(institution_id: id)
     rescue ActionController::ParameterMissing => e
       puts e.message
     end
-    render 'print'
   end
 
   private
@@ -115,11 +114,25 @@ class InstitutionsController < ApplicationController
       @amenities = Amenity.all
     end
 
+    # Get the amenity from the referrer
+    def get_amenity_from_referrer
+      # Make sure the referrer is there
+      if request.referrer.present?
+        # /amenity/6 -> ["", "amenity", "6"]
+        path = URI(request.referer).path.split("/")
+        if path[1] == "amenity" and path[2] =~ /\d+/
+          temp = Amenity.find(path[2])
+          @amenity = temp if temp.present?
+        end
+      end
+    end
+
     # Never trust parameters from the scary internet, only allow the white list through.
     def institution_params
-      params.require(:institution).permit(:name, :desc, :instructions, :category,
+      params.require(:institution).permit(:name, :desc, :instructions,
         { :locations_attributes => [:id, :institution_id, :streetLine1, :streetLine2, :city, :state, :zip]}, 
-        { :amenity_ids => []}, 
+        { :amenity_ids => []},
+        { :contact_attributes => [:id, :institution_id, :phone, :email, :website]},
         { :restrictions_attributes => [:name, :desc]},
         { :hours_attributes => [:id, :institution_id, :mon_open, :mon_close, :tue_open, :tue_close, :wed_open, :wed_close, :thu_open, :thu_close, :fri_open, :fri_close, :sat_open, :sat_close, :sun_open, :sun_close]},
         { :filter_attributes => [:individual, :family, :male, :female, :min_age, :max_age, :physical_disability, :mental_disability, :veteran, :abuse_victim]} )
@@ -128,21 +141,18 @@ class InstitutionsController < ApplicationController
     def set_locations
       lat = 0
       long = 0
-      @locations = {}
       gon.markers = []
       institutions = @institution.present? ? [@institution] : @institutions
       institutions.each do |i|
         loc = i.locations.first
-        if loc.lat.present? and loc.long.present?
-          puts "Locations exist for #{i.name} { lat: #{loc.lat}, long:#{loc.long}"
-        else
+        if !loc.lat.present? or !loc.long.present?
           getLatLong(i)
           # Update data with current database values
           loc = i.locations.first
         end
         lat += loc.lat
         long += loc.long
-        gon.markers << ["<h4>#{i.name}</h4>", loc.lat, loc.long]
+        gon.markers << [i.id, i.name, loc.lat, loc.long]
       end
       unless lat == 0 and long == 0
         gon.push({
@@ -153,17 +163,35 @@ class InstitutionsController < ApplicationController
     end
 
     def getLatLong(institution)
-      location = institution.locations.first
-      address = location.streetLine1 + " "
-      address << location.streetLine2 + " " if location.streetLine2.present?
-      address << location.city + ", " + location.state + " " + location.zip.to_s
-      puts "Requesting geocode for: " + address
-      url = Settings.google.geocode.url + "api_key=" + Settings.google.geocode.token + "&address=" + address.sub(/\s/, "+")
-      response = JSON.parse(Faraday.get(url).body)['results']
-      data = response[0]['geometry']['location']
-      location.lat = data['lat']
-      location.long = data['lng']
-      location.save
+      begin
+        location = institution.locations.first
+        address = location.streetLine1 + " "
+        address << location.streetLine2 + " " if location.streetLine2.present?
+        address << location.city + ", " + location.state + " " + location.zip.to_s
+        url = Settings.google.geocode.url + "api_key=" + Settings.google.geocode.token + "&address=" + address.sub(/\s/, "+")
+        response = JSON.parse(Faraday.get(url).body)['results']
+        data = response[0]['geometry']['location']
+        location.lat = data['lat']
+        location.long = data['lng']
+        location.save
+      rescue NoMethodError => e
+        Rails.logger.error e
+      end
+    end
+
+    def load_contact_info
+      contact = Contact.where(institution_id: @institution.id)
+      contact = contact.first if contact.present?
+      @contact = []
+      if contact.email.present?
+        @contact << { label: "Email: ", info: contact.email }
+      end
+      if contact.phone.present?
+        @contact << { label: "Phone: ", info: contact.phone }
+      end
+      if contact.website.present?
+        @contact << { label: "Website: ", info: contact.website }
+      end
     end
 end
   

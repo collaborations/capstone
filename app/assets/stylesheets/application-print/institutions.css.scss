@@ -1,11 +1,14 @@
+@import 'variables';
+
 #institutions_print {
   margin-left: auto;
   margin-right: auto;
   width: 80%;
-
+  
   .row {
     clear: both;
     min-width: 500px;
+    overflow: auto;
 
     .column-info {
       float: left;
@@ -23,7 +26,17 @@
   #address {
     p {
       font-style: italic;
-      margin-left: 10px;
+    }
+  }
+
+  #hours {
+    table {
+      border-collapse: collapse;
+    }
+
+    table, td, th {
+      text-align: center;
+      border: 1px solid black;
     }
   }
 
@@ -31,12 +44,20 @@
     margin-bottom: 5px;
     margin-top: 5px;
   }
+
+  p, table {
+    margin-left: 10px;
+  }
+  
+}
+
+#institutions_print > div:not(:last-child) {
+  border-bottom: 1px solid $border-color;
 }
 
 #institutions_print > div {
-  border-top: 1px solid #AAA;
-  padding-bottom: 10px;
   padding-left: 20px;
   padding-right: 20px;
-  padding-top: 10px;
+  padding-bottom: 10px;
+  margin-bottom: 20px;
 }

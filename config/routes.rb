@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   resources :capacity
   
   match '/capacity/get' => 'capacity#get', via: :post
+  match '/capacity/get/ids' => 'capacity#getByID', via: :post
   match '/capacity/update' => 'capacity#update', via: :post
 
   match '/sms/info' => 'sms#info', via: :post
@@ -14,6 +15,8 @@ Rails.application.routes.draw do
   match '/sms/subscribe' => 'sms#subscribe', via: :post
 
   get '/about' => 'about#index'
+
+  get '/account' => 'account#index', as: 'account'
 
   get '/amenity/:id' => 'institutions#amenity', as: 'amenity'
 

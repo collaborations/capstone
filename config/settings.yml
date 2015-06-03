@@ -1,13 +1,26 @@
 slack:
   slackbot: 
-    token: 
-    url: https://mohcare.slack.com/services/hooks/slackbot?token=
+    token:
+    url:
 
 twilio:
   sid: 
   auth: 
+  number: 
 
 google:
   maps:
+    callback: googleMapsCallback
     token: 
-    url: https://maps.googleapis.com/maps/api/js?key=
+    url: https://maps.googleapis.com/maps/api/js?
+  geocode:
+    token: 
+    url: http://maps.googleapis.com/maps/api/geocode/json?
+  api:
+    key: 
+    client_id: 
+
+google_mail:
+  email: 
+  password: 
+

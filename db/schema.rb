@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150527173310) do
+ActiveRecord::Schema.define(version: 20150603164830) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -27,12 +27,12 @@ ActiveRecord::Schema.define(version: 20150527173310) do
   end
 
   create_table "capacities", force: :cascade do |t|
-    t.integer  "institution",                null: false
     t.integer  "reserved",       default: 0
     t.integer  "standby",        default: 0
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
-    t.integer  "institution_id"
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
+    t.integer  "institution_id",               null: false
+    t.integer  "available",      default: 100, null: false
   end
 
   create_table "contact_types", force: :cascade do |t|

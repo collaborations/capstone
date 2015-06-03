@@ -1,77 +1,88 @@
 class CapacityController < ApplicationController
   # Introducing this has to give some sort of CSRF vulnerability
   skip_before_action :verify_authenticity_token
-  before_action :authenticate_user!, only: [:update, :index]
+  before_action :authenticate_user!, only: [:index, :update]
+  before_action :set_institution_id, only: [:index, :update]
+  before_action :set_capacity, only: [:index, :update]
+  before_action :set_total_capacity, only: [:index, :update]
 
   def index
-    @total = InstitutionDetail.where(institution_id: current_user.institution_id).first.capacity
-    if @total == 0
-      @max_capacity_prompt = true
-    end
-
     gon.push({
       :capacity => @total
     })
   end
 
   def get
-    # ID should be passed in as a parameter and be the id of the institution
     if params[:id].present?
-      id = params[:id]
-    else 
-      id = current_user.institution_id
+      @id = params[:id]
+      set_capacity()
+      set_total_capacity()
+    elsif user_signed_in?
+      set_institution_id()
     end
+    render json: get_data
+  end
 
-    # Should get total from the institution as the maximum number of spots allowed
-    total = InstitutionDetail.where(institution_id: id).first.capacity
-    
-    @data = Capacity.where("institution = ? AND created_at >= ?", id, Time.zone.now.beginning_of_day)
-    if @data.present?
-      @data = @data.first
+  def getByID
+    if params[:capacity_ids].present?
+      allData = []
+      ids = params[:capacity_ids]
+      ids.each do |cap|
+        data = get_data(cap, true)
+        if data.present?
+          allData << { id: cap, data: data }
+        end
+      end
+      puts allData.to_json
+      render json: allData
     else
-      @data = Capacity.new(institution: id)
-      @data.save
+      head :bad_request
     end
-
-    render json: [
-                {
-                  type: "reserved",
-                  value: @data.reserved
-                },
-                {
-                  type: "standby",
-                  value: @data.standby
-                },
-                {
-                  type: "empty",
-                  value: total - @data.reserved - @data.standby
-                }
-              ]
   end
 
   def update
-    id = current_user.institution_id
-    total = InstitutionDetail.where(institution_id: id).first.capacity
-    @data = Capacity.where("institution = ? AND created_at >= ?", id, Time.zone.now.beginning_of_day).first
-
-    @data.update(
+    @capacity.update(
+      available: params[:available],
       reserved: params[:reserved],
       standby: params[:standby]
     )
-    render json: [
-                {
-                  type: "reserved",
-                  value: @data.reserved
-                },
-                {
-                  type: "standby",
-                  value: @data.standby
-                },
-                {
-                  type: "empty",
-                  value: total - @data.reserved - @data.standby
-                }
-              ]
+    render json: get_data
   end
 
+  private
+    def get_data(id = @id, last_update = false)
+      @data = []
+      capacity = Capacity.where("institution_id = ? AND created_at >= ?", id, Time.zone.now.beginning_of_day).first
+      if capacity.present?
+        @data << { type: "reserved", value: capacity.reserved }
+        @data << { type: "standby", value: capacity.standby }
+        @data << { type: "available", value: capacity.available }
+        if last_update
+          @data << { type: "last_update", value: capacity.updated_at.strftime("%l:%M %p") }
+          puts Time.zone.to_s
+        end
+      end
+      @data
+    end
+
+    def set_institution_id
+      @id = current_user.institution_id
+    end
+
+    def set_total_capacity
+      details = InstitutionDetail.where(institution_id: @id).first
+      if details.present? and details.capacity.present?
+        @total = details.capacity
+      else
+        flash[:warning] = "Maximum capacity has not yet been set."
+        @max_capacity_prompt = true
+      end
+    end
+
+    def set_capacity
+      @capacity = Capacity.where("institution_id = ? AND created_at >= ?", @id, Time.zone.now.beginning_of_day).first
+      if @capacity.nil?
+        @capacity = Capacity.create(institution_id: @id)
+      end
+    end
 end

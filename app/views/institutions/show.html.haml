@@ -1,39 +1,49 @@
 %div.row#institution-header
-  %div.row
-    %div.columns.small-12.large-7
-      %h1#institution-name= @institution.name
-      %div#address
-        %p
-          %em= @location.streetLine1
-        %p
-          %em= @location.streetLine2 if @location.streetLine2.present?
-        %p
-          %em= @location.city + ", " + @location.state + " " + @location.zip.to_s
+  %div.columns.small-12.large-6
+    %h2#institution-name= @institution.name
+    %div#address
+      %p
+        %em= @location.streetLine1
+      %p
+        %em= @location.streetLine2 if @location.streetLine2.present?
+      %p
+        %em= @location.city + ", " + @location.state + " " + @location.zip.to_s
 
-    %div.columns.small-12.large-5#offered_amenity
-      %ul.small-block-grid-5.medium-block-grid-5.large-block-grid-5.amenities-list
-        - @institution.amenities.each do |amenity|
-          %li
-            =embedded_amenity(amenity)
+  %div.columns.small-12.large-5
+    %ul.small-block-grid-5.medium-block-grid-5.large-block-grid-5.amenities-list
+      - @institution.amenities.each do |amenity|
+        %li
+          =embedded_amenity(amenity)
 
-
+- getHours
 %div.row
-  %div#institution-info.columns.small-12.large-9
-    %div.row
-      %div#institution-details.columns.small-12.large-8
-        %div.row
-          %h5.columns.small-4.large-3= "Phone:"
-          %p.columns.small-8.large-9= getPhone
-        %div.row
-          %h5.columns.small-4.large-3= "Website:"
-          %p.columns.small-8.large-9= getWebsite
-        = getHours
+  %div#institution-info.columns.small-12.large-10
+    %div#institution-details.columns.small-12.large-8
+      %p.row
+        %span.columns.small-4.large-3= "Phone:"
+        %span.columns.small-8.large-9= getPhone
+      %p.row
+        %span.columns.small-4.large-3= "Website:"
+        %span.columns.small-8.large-9= getWebsite
+      %p.row.hide{ id: "distance-container-#{@institution.id}" }
+        %span.columns.small-4.large-3= "Distance: "
+        %span.columns.small-8.large-9{ id: "distance-#{@institution.id}" }
+      - if @hours.present?
+        %p.row
+          %span.columns.small-4.large-3= "Hours:"
+          %span.columns.small-8.large-9
+            - if @open
+              %small.label.success= t('hours.open')
+            - else
+              %small.label.alert= t('hours.closed')
+      = render 'shared/hours'
+        
 
+    %div.row
       %div#google-map-aerial.columns.small-12.large-6
         = loading_spinner()
-
-    %div#google-map-street.row
-      = loading_spinner()
+      %div#google-map-street.columns.small-12.large-6
+        = loading_spinner()
 
     %div#institution-directions-link.row
       = link_to getDirectionsLink(@location) do
@@ -41,11 +51,11 @@
 
     %div#institution-desc.row
       %h4= "Description:"
-      %p.description= @institution.desc
+      %p.description.keep-spacing= @institution.desc
 
     %div#institution-restrictions.row
       %h4= "Restrictions:"
-      %p.restriction= @institution.instructions
+      %p.restriction.keep-spacing= @institution.instructions
             
 
   %div#get-info.columns.small-12.large-2
@@ -65,14 +75,22 @@
           %span= "Print"
 
     %div#subscribe
-      %h3= "Text Alerts"    
-      %h5= "Recieve future alerts from here on your phone"
+      %h4.has-tip{ data: { tooltip: true}, aria: { haspopup: true }, title: t('sms.subscribe.description')}= t('sms.subscribe.title')
       %div.row
-        = form_tag('/sms/subscribe', method: :post, data: { :abide => "ajax" }) do
-          %input{:type=>"tel", :placeholder=>"Enter your phone number"}
+        = form_tag('/sms/subscribe', id: "sms-subscribe-form", data: { remote: true, abide: true } ) do
+          = telephone_field_tag "number", nil, required: true, pattern: "\\d{10}"
           %small.error= "Please enter your 10 digit phone number (including area code)."
           = hidden_field_tag "id", @institution.id
           = submit_tag "Opt In", { class: "button", id: "opt-in" }
         
 
 = render 'send_info_modal'
+
+- content_for :breadcrumbs do
+  %ul.breadcrumbs
+    %li 
+      = link_to 'HOME', (root_path)
+    - if @amenity.present?
+      %li= link_to @amenity.name, ("amenity/" + @amenity.id.to_s)
+    %li.current= @institution.name
+

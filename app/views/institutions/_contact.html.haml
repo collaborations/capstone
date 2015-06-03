@@ -1,0 +1,12 @@
+%div#contact
+  %h2= "Contact"
+  = f.fields_for :contact do |c|
+    %div.row
+      = c.label :phone, "Phone Number"
+      = c.phone_field :phone
+    %div.row
+      = c.label :email, "Email Address"
+      = c.email_field :email
+    %div.row
+      = c.label :website, "Website"
+      = c.text_field :website, pattern: /^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/

@@ -20,7 +20,7 @@
   .amenity-bg {
     margin-bottom: 10px;
     height: $amenity-circle-size;
-    max-width: $amenity-circle-size;
+    width: $amenity-circle-size;
     -moz-border-radius: $amenity-circle-size; 
     -webkit-border-radius: $amenity-circle-size; 
     border-radius: $amenity-circle-size;
@@ -28,7 +28,7 @@
     &:hover {
       height: $amenity-circle-size + 10px;
       width: $amenity-circle-size + 10px;
-      margin-bottom:0px;
+      margin-bottom: 0px;
 
       .amenity-img {
         height: $amenity-size + 10px;
@@ -139,7 +139,6 @@ $filter-btn-is-input: false;
     background-position: 50%;
     background-repeat: no-repeat;
     width:40px;
+    background-color: white;
   }
-
-
 }

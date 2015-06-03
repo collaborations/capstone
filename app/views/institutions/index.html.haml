@@ -1,7 +1,7 @@
 
 = render 'shared/search'
 
-%div
+%div.row
   %h3= "Showing [....]"
   %ul.accordion{data:{accordion:true}}
     %li.accordion-navigation.small-12.large-8.columns
@@ -40,19 +40,22 @@
             %button#btn-distance.filter-btn-deselected= "Distance"
             %button#btn-name.filter-btn-deselected= "Name"
 
-%div.row
-  %div.small-12.large-5.columns#google-map-aerial
+%div.row.collapse
+  %div#google-map-aerial.columns.small-12.large-4
     = loading_spinner()
-
-  %div.small-12.large-7.columns#institutions_list
+  %div#institutions_list.columns.small-12.large-8
     - @institutions.each do |institution|
+      - getHours(institution.id)
       - dropdown_id = "hours-dropdown-#{institution.id}"
-      %div.f-dropdown.small{ id: dropdown_id, data: { dropdown: { content: true } } }
-        = getHours(institution.id)
       %div.institution.row
+        - if @open
+          %div.open.hide
         %div.small-12.large-6.columns
           =link_to institution.name, institution_path(institution), class: "row small-12 large-12 institution-name"
-          %p.row.small-12.large-12.institution-distance= "Distance: " + getDistance.to_s
+          %div.row.small-12.large-12
+            %div.hide{ id: "distance-container-#{institution.id}" }
+              %span= "Distance: "
+              %span.institution-distance{ id: "distance-#{institution.id}" }
           %p.row.small-12.large-12.institution-hours
             - if @hours_present
               %a.custom-button{ data: { dropdown: dropdown_id }, aria: { expanded: "false", controls: dropdown_id } }= "Click here for hours"
@@ -60,7 +63,30 @@
               %span= t('hours.missing')
           %div.row.small-8.large-8= link_to("View More Details", "/institution/" + institution.id.to_s)
         %div.small-12.large-6.columns
-          %ul.small-block-grid-5.large-block-grid-5.amenities-list
-            - institution.amenities.each do |amenity|
-              %li
-                =embedded_amenity(amenity)
+          %div.row
+            %div.small-12.large-12
+              %div.columns.small-12.large-12.hide.capacity-bar{ id: "capacity-#{institution.id}" }
+                %span.updated-at= "Current Capacity"
+                %span.capacity-remaining
+                %div.capacity-meter
+                  %span.filled
+                  %span.available
+                %div.capacity-total.hide= getTotalCapacity(institution.id)
+              %ul.columns.small-block-grid-5.large-block-grid-5.amenities-list
+                - institution.amenities.each do |amenity|
+                  %li
+                    =embedded_amenity(amenity)
+      %div.row.f-dropdown.large{ id: dropdown_id, data: { dropdown: { content: true } } }
+        -if @open
+          %div.columns.small-12.large-12.label.success= t('hours.open')
+        - else
+          %div.columns.small-12.large-12.label.alert= t('hours.closed')
+        = render 'shared/hours'
+
+- content_for :breadcrumbs do
+  %ul.breadcrumbs
+    %li 
+      =link_to 'HOME', (root_path)
+    - if @amenity.present?
+      %li.current= @amenity.name
+

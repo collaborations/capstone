@@ -16,8 +16,6 @@
   }
 
   #amenities_list {
-    background-color: $primary-bg;
-
     @include amenity-icon(60px);
   }
 
@@ -29,7 +27,6 @@
     }
 
     .logo {
-      // max-height: 30%;
       max-width: 500px;
       border-right: 2px solid black;
     }
@@ -43,9 +40,6 @@
 
   #search {
     clear: both;
-    h3 {
-      background-image: url('dot.jpg');
-    }
     .row {
       max-width: none;
     }    
@@ -55,7 +49,7 @@
 
   .logo {
     width: 300px;
-    height: auto;
+    height: auto;   
   }
 
   .statement {

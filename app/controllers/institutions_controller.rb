@@ -1,6 +1,6 @@
 class InstitutionsController < ApplicationController
   before_action :set_amenity, only: [:edit, :update, :new]
-  before_action :set_institution, only: [:show, :update, :destroy]
+  before_action :set_institution, only: [:show, :update, :destroy, :print]
   before_action :authenticate_user!, only: [:edit, :update]
   before_action :load_google_maps, only: [:amenity, :index, :show]
   before_action :get_amenity_from_referrer, only: [:show]
@@ -8,13 +8,23 @@ class InstitutionsController < ApplicationController
   # GET /institutions
   # GET /institutions.json
   def index
-    @institutions = Institution.search(params[:search])
+    filters = filter(true)
+    if filters.nil?
+      @institutions = Institution.search(params[:search])
+    else  
+      @institutions = filters
+    end
     set_locations()
   end
 
   # GET /amenity/1
   def amenity
-    @institutions = Amenity.find(params[:id]).institutions
+    filters = filter(false)
+    if filters.nil?
+      @institutions = Amenity.find(params[:id]).institutions
+    else  
+      @institutions = filters
+    end
     set_locations()
     render 'index'
   end
@@ -84,25 +94,24 @@ class InstitutionsController < ApplicationController
 
   def print
     begin
-      id = params.require(:id)
-      @institution = Institution.where(id: id).first
+      load_contact_info()
 
-      @contact = Contact.where(institution_id: id)
-      @contact = @contact.first if @contact.present?
-
-      @details = InstitutionDetail.where(institution_id: id)
+      @details = InstitutionDetail.where(institution_id: @institution.id)
       @details = @details.first if @details.present?
 
-      @location = Location.where(institution_id: id)
+      @location = Location.where(institution_id: @institution.id)
       @location = @location.first if @location.present?
 
-      @amenities = InstitutionHasAmenity.joins(:amenity, :institution).where(institution_id: id).map(&:amenity)
+      @amenities = []
+      InstitutionHasAmenity.joins(:amenity, :institution).where(institution_id: @institution.id).map(&:amenity).each do |a|
+        @amenities << a.name
+      end
+      @amenities = @amenities.join(", ")
 
       # @restrictions = Restrictions.where(institution_id: id)
     rescue ActionController::ParameterMissing => e
       puts e.message
     end
-    render 'print'
   end
 
   private
@@ -180,5 +189,47 @@ class InstitutionsController < ApplicationController
       end
     end
 
+    def load_contact_info
+      contact = Contact.where(institution_id: @institution.id)
+      contact = contact.first if contact.present?
+      @contact = []
+      if contact.email.present?
+        @contact << { label: "Email: ", info: contact.email }
+      end
+      if contact.phone.present?
+        @contact << { label: "Phone: ", info: contact.phone }
+      end
+      if contact.website.present?
+        @contact << { label: "Website: ", info: contact.website }
+      end
+    end
+
+    def filt_inst(term, result)
+      if term
+        @institutions = Institution.joins(:amenities, :filter).search(params[:search]).where(result)
+      else
+        @institutions = Institution.joins(:amenities, :filter).where("amenity_id = ?", params[:id]).where(result)
+      end
+      return @institutions
+    end
+
+    def filter(term)
+      respond_to do |format|
+        format.html {}
+        format.json {
+          result = ""
+          if params[:age] and not params[:age].empty?
+            result = "min_age <= #{params[:age]} and max_age >= #{params[:age]} and "
+          end
+          if params[:filter]
+            params[:filter].each do |f|
+              result = result + f + "=true and "
+            end
+          end
+          result = result.gsub!(/and $/, "")
+          @institutions = filt_inst(term, result) #Institution.joins(:amenities, :filter).where("amenity_id = ?", params[:id]).where(result)
+        }
+      end
+    end
 end
   

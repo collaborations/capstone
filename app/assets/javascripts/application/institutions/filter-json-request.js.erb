@@ -1,0 +1,45 @@
+/*var json = {
+	init: function(data) {
+		console.log('here ' + data);
+	    filters = $("li.toggle > button");
+	    console.log(filters);
+		filters.on('click', function () {
+			  console.log('test');
+			  btn = $(this);
+			  id = btn.parent()[0].id.split('-')[1];
+			  console.log(id);
+
+			  if( btn.hasClass("filter-btn-selected") ){
+			    btn.removeClass("filter-btn-selected");
+			    btn.addClass("filter-btn-deselected");
+			  } else {
+			    btn.removeClass("filter-btn-deselected");
+			    btn.addClass("filter-btn-selected");
+			  }
+			filt = [];
+			but = $("li.toggle > button.filter-btn-selected");
+			for (var i = 0; i < but.length; i++) {
+				filt.push(but[i].innerHTML.toLowerCase());
+			}
+			
+			$.ajax({
+                 url: data + ".json", // Route to the Script Controller method
+                type: "GET",
+            	dataType: "json",
+                data: { filter: filt } // This goes to Controller in params hash, i.e. params[:file_name]
+            }).done(function(data) {
+            	console.log(data);
+            	  - getHours(institution.id)
+				  - dropdown_id = "hours-dropdown-#{institution.id}"
+
+
+
+
+
+              $("#institutions_list").html("#{j(render('institution_list', :institutions=> @institutions))}");
+            });
+
+	    });
+	}
+}
+*/

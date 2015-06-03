@@ -12,11 +12,11 @@ $("li.toggle > button").on("click", function(){
     btn.addClass("filter-btn-selected");
   }
 });
-
+$(document).ready(function() {
 // Sort current institutions by name
 $("#btn-name").on("click", { selector: ".institution-name" } , sort);
 $("#btn-distance").on("click", { selector: ".institution-distance" } , sort);
-
+});
 //Sort the institutions list in the view.
 //Call using jQuery and pass in a CSS selector as 'selector'
 function sort(event){
@@ -24,7 +24,10 @@ function sort(event){
   var sorted = [];
   
   $.each($(".institution"), function(k, v){
+    console.log("k is " + k);
+    console.log(v);
     var name = $(v).find(event.data.selector)[0].innerHTML;
+    console.log(name);
     map[name] = $(v);
     sorted.push(name);
   });

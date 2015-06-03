@@ -85,6 +85,7 @@ ul.breadcrumbs{
 
     .amenities-list {
       @include amenity-icon(25px);
+      margin-top: 20px;
     }
   }
 }

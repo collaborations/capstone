@@ -17,7 +17,6 @@ namespace :db do
       end
     end
 
-
     # Filters
     desc "Ensures every Institution has a filters object"
     task :filters => :environment do
@@ -48,6 +47,23 @@ namespace :db do
           end
         elsif i.hours.instance_of? Hours::ActiveRecord_Relation
           puts "WARNING: More than one HOURS record for INSTITUTION: #{i.id} - #{i.name}"
+        end
+      end
+    end
+
+    # InstitutionDetail
+    desc "Ensures every Institution has a InstitutionDetail object"
+    task :institution_detail => :environment do
+      Institution.all.each do |i|
+        if i.institution_detail.nil?
+          i.institution_detail = InstitutionDetail.create(institution_id: i.id)
+          if i.save
+            puts "--> OK: Created INSTITUTION_DETAIL for INSTITUTION: #{i.id} - #{i.name}"
+          else
+            puts "FAILED: Failed to create missing INSTITUTION_DETAIL for INSTITUTION: #{i.id} - #{i.name}"
+          end
+        elsif i.contact.instance_of? InstitutionDetail::ActiveRecord_Relation
+          puts "WARNING: More than one INSTITUTION_DETAIL record for INSTITUTION: #{i.id} - #{i.name}"
         end
       end
     end

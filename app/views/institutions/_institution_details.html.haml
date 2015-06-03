@@ -1,0 +1,6 @@
+%div#institution-details
+  %h2= "Details"
+  = f.fields_for :institution_details do |i|
+    %div.row
+      = i.label :capacity, "What is your maximum capacity?"
+      = i.number_field :capacity

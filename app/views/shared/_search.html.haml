@@ -1,9 +1,11 @@
 %div#search
   - if @search_label.present?
-    %h3= t('home.search_name') 
+    %div.a_title
+      %h3= t('home.search_name')
+      %span.dots
   %div.row.collapse
     = form_tag institutions_path, :method => 'get' do
-      %div.small-12.large-11.columns.search
+      %div.small-11.large-11.columns.search
         =text_field_tag :search, params[:search], placeholder: t('home.search_placeholder')
-      %div.small-12.large-1.columns.search
+      %div.small-1.large-1.columns.search
         =submit_tag "", :class => "search postfix"

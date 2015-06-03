@@ -26,7 +26,7 @@ Rails.application.routes.draw do
   get '/institution/:id' => 'institutions#show'
   get '/institution/:id/print' => 'institutions#print', as: 'institution_print'
   
-  get '/sms' => 'sms#index'
+  get '/sms' => 'sms#index', as: 'mass_text'
 
   root "home#index"
   # The priority is based upon order of creation: first created -> highest priority.

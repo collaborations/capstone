@@ -177,7 +177,7 @@ class InstitutionsController < ApplicationController
         end
         lat += loc.lat
         long += loc.long
-        gon.markers << [i.id, i.name, loc.lat, loc.long]
+        gon.markers << [i.id, ActionController::Base.helpers.link_to(i.name, institution_path(i.id)), loc.lat, loc.long]
       end
       unless lat == 0 and long == 0
         gon.push({

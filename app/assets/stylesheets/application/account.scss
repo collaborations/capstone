@@ -4,37 +4,34 @@
 @import 'mixins';
 @import 'variables';
 
-.edit_profile-icon {
-  width: 5em;
-  height:5em;
+#account_index{
+  ul{
+    display: flex;
+  }
+  li {
+    display: inline-block;
+    float: left;
+    height: auto;
+    text-align: center;
+    margin: 1em;
+    padding: 1em;
+    border-radius: 2em;
+    
+    h3 {
+      color: white;
+    }
+  }
+
+  .capacity {
+    background-color: #95DC75;
+  }
+
+  .profile {
+    background-color: #60C7BA;
+  }
+
+  .notify {
+    background-color: #2D98D5;
+  }
 }
-
-
-li {
-  display: block;
-  float: left;
-  height: auto;
-  padding: 0 5em 4em;
-  text-align: center;
-  margin: 1em;
-}
-
-.capacity {
-  background-color: #95DC75;
-  //margin: 1em;
-}
-
-.profile {
-  background-color: #60C7BA;
-  //margin: 1em;
-
-}
-
-.notify {
-  background-color: #2D98D5;
-  //margin: 1em;
-
-}
-
-
 

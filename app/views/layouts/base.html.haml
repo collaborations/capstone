@@ -22,7 +22,7 @@
   = csrf_meta_tags
 
 %body
-  = render 'shared/nav' unless params[:controller] == "home"
+  = if params[:controller] != "home" then render 'shared/nav' else render 'home/nav'end
   = render 'shared/flash'
   %div{id: params[:controller] + '_' + params[:action]}
     = yield

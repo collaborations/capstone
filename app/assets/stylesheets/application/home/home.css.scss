@@ -28,7 +28,6 @@
 
     .logo {
       max-width: 500px;
-      border-right: 2px solid black;
     }
     .statement {
       padding-top: 10%;
@@ -57,13 +56,9 @@
     line-height: 100%;
   }
 
-  @media screen and (max-width: $mobile-width) {
-    .statement {
-      display: none;
-    }
-
+  @media screen and (min-width: $desktop-width) {
     #header > .logo {
-      border: 0;
+      border-right: 2px solid black;
     }
   }
 }

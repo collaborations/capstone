@@ -14,6 +14,7 @@ class Institution < ActiveRecord::Base
 	accepts_nested_attributes_for :amenities  
   accepts_nested_attributes_for :contact
   accepts_nested_attributes_for :hours
+  accepts_nested_attributes_for :institution_detail
   accepts_nested_attributes_for :locations
 	accepts_nested_attributes_for :restrictions
   accepts_nested_attributes_for :filter

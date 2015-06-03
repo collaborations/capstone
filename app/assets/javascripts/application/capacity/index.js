@@ -97,7 +97,7 @@ function transform(){
 
 function updateGraph(){
   dataCall = d3.xhr("http://localhost:3000/capacity/get")
-  params = {capacity_id: 1}
+  params = {}
   dataCall.post(params, function(error, data){
     data = JSON.parse(data.response);
 

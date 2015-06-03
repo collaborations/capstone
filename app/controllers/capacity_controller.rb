@@ -10,9 +10,6 @@ class CapacityController < ApplicationController
     gon.push({
       :capacity => @total
     })
-    puts "\n\n\n DETAILS"
-    puts @id
-    puts @total
   end
 
   def get
@@ -55,7 +52,6 @@ class CapacityController < ApplicationController
   private
     def get_data(id = @id)
       @data = []
-      puts "Using id #{id}"
       capacity = Capacity.where("institution_id = ? AND created_at >= ?", id, Time.zone.now.beginning_of_day).first
       if capacity.present?
         @data << { type: "reserved", value: capacity.reserved }

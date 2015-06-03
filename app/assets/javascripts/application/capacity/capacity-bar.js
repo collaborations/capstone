@@ -3,7 +3,6 @@ var capacities;
 window.addEventListener('load', checkForCapacityBar);
 
 function checkForCapacityBar(){
-  console.log("Loaded");
   capacities = $(".capacity-bar");
   if(capacities.length > 0){
     getCapacities();
@@ -16,15 +15,13 @@ function getCapacities(){
     var id = v.id.split("-")[1];
     options.push(id);
   });
-  console.log(options); 
   var request = $.post( "/capacity/get/ids", { capacity_ids: options }, populateCapacities)
   request.fail(function( jqXHR, textStatus ) {
-    alert( "Request failed: " + textStatus );
+    console.log("Request to get capacity details failed");
   });
 }
 
 function populateCapacities(response){
-  // console.log(response);
   $.each(response, function(k, v){
     id = v.id;
     data = v.data;

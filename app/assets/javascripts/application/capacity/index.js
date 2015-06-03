@@ -44,7 +44,7 @@ function initializeCapacityTracker(){
   $("#capacity-warning").hide();
   $.ajax({
     "type": "POST",
-    "url": "http://localhost:3000/capacity/get",
+    "url": "/capacity/get",
     "success": function(temp){
       temp.forEach(function(d){
         data[d.type] = d.value;
@@ -96,7 +96,7 @@ function transform(){
 }
 
 function updateGraph(){
-  dataCall = d3.xhr("http://localhost:3000/capacity/get")
+  dataCall = d3.xhr("/capacity/get")
   params = {}
   dataCall.post(params, function(error, data){
     data = JSON.parse(data.response);
@@ -134,7 +134,7 @@ function updateGraph(){
 function updateServer(){
   $.ajax({
     "type": "POST",
-    "url": "http://localhost:3000/capacity/update",
+    "url": "/capacity/update",
     "data": data,
     "success": function(){
       console.log("Success!");

@@ -8,13 +8,23 @@ class InstitutionsController < ApplicationController
   # GET /institutions
   # GET /institutions.json
   def index
-    @institutions = Institution.search(params[:search])
+    filters = filter(true)
+    if filters.nil?
+      @institutions = Institution.search(params[:search])
+    else  
+      @institutions = filters
+    end
     set_locations()
   end
 
   # GET /amenity/1
   def amenity
-    @institutions = Amenity.find(params[:id]).institutions
+    filters = filter(false)
+    if filters.nil?
+      @institutions = Amenity.find(params[:id]).institutions
+    else  
+      @institutions = filters
+    end
     set_locations()
     render 'index'
   end
@@ -191,6 +201,34 @@ class InstitutionsController < ApplicationController
       end
       if contact.website.present?
         @contact << { label: "Website: ", info: contact.website }
+      end
+    end
+
+    def filt_inst(term, result)
+      if term
+        @institutions = Institution.joins(:amenities, :filter).search(params[:search]).where(result)
+      else
+        @institutions = Institution.joins(:amenities, :filter).where("amenity_id = ?", params[:id]).where(result)
+      end
+      return @institutions
+    end
+
+    def filter(term)
+      respond_to do |format|
+        format.html {}
+        format.json {
+          result = ""
+          if params[:age] and not params[:age].empty?
+            result = "min_age <= #{params[:age]} and max_age >= #{params[:age]} and "
+          end
+          if params[:filter]
+            params[:filter].each do |f|
+              result = result + f + "=true and "
+            end
+          end
+          result = result.gsub!(/and $/, "")
+          @institutions = filt_inst(term, result) #Institution.joins(:amenities, :filter).where("amenity_id = ?", params[:id]).where(result)
+        }
       end
     end
 end

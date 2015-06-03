@@ -1,0 +1,69 @@
+if($("#institutions_amenity").length || $("#institutions_index").length){
+  var path = window.location.pathname;
+  init(path);
+}
+
+var mapping;
+var allInst;
+
+function init(fullpath) {
+  $(document).ready(function() {
+    mapping = new Array();
+    allInst = $("#institutions_list").html();
+    var x = fullpath;
+    var age = $("li.toggle > input#btn-age");
+    age.on('blur', function() {
+      getFilters(this, x, this.value);
+    });
+    filters = $("li.toggle > button");
+    filters.on('click', function () {
+      getFilters(this, x);      
+    });
+  });
+}
+function filter(data) {
+  $("#institutions_list").html(allInst);
+  var sorted = [];
+  sel = ".institution-name";
+  filt = {}
+  for (var i = 0; i < data.length; i++) {
+    filt[data[i].name] = true;
+  }
+  $.each($(".institution"), function(k, v){
+    var name = $(v).find(sel)[0].innerHTML;
+    if (!filt[name]) {
+      mapping.push(v);
+      v.remove();
+    }
+  });
+}
+
+function callAjax(data, filt, age) {
+  $.ajax({
+      url: data + ".json", // Route to the Script Controller method
+      type: "GET",
+      dataType: "json",
+      data: { filter: filt, age: age } // This goes to Controller in params hash, i.e. params[:file_name]
+    }).done(function(data) {
+      filter(data)
+    });
+}
+
+function getFilters(button, x, age) {
+  filt = [];
+  btn = $(button);
+  id = btn.parent()[0].id.split('-')[1];
+
+  if( btn.hasClass("filter-btn-selected") ){
+    btn.removeClass("filter-btn-selected");
+    btn.addClass("filter-btn-deselected");
+  } else {
+    btn.removeClass("filter-btn-deselected");
+    btn.addClass("filter-btn-selected");
+  }
+  but = $("li.toggle > button.filter-btn-selected");
+  for (var i = 0; i < but.length; i++) {
+    filt.push(but[i].innerHTML.toLowerCase());
+  }
+  callAjax(x, filt, age);
+} 

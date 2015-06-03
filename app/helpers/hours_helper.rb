@@ -51,5 +51,6 @@ module HoursHelper
       @open = Time.now.during_business_hours?
       @hours = hours
     end
+    return hours
   end
 end

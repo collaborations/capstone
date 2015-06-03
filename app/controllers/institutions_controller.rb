@@ -82,6 +82,21 @@ class InstitutionsController < ApplicationController
     end
   end
 
+  def email
+    id = params.require(:institution_id)
+    email = params.require(:email)
+    
+    options = Hash.new
+    options[:phone] = true if params[:phone].present?
+    options[:hours] = true if params[:hours].present?
+    options[:address] = true if params[:address].present?
+    options[:amenities] = true if params[:amenities].present?
+    options[:restrictions] = true if params[:restrictions].present?
+
+    InfoMailer.new(id, email, options).deliver_now!
+    head :ok, content_type: "text/html"
+  end
+
   def print
     begin
       load_contact_info()

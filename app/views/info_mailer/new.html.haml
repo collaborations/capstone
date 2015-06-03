@@ -1,0 +1,37 @@
+%h1= @institution.name
+
+- if @address.present?
+  %h3= "Address"
+  %p
+    %em= @address.streetLine1      
+  %p
+    %em= @address.streetLine2 if @address.streetLine2.present?      
+  %p
+    %em= sprintf("%s, %s %s", @address.city, @address.state, @address.zip)
+
+- if @phone.present?
+  %h3= "Phone"
+  %p= sprintf("(%s)%s-%s", @phone[0], @phone[1], @phone[2])
+  
+- if @hours.present?
+  - @hours = getHours(@id)
+  - if @hours.present?
+    - days = Date::DAYNAMES
+    %h3= "Hours"
+    %table
+      %tr
+        - days.each do |d|
+          %td= d
+      %tr
+        - @hours.each_with_index do |h, i|
+          %td= h.to_s
+
+
+- if @amenities
+  %h3= "Amenities"
+  - @amenities.each do |a|
+    %p= "- " + a.name.capitalize
+
+- if @restrictions.present?
+  %h3= "Restrictions"
+  %p= @restrictions

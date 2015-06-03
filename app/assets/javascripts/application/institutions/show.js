@@ -13,7 +13,7 @@ function initializeInstitution(){
     $("#send-text").hide();
     $("#sms").attr("required", false);
     $("#message_type")[0].value = "email";
-    $("#institution-modal-form")[0].action = "/mailers/send"
+    $("#institution-modal-form")[0].action = "/institution/email"
     $("#sms").attr("aria-invalid", false);
   });
 

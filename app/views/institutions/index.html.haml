@@ -44,9 +44,7 @@
   %div#google-map-aerial.columns.small-12.large-4
     = loading_spinner()
   %div#institutions_list.columns.small-12.large-8
-    - if @institutions.length == 0
-      %div#no-results= "No results found"
-    - else
+    - if @institution.present?
       - @institutions.each do |institution|
         - getHours(institution.id)
         - dropdown_id = "hours-dropdown-#{institution.id}"
@@ -76,6 +74,8 @@
           - else
             %div.columns.small-12.large-12.label.alert= t('hours.closed')
           = render 'shared/hours'
+    - else
+      %div#no-results= "No results found"
 
 - content_for :breadcrumbs do
   %ul.breadcrumbs

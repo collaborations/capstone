@@ -19,7 +19,18 @@ function initializeGoogleMapsAPI(){
 function initializeMaps(){
   pins = new Array();
   getCurrentLocation();
-  generateMap();
+
+  if(typeof(gon.latitude) !== 'undefined' && typeof(gon.longitude) !== 'undefined'){
+    // Geocoordinates were provided
+    initialLocation = new google.maps.LatLng(gon.latitude, gon.longitude);
+    generateMap();
+  } else if(typeof(gon.address) !== 'undefined'){
+    // Need to lookup address
+    addressLookup(gon.address);
+  } else {
+    console.log("Error loading Google maps, please reload the page.");
+    generateMap();
+  }
 }
 
 // Look up geocoordinates from an address and use that as the initial location.
@@ -173,7 +184,7 @@ function setMarkers(){
   // Add the markers and infowindows to the map
   var iconCounter = 0;
   for (var i = 0; i < markers.length; i++) {  
-    var description = markers[i][4];
+    var description = markers[i][1];
     var destination = new google.maps.LatLng(markers[i][2], markers[i][3]);
     var marker = new google.maps.Marker({
       position: destination,

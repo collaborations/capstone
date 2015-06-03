@@ -7,6 +7,9 @@
 
 
 #home_index {
+  .statement{
+    color: $border-color;
+  }
   margin-top: 20px;
   margin-left: $margin-side;
   margin-right: $margin-side;
@@ -43,26 +46,6 @@
       max-width: none;
     }    
   }
-
-  // div.a_title {
-  //   //max-width: 40em;
-  //   padding: 0;
-  //   overflow-x: hidden;
-  //   list-style: none
-  // }
-    
-  // //   span{
-  // //     padding-right: 0.33em;
-  // //     background: white
-  // //   }
-  // // }
-
-  // <div class="article">
-  //     <span class="item">sandwichtoaster</span>
-  //     <span class="dots"></span>
-  //     <span class="price">$35</span>
-  // </div>
-  // And some new CSS:
 
   .a_title{
       display: flex;
@@ -106,7 +89,7 @@
 
   @media screen and (min-width: $desktop-width) {
     #header > .logo {
-      border-right: 2px solid black;
+      border-right: 1px solid $border-color;
     }
   }
 }

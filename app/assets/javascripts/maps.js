@@ -7,7 +7,7 @@ var pins;
 var iconURL = 'http://maps.google.com/mapfiles/ms/icons/purple-dot.png';
 var cLocIconUrl = 'http://maps.google.com/mapfiles/ms/icons/red-dot.png';
 
-window.onload = initializeGoogleMapsAPI;
+window.addEventListener('load', initializeGoogleMapsAPI);
 
 function initializeGoogleMapsAPI(){
   var script = document.createElement('script');

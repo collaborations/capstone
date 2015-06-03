@@ -64,24 +64,18 @@
           %div.row.small-8.large-8= link_to("View More Details", "/institution/" + institution.id.to_s)
         %div.small-12.large-6.columns
           %div.row
-            %div.columns.small-12.large-12
-              %ul.small-block-grid-5.large-block-grid-5.amenities-list
+            %div.small-12.large-12
+              %div.columns.small-12.large-12.hide.capacity-bar{ id: "capacity-#{institution.id}" }
+                %span= "Capacity:"
+                %span.capacity-remaining
+                %div.capacity-meter
+                  %span.filled
+                  %span.available
+                %div.capacity-total.hide= getTotalCapacity(institution.id)
+              %ul.columns.small-block-grid-5.large-block-grid-5.amenities-list
                 - institution.amenities.each do |amenity|
                   %li
                     =embedded_amenity(amenity)
-            - getTodaysCapacity(institution.id)
-            / - if @capacity.present?
-            - if true
-              %div.columns.small-12.large-12
-                %p= "Capacity:      40 spots left"
-                %div.total.hide
-                %div.capacity-meter{ id: "capacity-#{institution.id}" }
-                  %span.free{ style: "width: 10%"}= 10
-                  %span.reserved{ style: "width: 20%"}= 20
-                  %span.standby{ style: "width: 30%"}= 30
-                / %span.free
-                / %span.reserved
-                / %span.standby
       %div.row.f-dropdown.large{ id: dropdown_id, data: { dropdown: { content: true } } }
         -if @open
           %div.columns.small-12.large-12.label.success= t('hours.open')

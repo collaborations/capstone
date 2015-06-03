@@ -2,7 +2,7 @@ class CapacityController < ApplicationController
   # Introducing this has to give some sort of CSRF vulnerability
   skip_before_action :verify_authenticity_token
   before_action :authenticate_user!, only: [:index, :update]
-  before_action :set_id, only: [:index, :update]
+  before_action :set_institution_id, only: [:index, :update]
   before_action :set_capacity, only: [:index, :update]
   before_action :set_total_capacity, only: [:index, :update]
 
@@ -10,22 +10,42 @@ class CapacityController < ApplicationController
     gon.push({
       :capacity => @total
     })
+    puts "\n\n\n DETAILS"
+    puts @id
+    puts @total
   end
 
   def get
-    # ID should be passed in as a parameter and be the id of the institution
     if params[:id].present?
       @id = params[:id]
+      set_capacity()
+      set_total_capacity()
     elsif user_signed_in?
-      set_id()
+      set_institution_id()
     end
-    set_capacity()
-    set_total_capacity()
     render json: get_data
+  end
+
+  def getByID
+    if params[:capacity_ids].present?
+      allData = []
+      ids = params[:capacity_ids]
+      ids.each do |cap|
+        data = get_data(cap)
+        if data.present?
+          allData << { id: cap, data: data }
+        end
+      end
+      puts allData.to_json
+      render json: allData
+    else
+      head :bad_request
+    end
   end
 
   def update
     @capacity.update(
+      available: params[:available],
       reserved: params[:reserved],
       standby: params[:standby]
     )
@@ -33,13 +53,19 @@ class CapacityController < ApplicationController
   end
 
   private
-    def get_data
-      data = []
-      data << { type: "reserved", value: @capacity.reserved }
-      data << { type: "standby", value: @capacity.standby }
+    def get_data(id = @id)
+      @data = []
+      puts "Using id #{id}"
+      capacity = Capacity.where("institution_id = ? AND created_at >= ?", id, Time.zone.now.beginning_of_day).first
+      if capacity.present?
+        @data << { type: "reserved", value: capacity.reserved }
+        @data << { type: "standby", value: capacity.standby }
+        @data << { type: "available", value: capacity.available }
+      end
+      @data
     end
 
-    def set_id
+    def set_institution_id
       @id = current_user.institution_id
     end
 

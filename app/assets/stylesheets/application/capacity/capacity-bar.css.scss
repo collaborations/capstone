@@ -1,9 +1,8 @@
 $cap-border-rad: 5px;
 $cap-border-rad-meter: 5px;
 $cap-color-bg: #666;
-$cap-color-free: #9BE08B;
-$cap-color-reserved: #EF7B5C;
-$cap-color-standby: #66CFC3;
+$cap-color-available: #9BE08B;
+$cap-color-filled: #EF7B5C;
 $cap-color-text: white;
 $cap-height: 25px;
 $cap-meter-padding: 3px;
@@ -34,17 +33,14 @@ $cap-spacing: 2px;
   span:first-child {
     border-top-left-radius: $cap-border-rad;
     border-bottom-left-radius: $cap-border-rad;
-    margin-right: $cap-spacing;
   }
 
   span:last-child {
     border-top-right-radius: $cap-border-rad;
     border-bottom-right-radius: $cap-border-rad;
-    margin-left: $cap-spacing;
   }
 
   // Specify colors of the different states
-  .free { background-color: $cap-color-free; }
-  .reserved { background-color: $cap-color-reserved; }
-  .standby { background-color: $cap-color-standby; }
+  .available { background-color: $cap-color-available; }
+  .filled { background-color: $cap-color-filled; }
 }

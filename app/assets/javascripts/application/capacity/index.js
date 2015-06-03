@@ -4,7 +4,6 @@
 
 // Setting up values for the graph
 var data;
-var mCapacity;
 var gWidth;
 var gHeight;
 var radius;
@@ -18,11 +17,11 @@ if ($("#capacity_index").length) {
 
 function initializeCapacityTracker(){
   data = {
-    "total": 0,
+    "total": gon.capacity,
     "reserved": 0,
-    "standby": 0
+    "standby": 0,
+    "available": 100
   }
-  mCapacity = gon.capacity;
   gHeight = 400;
   gWidth = 400;
   radius = Math.min(gWidth, gHeight) / 2;
@@ -49,11 +48,11 @@ function initializeCapacityTracker(){
     "success": function(temp){
       temp.forEach(function(d){
         data[d.type] = d.value;
-        if(d.type != "empty"){
-          data["total"] += d.value;
-        } else {
+        if(d.type == "available"){
           $("#remaining")[0].innerHTML = d.value;
         }
+        data[d.type] = d.value;
+          
       });
     }
   });
@@ -80,14 +79,14 @@ function add(event){
     console.log("Add was called without clicking a button");
   }
   
-  data["total"] = data["total"] + event.data.num;
-  if(data["total"] > mCapacity){
+  data["available"] -= event.data.num
+  if(data["available"] > data["total"]){
     console.log("OVER CAPACITY");
     $("#capacity-warning").show();
   } else {
     $("#capacity-warning").hide();
   }
-  $("#remaining")[0].innerHTML = mCapacity - data["total"];
+  $("#remaining")[0].innerHTML = data["available"];
   updateServer();
 }
 
@@ -98,7 +97,7 @@ function transform(){
 
 function updateGraph(){
   dataCall = d3.xhr("http://localhost:3000/capacity/get")
-  params = {id: 1}
+  params = {capacity_id: 1}
   dataCall.post(params, function(error, data){
     data = JSON.parse(data.response);
 
@@ -119,7 +118,7 @@ function updateGraph(){
             return "#EF7B5C";
           case "standby":
             return "#66CFC3";
-          case "empty":
+          case "available":
             return "#9BE08B";
         }
       });

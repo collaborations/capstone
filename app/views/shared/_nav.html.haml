@@ -12,10 +12,10 @@
           %li.has-dropdown
             %a= "Menu"
             %ul.dropdown
-              %li= link_to("Account", "/capacity")
-              %li= link_to("Capacity Tracking", "/capacity")
-              %li= link_to("Edit Profile", edit_institution_path(id: current_user.institution_id))
-              %li= link_to("Mass Text", "/sms")
+              %li= link_to("Account", account_path)
+              %li= link_to("Capacity Tracking", capacity_index_path(current_user.institution_id))
+              %li= link_to("Edit Profile", edit_institution_path(current_user.institution_id))
+              %li= link_to("Mass Text", mass_text_path)
               %li= link_to("Sign Out", destroy_user_session_path, { :method => :delete })
         - else
           %li

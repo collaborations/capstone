@@ -4,22 +4,22 @@
 
 %div  
   %h2{class: 'dash'}= 'My Account'
-  %h3= "Seattle Union Gospel Mission: Mens Shelter"
+  %h3= @institution.name
   %ul.large-block-grid-3
     %li.capacity
       %a
         %h3= "Capacity Tracker"
-        =link_to("/capacity") do
+        =link_to(capacity_index_path(current_user.institution_id)) do
           = image_tag "Pie-Chart.png", class: "edit_profile-icon"
     %li.profile
       %a
         %h3= "Edit Profile"
-        = link_to("/capacity") do
+        = link_to(edit_institution_path(id: current_user.institution_id)) do
           = image_tag "Data-Edit.png", class: "edit_profile-icon"
     %li.notify
       %a
         %h3= "Send Text Alert"
-        = link_to("/capacity") do
+        = link_to(mass_text_path) do
           = image_tag "Message.png", class: "edit_profile-icon"      
  
 

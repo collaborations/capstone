@@ -24,13 +24,22 @@ function sort(event){
   var sorted = [];
   
   $.each($(".institution"), function(k, v){
-    var name = $(v).find(event.data.selector)[0].innerHTML;
+    if(event.data.selector == ".institution-distance"){
+      var name = parseFloat($(v).find(event.data.selector)[0].innerHTML);
+      console.log(name);
+    }else{
+      var name = $(v).find(event.data.selector)[0].innerHTML;
+    }
     map[name] = $(v);
     sorted.push(name);
   });
   var container = $("#institutions_list");
   container.empty();
-  sorted.sort();
+  if(event.data.selector == ".institution-distance"){
+    sorted.sort(function(a,b) { return a - b;});
+  }else{
+    sorted.sort();
+  }
   $.each(sorted, function(k, v){ container.append(map[v]); });
 }
 

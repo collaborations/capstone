@@ -28,7 +28,7 @@ class CapacityController < ApplicationController
       allData = []
       ids = params[:capacity_ids]
       ids.each do |cap|
-        data = get_data(cap)
+        data = get_data(cap, true)
         if data.present?
           allData << { id: cap, data: data }
         end
@@ -50,13 +50,17 @@ class CapacityController < ApplicationController
   end
 
   private
-    def get_data(id = @id)
+    def get_data(id = @id, last_update = false)
       @data = []
       capacity = Capacity.where("institution_id = ? AND created_at >= ?", id, Time.zone.now.beginning_of_day).first
       if capacity.present?
         @data << { type: "reserved", value: capacity.reserved }
         @data << { type: "standby", value: capacity.standby }
         @data << { type: "available", value: capacity.available }
+        if last_update
+          @data << { type: "last_update", value: capacity.updated_at.strftime("%l:%M %p") }
+          puts Time.zone.to_s
+        end
       end
       @data
     end

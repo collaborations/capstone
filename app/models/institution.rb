@@ -20,7 +20,7 @@ class Institution < ActiveRecord::Base
   accepts_nested_attributes_for :filter
 
 	include PgSearch
-	pg_search_scope :all_scope, :against => {:name => 'A'},
+	pg_search_scope :all_scope, :against => {:name => 'A', :desc => 'B'},
 					:associated_against	=> {
 						:amenities => :name
 					},

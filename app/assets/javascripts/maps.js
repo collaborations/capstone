@@ -169,7 +169,7 @@ function setMarkers(){
   // Add the markers and infowindows to the map
   var iconCounter = 0;
   for (var i = 0; i < markers.length; i++) {  
-    var description = markers[i][1];
+    var description = markers[i][4];
     var destination = new google.maps.LatLng(markers[i][2], markers[i][3]);
     var marker = new google.maps.Marker({
       position: destination,

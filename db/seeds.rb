@@ -34,7 +34,7 @@ SeattleUnionGospelMission.contact = Contact.new({
 		website: "www.ugm.org"
 	})
 SeattleUnionGospelMission.institution_detail = InstitutionDetail.new({
-		hours: "No Hours Set"
+		#hours: "No Hours Set"
 	})
 SeattleUnionGospelMission.locations = [Location.new({
 		streetLine1: "318 2nd Ave Extension South",
@@ -53,7 +53,7 @@ BallardHomelessClinic.contact = Contact.new({
 		website: "www.neighborcare.org/clinics/neighborcare-health-ballard-homeless-clinic-nyer-urness-house"
 	})
 BallardHomelessClinic.institution_detail = InstitutionDetail.new({
-		hours: "No Hours Set"
+		#hours: "No Hours Set"
 	})
 BallardHomelessClinic.locations = [Location.new({
 		streetLine1: "1753 NW 56th St",
@@ -77,7 +77,7 @@ SacredHeartShelter = Institution.new({ name: "Sacred Heart Shelter",
 		website: "www.sacredheartseattle.com"
 	})
 SacredHeartShelter.institution_detail = InstitutionDetail.new({
-		hours: "No Hours Set"
+		#hours: "No Hours Set"
 	})
  SacredHeartShelter.locations = [Location.new({
 		streetLine1: "205 2nd Ave N",
@@ -96,7 +96,7 @@ SalvationArmyFoodBank.contact = Contact.new({
 		website: "www.salvationarmy.org"
 	})
 SalvationArmyFoodBank.institution_detail = InstitutionDetail.new({
-		hours: "No Hours Set"
+		#hours: "No Hours Set"
 	})
 SalvationArmyFoodBank.locations = [Location.new({
 		streetLine1: "1101 Pike St",
@@ -116,7 +116,7 @@ StFrancisHouse.contact = Contact.new({
 		website: "www.stfrancishouseseattle.org"
 	})
 StFrancisHouse.institution_detail = InstitutionDetail.new({
-		hours: "No Hours Set"
+		#hours: "No Hours Set"
 	})
 StFrancisHouse.locations = [Location.new({
 		streetLine1: "169 12th Ave",

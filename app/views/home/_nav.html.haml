@@ -1,9 +1,5 @@
 %div.fixed
   %nav.top-bar{ "data-topbar" => true, "role" => "navigation" }
-    %ul.title-area
-      %li
-        = link_to(root_path) do
-          = image_tag "logo.png", class: "logo-nav"
     %section.top-bar-section
       %ul.right
         %li
@@ -21,6 +17,5 @@
           %li
             =link_to("Sign In", "/users/sign_in")
             
-    %section.middle
-      = yield :breadcrumbs
+
 

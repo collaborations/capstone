@@ -2,19 +2,25 @@
 %div#home_index
   %ul#header.small-block-grid-1.large-block-grid-2
 
-%div
+%div  
   %h2{class: 'dash'}= 'My Account'
-  %h3= 'Seattle Union Gospel Mission: Mens Shelter'
+  %h3= "Seattle Union Gospel Mission: Mens Shelter"
   %ul.large-block-grid-3
     %li.capacity
-      %h4= "Capacity Tracker"
-      = link_to("/capacity") do
-        = image_tag "email.svg", class: "edit_profile-icon"
+      %a
+        %h3= "Capacity Tracker"
+        =link_to("/capacity") do
+          = image_tag "Pie-Chart.png", class: "edit_profile-icon"
     %li.profile
-      %h4= "Edit Profile"
-      = link_to("/capacity") do
-        = image_tag "email.svg", class: "edit_profile-icon"
+      %a
+        %h3= "Edit Profile"
+        = link_to("/capacity") do
+          = image_tag "Data-Edit.png", class: "edit_profile-icon"
     %li.notify
-      %h4= "Send Text Alert"
-      = link_to("/capacity") do
-        = image_tag "email.svg", class: "edit_profile-icon"       
+      %a
+        %h3= "Send Text Alert"
+        = link_to("/capacity") do
+          = image_tag "Message.png", class: "edit_profile-icon"      
+ 
+
+

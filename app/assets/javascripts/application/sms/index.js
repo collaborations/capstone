@@ -1,5 +1,5 @@
 if($("#sms_index").length){
-  window.onload = initializeSMS;
+  window.addEventListener('load', initializeSMS);
 }
 
 function initializeSMS(){

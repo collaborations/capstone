@@ -61,18 +61,19 @@
   %div#get-info.columns.small-12.large-2
     %div#save
       %h4= "Save Information"
-      %div.row.collapse
+      %div.row
         %button.small-12.large-12{ name: "email", "data-reveal-id" => "institution-modal" }
           %div= embedded_svg("email.svg", { class: "save-icon", alt: "Email me this!"})
           %span= "Email"
-      %div.row.collapse
+      %div.row
         %button.small-12.large-12{ name: "text", "data-reveal-id" => "institution-modal" }
           %div= embedded_svg("sms.svg", { class: "save-icon", alt: "Text this to me!"})
           %span= "Text"
-      %div.row.collapse
-        %button.small-12.large-12{ name: "print", "data-reveal-id" => link_to(institution_print_path)}
-          %div= embedded_svg("print.svg", { class: "save-icon", alt: "Print this for me!"})
-          %span= "Print"
+      %div.row
+        = link_to(institution_print_path) do
+          %button.print.columns.small-12.large-12.label
+            %div= embedded_svg("print.svg", { class: "save-icon", alt: "Print this for me!"})
+            %span= "Print"
 
     %div#subscribe
       %h4.has-tip{ data: { tooltip: true}, aria: { haspopup: true }, title: t('sms.subscribe.description')}= t('sms.subscribe.title')

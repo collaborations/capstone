@@ -18,8 +18,9 @@ class SmsController < ApplicationController
   # This is hit by Twilio every time we receive a text
   def reply
     Rails.logger.info params
+    Rails.logger.info "Received from: " + params[:From]
+    Rails.logger.info "Message: " + params[:Body]
     head :ok, content_type: "text/html"
-
   end
 
   def info

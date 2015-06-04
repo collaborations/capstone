@@ -22,14 +22,13 @@ class SmsController < ApplicationController
     message = params[:Body]
     phone = params[:From][2..-1]
 
-    Rails.logger.info "Received from: " + phone
-    Rails.logger.info "Message: " + message
     if message.downcase.starts_with?("remove")
+      # Remove
       unsubscribe(phone)
     elsif message.downcase.starts_with?("add")
       institutions = message.scan(/\d+/)
       subscribe_to_institutions(phone, institutions)
-    elsif message.downcase.starts_with?("near me")
+    elsif message.downcase.starts_with?("near me") or message.downcase.starts_with?("nearby")
       zip = params[:FromZip]
       m = nearZip(zip)
       send_message([phone], m)
@@ -39,6 +38,16 @@ class SmsController < ApplicationController
         m = nearZip(zip)
         send_message([phone], m)
       end
+    else
+      m = []
+      m << "Unfortunately I don't understand how to process: "
+      m << message + "\n\n"
+      m << "I understand the following:"
+      m << "nearby | near me - Shows locations within your zipcode"
+      m << "near [zipcode] - Shows locations within the given zipcode"
+      m << "add [id] - Subscribes to the institution with that ID"
+      m << "remove - Removes you from all subscriptions"
+      send_message([phone], m.join("\n\n"))
     end
     head :ok, content_type: "text/html"
   end
@@ -99,6 +108,7 @@ class SmsController < ApplicationController
   end
 
   # POST /institution/subscribe
+  # TODO: Intergrate this with subscribe_to_institutions. I didn't want to do it so close to Capstone presentations.
   def subscribe
     begin
       # Get phone number
@@ -127,8 +137,9 @@ class SmsController < ApplicationController
     begin
       numbers = Subscriber.where(phone: phone)
       Rails.logger.info "Removing number: #{phone} from subscriptions\n" + numbers.pluck(:institution_id).join(" ")
+      total = numbers.length
       numbers.destroy_all()
-      send_message([phone], "You have unsubscribed from #{numbers.length} #{"institution".pluralize(numbers.length)}")
+      send_message([phone], "You have unsubscribed from #{total} #{"institution".pluralize(total)}")
     rescue => e
       puts e
     end
@@ -198,7 +209,7 @@ class SmsController < ApplicationController
           end
         end
       else
-        message = ["Could not find any locationsn for #{zip}"]
+        message = ["Could not find any locations for #{zip}"]
       end
       Rails.logger.info message.join("\n")
       return message.join("\n")

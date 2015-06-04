@@ -1,0 +1,40 @@
+#capacity_index {
+	.icon {
+		height: 25%;
+		width: 25%;
+		transition: color 0.5s linear;
+		-webkit-transition: background-color 0.5s linear;
+		border-radius: 100%;
+		&:hover {
+			background-color:lightgray;
+			cursor: pointer;
+		}
+	}
+		#svg-label-res {
+			font-size: 2rem;
+			background-color: #EF7B5C;		
+		}
+		#svg-label-stdby{
+			font-size: 2rem;
+			background-color: #66CFC3;
+		}
+		#reserved {
+			text-align: right;
+		}
+		#standby {
+			text-align: right;
+		}
+
+		#reserved-del {
+			text-align: left;	
+		}
+		
+		#standby-del {
+			text-align: left;
+		}
+
+		#remaining-label {
+			text-align: center;
+		}
+
+}

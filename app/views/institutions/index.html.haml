@@ -33,7 +33,8 @@
         %ul#filter-settings.small-block-grid-2.large-block-grid-2
           %li.filter
             %div.filter-title= "Show"
-            %button#btn-all.filter-btn-deselected= "All"
+            %a{href:"#{institutions_path}"} 
+              %button#btn-all.filter-btn-deselected="All"
             %button#btn-opennow.filter-btn-deselected= "Open Now"
           %li.filter
             %div.filter-title= "Sort By"

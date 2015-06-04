@@ -34,7 +34,7 @@ class SmsController < ApplicationController
       locations.each do |l|
         puts "near me -> " + l.to_json
       end
-    elseif message.downcase.match(/near \d{5}/)
+    elsif message.downcase.match(/near \d{5}/)
       zip = message.downcase.scan(/\d{5}/)
       puts zip
     end
@@ -123,7 +123,7 @@ class SmsController < ApplicationController
 
   def unsubscribe(number)
     begin
-      numbers = Subscriber.where(number: number)
+      numbers = Subscriber.where(phone: number)
       Rails.logger.info "Removing number: #{number} from subscriptions\n" + numbers.pluck(:institution_id).join(" ")
       numbers.destroy_all()
     rescue => e

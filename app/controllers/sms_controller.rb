@@ -18,8 +18,26 @@ class SmsController < ApplicationController
   # This is hit by Twilio every time we receive a text
   def reply
     Rails.logger.info params
+
+    message = params[:Body]
+    number = params[:From][2..-1]
     Rails.logger.info "Received from: " + params[:From]
-    Rails.logger.info "Message: " + params[:Body]
+    Rails.logger.info "Message: " + message
+    if message.downcase.starts_with?("unsubscribe")
+      unsubscribe(number)
+    elsif message.downcase.starts_with?("subscribe")
+      institutions = messages.scan(/\d+/)
+      subscribe_to_institutions(number, institutions)
+    elsif message.downcase.starts_with?("near me")
+      zip = params[:FromZip]
+      locations = Location.where(zip: zip)
+      locations.each do |l|
+        puts "near me -> " + l.to_json
+      end
+    elseif message.downcase.match(/near \d{5}/)
+      zip = message.downcase.scan(/\d{5}/)
+      puts zip
+    end
     head :ok, content_type: "text/html"
   end
 
@@ -103,16 +121,11 @@ class SmsController < ApplicationController
     end
   end
 
-  def unsubscribe(number, institution_id)
+  def unsubscribe(number)
     begin
-      subscriber = Subscriber.find(phone: number, institution_id: institution_id)
-      if subscriber.empty?
-        flash[:notice] = "Subscriber not registered"
-      elsif !number.match(/\d{10}/).present?
-        flash[:notice] = "Bad Number"
-      else
-        subscriber.destroy_all
-      end
+      numbers = Subscriber.where(number: number)
+      Rails.logger.info "Removing number: #{number} from subscriptions\n" + numbers.pluck(:institution_id).join(" ")
+      numbers.destroy_all()
     rescue => e
       puts e
     end
@@ -142,4 +155,22 @@ class SmsController < ApplicationController
       end
     end
 
+    def subscribe_to_institutions(number, institutions)
+      message = ""
+      instructions.each do |num|
+        if Institution.where(id: num).nil?
+          message << "Institution #{num} doesn't exist. Can't subscribe."
+        else
+          subscriber = Subscriber.where({phone: number, institution_id: num})
+          name = Institution.find(id).name
+          if subscriber.present?
+            message = t('sms.subscribe.existing', name: name)
+          else
+            if Subscriber.create(phone: number, institution_id: id)
+              message = t('sms.subscribe.success', name: name)
+            end
+          end
+        end
+      end
+    end
 end

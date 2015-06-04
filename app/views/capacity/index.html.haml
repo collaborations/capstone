@@ -8,29 +8,27 @@
 
   - if @max_capacity_prompt
     %p= "It looks like you haven't set your max capacity yet. The tracker will still work though."
-  %div#capacity_view
+  %div#capacity_view{:align => "center"}
   / GRAPH GETS INJECTED HERE
 
 
-  %ul#capacity_controls.small-block-grid-2.medium-block-grid-2.large-block-grid-2
+  %ul#capacity_controls.small-block-grid-3.medium-block-grid-3.large-block-grid-3
     %li
-      = button_tag("Reserved Spot", id: 'reserved')
-      %p= t('capacity.description.reserved')
+      %div#reserved-del.svg=embedded_svg "cap_del_button.svg", class: "icon delete"
     %li
-      = button_tag("Standby Spot", id: 'standby')
-      %p= t('capacity.description.standby')
+      %div.label#svg-label-res= "Reserved Spot"
+    %li
+      %div#reserved.svg=embedded_svg "cap_add_button.svg", class: 'icon'
+
+  %ul#capacity_controls_del.small-block-grid-3.medium-block-grid-3.large-block-grid-3
+    %li
+      %div#standby-del.svg=embedded_svg "cap_del_button.svg", class: "icon delete"
+    %li
+      %div.label#svg-label-stdby= "Standby Spot"
+    %li
+      %div#standby.svg=embedded_svg "cap_add_button.svg", class: 'icon'
 
   %div#remaining-capacity.row
-    %div.small-3.columns
-    %div.small-3.columns
-      %p#remaining-label= "Maximum Capcity:"
-    %div.small-3.columns
-      %h3= @max
-    %div.small-3.columns
-
-  %ul#capacity_controls_del.small-block-grid-2.medium-block-grid-2.large-block-grid-2
-    %li
-      = button_tag("Delete Reserved Spot", id: 'reserved-del', class: 'delete')
-    %li
-      = button_tag("Delete Standby Spot", id: 'standby-del', class: 'delete')
+    %div.small-12.columns
+      %h3#remaining-label= "Maximum Capacty set to: #{@total}"
 

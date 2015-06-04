@@ -5,10 +5,12 @@ if($("#institutions_amenity").length || $("#institutions_index").length){
 
 var mapping;
 var allInst;
+var originalMarkers;
 
 function init(fullpath) {
   $(document).ready(function() {
     mapping = new Array();
+    originalMarkers = deepCopy(gon.markers);
     allInst = $("#institutions_list").html();
     var x = fullpath;
     var age = $("li.toggle > input#btn-age");
@@ -28,7 +30,15 @@ function filter(data) {
   filt = {}
   for (var i = 0; i < data.length; i++) {
     filt[data[i].name] = true;
+    filt[data[i].id] = true;
   }
+  var tempMarkers = gon.markers;
+  for (mark in tempMarkers) {
+    if (!filt[tempMarkers[mark][0]]) {
+      tempMarkers = tempMarkers.splice(mark);
+    }
+  }
+  initializeMaps();
   $.each($(".institution"), function(k, v){
     var name = $(v).find(sel)[0].innerHTML;
     if (!filt[name]) {
@@ -50,6 +60,7 @@ function callAjax(data, filt, age) {
 }
 
 function getFilters(button, x, age) {
+  gon.markers = deepCopy(originalMarkers);
   filt = [];
   btn = $(button);
   id = btn.parent()[0].id.split('-')[1];
@@ -67,3 +78,11 @@ function getFilters(button, x, age) {
   }
   callAjax(x, filt, age);
 } 
+
+function deepCopy(array) {
+  var result = new Array();
+  for (i in array) {
+    result[i] = array[i];
+  }
+  return result;
+}

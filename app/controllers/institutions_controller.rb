@@ -13,7 +13,9 @@ class InstitutionsController < ApplicationController
       @institutions = Institution.search(params[:search])
     else  
       @institutions = filters
+      puts "$$$$$$$$ got into filter zone"
     end
+    puts "$$$$$$$@institutions currently #{@institutions.inspect}"
     set_locations()
   end
 
@@ -152,7 +154,9 @@ class InstitutionsController < ApplicationController
       lat = 0
       long = 0
       gon.markers = []
+      puts "!!!!!!institution is #{@institution.inspect}"
       institutions = @institution.present? ? [@institution] : @institutions
+      puts "!!!!!!institutions are #{institutions.inspect}"
       institutions.each do |i|
         loc = i.locations.first
         if !loc.lat.present? or !loc.long.present?
@@ -210,6 +214,7 @@ class InstitutionsController < ApplicationController
       else
         @institutions = Institution.joins(:amenities, :filter).where("amenity_id = ?", params[:id]).where(result)
       end
+      puts "What the fuck #{@institutions.inspect}"
       return @institutions
     end
 

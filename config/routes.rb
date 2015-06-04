@@ -14,6 +14,7 @@ Rails.application.routes.draw do
 
   match '/sms/info' => 'sms#info', via: :post
   match '/sms/notify' => 'sms#notify', via: :post
+  match '/sms/reply' => 'sms#reply', via: :post
   match '/sms/subscribe' => 'sms#subscribe', via: :post
 
 

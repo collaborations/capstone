@@ -14,7 +14,9 @@ class SmsController < ApplicationController
     head :ok, content_type: "text/html"
   end
 
-  def retrieve_messages
+  # This is hit by Twilio every time we receive a text
+  def reply
+    puts params
   end
 
   def info

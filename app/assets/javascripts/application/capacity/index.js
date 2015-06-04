@@ -47,8 +47,6 @@ function initializeCapacityTracker(){
     "url": "/capacity/get",
     "success": function(temp){
       temp.forEach(function(d){
-        console.log(d.type);
-        console.log(d.value);
         data[d.type] = d.value;          
       });
     }

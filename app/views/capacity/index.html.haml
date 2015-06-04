@@ -18,11 +18,11 @@
     %li
       %div.label#svg-label-res= "Reserved Spot"
     %li
-      %div#reserved-del.svg=embedded_svg "cap_del_button.svg", class: 'icon delete'
+      %div#reserved-del.svg=embedded_svg "cap_add_button.svg", class: 'icon delete'
 
   %ul#capacity_controls_del.small-block-grid-3.medium-block-grid-3.large-block-grid-3
     %li
-      %div#standby.svg=embedded_svg "cap_add_button.svg", class: "icon"
+      %div#standby.svg=embedded_svg "cap_del_button.svg", class: "icon"
     %li
       %div.label#svg-label-stdby= "Standby Spot"
     %li
@@ -30,5 +30,5 @@
 
   %div#remaining-capacity.row
     %div.small-12.columns
-      %h3#remaining-label= "Remaining Capacity: #{@total}"
+      %h3#remaining-label= "Maximum Capacty set to: #{@total}"
 

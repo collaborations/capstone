@@ -41,7 +41,7 @@ class SmsController < ApplicationController
         m = nearZip(zip)
         send_message([phone], m)
       end
-    elsif message.downcast.starts_with?("capacity")
+    elsif message.downcase.starts_with?("capacity")
       # Capacity [id]
       id = message.downcase.scan(/\d+/)
       if id.present?

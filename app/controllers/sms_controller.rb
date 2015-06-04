@@ -26,18 +26,30 @@ class SmsController < ApplicationController
       # Remove
       unsubscribe(phone)
     elsif message.downcase.starts_with?("add")
+      # Add [id]
       institutions = message.scan(/\d+/)
       subscribe_to_institutions(phone, institutions)
     elsif message.downcase.starts_with?("near me") or message.downcase.starts_with?("nearby")
+      # Near me | Nearby
       zip = params[:FromZip]
       m = nearZip(zip)
       send_message([phone], m)
     elsif message.downcase.starts_with?("near")
+      # Near [zipcode]
       zips = message.downcase.scan(/\d{5}/)
       zips.each do |zip|
         m = nearZip(zip)
         send_message([phone], m)
       end
+    elsif message.downcast.starts_with?("capacity")
+      # Capacity [id]
+      id = message.downcase.scan(/\d+/)
+      if id.present?
+        m = capacity(id)
+      else
+        m = "It appears you're missing an id. Example: 'capacity 10'"
+      end
+      send_message([phone], m)
     else
       m = []
       m << "Unfortunately I don't understand how to process: "
@@ -45,6 +57,7 @@ class SmsController < ApplicationController
       m << "I understand the following:"
       m << "nearby | near me - Shows locations within your zipcode"
       m << "near [zipcode] - Shows locations within the given zipcode"
+      m << "capacity [id] - Shows the current capacity of the given institution"
       m << "add [id] - Subscribes to the institution with that ID"
       m << "remove - Removes you from all subscriptions"
       send_message([phone], m.join("\n\n"))
@@ -146,6 +159,23 @@ class SmsController < ApplicationController
   end
 
   private
+    def capacity(id)
+      message = []
+      capacity = Capacity.where("institution_id = ? AND created_at >= ?", id, Time.zone.now.beginning_of_day).first
+      if capacity.present?
+        message << "Taken: #{capacity.reserved + capacity.standby}"
+        message << "Available: #{capacity.available}"
+        message << "Last updated at #{capacity.updated_at.strftime("%l:%M %p")}"
+      else
+        institution = Institution.where(id: id).first
+        if institution.present?
+          message << "No capacity logged today for #{institution.name}"
+        else
+          message << "Could not find institution with id #{id}"
+      end
+      return message.join("\n")
+    end
+
     def check_subscribers
       @subscribers = Subscriber.where(institution_id: current_user.institution_id)
       if @subscribers.length == 0

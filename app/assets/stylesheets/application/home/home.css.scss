@@ -7,9 +7,6 @@
 
 
 #home_index {
-  .statement{
-    color: $border-color;
-  }
   margin-top: 20px;
   margin-left: $margin-side;
   margin-right: $margin-side;
@@ -33,10 +30,12 @@
       max-width: 500px;
     }
     .statement {
+      height: 178px;
       padding-top: 10%;
       padding-bottom: 10%;
       float:left;
       margin-left: 5%;
+      color: $border-color;
     }
   }
 

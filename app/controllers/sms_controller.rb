@@ -24,9 +24,9 @@ class SmsController < ApplicationController
 
     Rails.logger.info "Received from: " + phone
     Rails.logger.info "Message: " + message
-    if message.downcase.starts_with?("stop")
+    if message.downcase.starts_with?("remove")
       unsubscribe(phone)
-    elsif message.downcase.starts_with?("subscribe")
+    elsif message.downcase.starts_with?("add")
       institutions = message.scan(/\d+/)
       subscribe_to_institutions(phone, institutions)
     elsif message.downcase.starts_with?("near me")
@@ -185,7 +185,16 @@ class SmsController < ApplicationController
         locations.each do |l|
           institution = Institution.where(id: l.institution_id).first
           if institution.present?
-            message << institution.name
+            message << "\n" + institution.name
+            if l.streetLine1.present?
+              message << l.streetLine1
+            end
+            if l.streetLine2.present?
+              message << l.streetLine2
+            end
+            if l.city.present? and l.state.present? and l.zip.present?
+              message << l.city + ", " + l.state + " " + l.zip
+            end
           end
         end
       else

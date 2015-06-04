@@ -128,7 +128,7 @@ class SmsController < ApplicationController
       numbers = Subscriber.where(phone: phone)
       Rails.logger.info "Removing number: #{phone} from subscriptions\n" + numbers.pluck(:institution_id).join(" ")
       numbers.destroy_all()
-      send_message(phone, "You have unsubscribed from #{numbers.length} #{"institution".pluralize(numbers.length)}")
+      send_message([phone], "You have unsubscribed from #{numbers.length} #{"institution".pluralize(numbers.length)}")
     rescue => e
       puts e
     end
@@ -175,16 +175,15 @@ class SmsController < ApplicationController
           end
         end
       end
-      send_message(phone, message)
+      send_message([phone], message)
     end
 
     def nearZip(zip)
       locations = Location.where(zip: zip)
       if locations.present?
         message = ["Locations near zip: #{zip}"]
-        institutions = []
         locations.each do |l|
-          institution = Institution.where(institution_id: l.institution_id).first
+          institution = Institution.where(id: l.institution_id).first
           if institution.present?
             message << institution.name
           end
@@ -192,6 +191,7 @@ class SmsController < ApplicationController
       else
         message = ["Could not find any locationsn for #{zip}"]
       end
-      message.join("\n")
+      Rails.logger.info message.join("\n")
+      return message.join("\n")
     end
 end

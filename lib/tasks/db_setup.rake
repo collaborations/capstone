@@ -28,8 +28,8 @@ namespace :db do
           else
             puts "FAILED: Failed to create missing FILTERS for INSTITUTION: #{i.id} - #{i.name}"
           end
-        elsif i.filter.length > 1
-          puts "WARNING: More than one FILTERS record for INSTITUTION: #{i.id} - #{i.name}"
+        else
+          puts "--> OK: Filter exists for INSTITUTION: #{i.id} - #{i.name}"
         end
       end
     end

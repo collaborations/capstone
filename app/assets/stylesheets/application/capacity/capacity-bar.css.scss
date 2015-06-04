@@ -7,8 +7,6 @@ $cap-color-text: white;
 $cap-height: 25px;
 $cap-meter-padding: 3px;
 $cap-spacing: 2px;
-$capacity-font-size: 34pt;
-$capacity-small-size: 20pt;
 
 // Don't want these styles being applied to inner elements
 .capacity-meter {
@@ -47,11 +45,3 @@ $capacity-small-size: 20pt;
   .filled { background-color: $cap-color-filled; }
 }
 
-#capacity_index {
-  .inside {
-    font-size: $capacity-font-size;
-  }
-  .data {
-    font-size: $capacity-small-size;
-  }
-}

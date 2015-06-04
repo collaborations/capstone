@@ -1,3 +1,6 @@
+$capacity-font-size: 34pt;
+$capacity-small-size: 20pt;
+
 #capacity_index {
 	.icon {
 		height: 25%;
@@ -10,31 +13,43 @@
 			cursor: pointer;
 		}
 	}
-		#svg-label-res {
-			font-size: 2rem;
-			background-color: #EF7B5C;		
-		}
-		#svg-label-stdby{
-			font-size: 2rem;
-			background-color: #66CFC3;
-		}
-		#reserved {
-			text-align: right;
-		}
-		#standby {
-			text-align: right;
-		}
+	#svg-label-res {
+		font-size: 2rem;
+		background-color: #EF7B5C;		
+	}
+	#svg-label-stdby{
+		font-size: 2rem;
+		background-color: #66CFC3;
+	}
+	#reserved {
+		text-align: right;
+	}
+	#standby {
+		text-align: right;
+	}
 
-		#reserved-del {
-			text-align: left;	
-		}
-		
-		#standby-del {
-			text-align: left;
-		}
+	#reserved-del {
+		text-align: left;	
+	}
+	
+	#standby-del {
+		text-align: left;
+	}
 
-		#remaining-label {
-			text-align: center;
-		}
+	#remaining-label {
+		text-align: center;
+	}
+
+	.inside {
+		font-size: $capacity-font-size;
+	}
+	.data {
+		font-size: $capacity-small-size;
+	}
+
+	.label {
+		border-radius: 5%;
+		margin-top:7%;
+	}
 
 }

@@ -26,7 +26,7 @@ class SmsController < ApplicationController
     if message.downcase.starts_with?("unsubscribe")
       unsubscribe(number)
     elsif message.downcase.starts_with?("subscribe")
-      institutions = messages.scan(/\d+/)
+      institutions = message.scan(/\d+/)
       subscribe_to_institutions(number, institutions)
     elsif message.downcase.starts_with?("near me")
       zip = params[:FromZip]

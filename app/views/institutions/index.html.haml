@@ -65,10 +65,19 @@
                 %span= t('hours.missing')
             %div.row.small-8.large-8= link_to("View More Details", "/institution/" + institution.id.to_s)
           %div.small-12.large-6.columns
-            %ul.small-block-grid-5.large-block-grid-5.amenities-list
-              - institution.amenities.each do |amenity|
-                %li
-                  =embedded_amenity(amenity)
+            %div.row
+              %div.small-12.large-12
+                %div.columns.small-12.large-12.hide.capacity-bar{ id: "capacity-#{institution.id}" }
+                  %span.updated-at= "Current Capacity"
+                  %span.capacity-remaining
+                  %div.capacity-meter
+                    %span.filled
+                    %span.available
+                  %div.capacity-total.hide= getTotalCapacity(institution.id)
+                %ul.columns.small-block-grid-5.large-block-grid-5.amenities-list
+                  - institution.amenities.each do |amenity|
+                    %li
+                      =embedded_amenity(amenity)
         %div.row.f-dropdown.large{ id: dropdown_id, data: { dropdown: { content: true } } }
           -if @open
             %div.columns.small-12.large-12.label.success= t('hours.open')

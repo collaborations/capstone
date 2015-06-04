@@ -20,23 +20,25 @@ class SmsController < ApplicationController
     Rails.logger.info params
 
     message = params[:Body]
-    number = params[:From][2..-1]
-    Rails.logger.info "Received from: " + params[:From]
+    phone = params[:From][2..-1]
+
+    Rails.logger.info "Received from: " + phone
     Rails.logger.info "Message: " + message
     if message.downcase.starts_with?("stop")
-      unsubscribe(number)
+      unsubscribe(phone)
     elsif message.downcase.starts_with?("subscribe")
       institutions = message.scan(/\d+/)
-      subscribe_to_institutions(number, institutions)
+      subscribe_to_institutions(phone, institutions)
     elsif message.downcase.starts_with?("near me")
       zip = params[:FromZip]
-      locations = Location.where(zip: zip)
-      locations.each do |l|
-        Rails.logger.info "near me -> " + l.to_json
+      m = nearZip(zip)
+      send_message([phone], m)
+    elsif message.downcase.starts_with?("near")
+      zips = message.downcase.scan(/\d{5}/)
+      zips.each do |zip|
+        m = nearZip(zip)
+        send_message([phone], m)
       end
-    elsif message.downcase.match(/near \d{5}/)
-      zip = message.downcase.scan(/\d{5}/)
-      Rails.logger.info zip
     end
     head :ok, content_type: "text/html"
   end
@@ -121,12 +123,12 @@ class SmsController < ApplicationController
     end
   end
 
-  def unsubscribe(number)
+  def unsubscribe(phone)
     begin
-      numbers = Subscriber.where(phone: number)
-      Rails.logger.info "Removing number: #{number} from subscriptions\n" + numbers.pluck(:institution_id).join(" ")
+      numbers = Subscriber.where(phone: phone)
+      Rails.logger.info "Removing number: #{phone} from subscriptions\n" + numbers.pluck(:institution_id).join(" ")
       numbers.destroy_all()
-      send_message(number, "You have unsubscribed from #{numbers.length} #{"institution".pluralize(numbers.length)}")
+      send_message(phone, "You have unsubscribed from #{numbers.length} #{"institution".pluralize(numbers.length)}")
     rescue => e
       puts e
     end
@@ -156,23 +158,40 @@ class SmsController < ApplicationController
       end
     end
 
-    def subscribe_to_institutions(number, institutions)
+    def subscribe_to_institutions(phone, institutions)
       message = []
-      institutions.each do |num|
-        if Institution.where(id: num).nil?
-          message << "Institution #{num} doesn't exist. Can't subscribe."
+      institutions.each do |id|
+        if Institution.where(id: id).nil?
+          message << "Institution #{id} doesn't exist. Can't subscribe."
         else
-          subscriber = Subscriber.where({phone: number, institution_id: num})
+          subscriber = Subscriber.where({phone: phone, institution_id: id})
           name = Institution.find(id).name
           if subscriber.present?
             message = t('sms.subscribe.existing', name: name)
           else
-            if Subscriber.create(phone: number, institution_id: id)
+            if Subscriber.create(phone: phone, institution_id: id)
               message = t('sms.subscribe.success', name: name)
             end
           end
         end
       end
-      send_message(number, message.join("\n"))
+      send_message(phone, message.join("\n"))
+    end
+
+    def nearZip(zip)
+      loctions = Location.where(zip: zip)
+      if locations.present?
+        message = ["Locations near zip: #{zip}"]
+        institutions = []
+        locations.each do |l|
+          institution = Institution.where(institution_id: l.institution_id).first
+          if institution.present?
+            message << institution.name
+          end
+        else
+      else
+        message = ["Could not find any locationsn for #{zip}"]
+      end
+      message.join("\n")
     end
 end

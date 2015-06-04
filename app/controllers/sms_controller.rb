@@ -126,6 +126,7 @@ class SmsController < ApplicationController
       numbers = Subscriber.where(phone: number)
       Rails.logger.info "Removing number: #{number} from subscriptions\n" + numbers.pluck(:institution_id).join(" ")
       numbers.destroy_all()
+      send_message(number, "You have unsubscribed from #{numbers.length} #{"institution".pluralize(numbers.length)}")
     rescue => e
       puts e
     end
@@ -156,7 +157,7 @@ class SmsController < ApplicationController
     end
 
     def subscribe_to_institutions(number, institutions)
-      message = ""
+      message = []
       instructions.each do |num|
         if Institution.where(id: num).nil?
           message << "Institution #{num} doesn't exist. Can't subscribe."
@@ -172,5 +173,6 @@ class SmsController < ApplicationController
           end
         end
       end
+      send_message(number, message.join("\n"))
     end
 end

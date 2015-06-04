@@ -158,7 +158,7 @@ class InstitutionsController < ApplicationController
         { :locations_attributes => [:id, :institution_id, :streetLine1, :streetLine2, :city, :state, :zip]}, 
         { :amenity_ids => []},
         { :contact_attributes => [:id, :institution_id, :phone, :email, :website]},
-        { :restrictions_attributes => [:name, :desc]},
+        { :restrictions_attributes => [:id, :institution_id, :name, :desc]},
         { :hours_attributes => [:id, :institution_id, :mon_open, :mon_close, :tue_open, :tue_close, :wed_open, :wed_close, :thu_open, :thu_close, :fri_open, :fri_close, :sat_open, :sat_close, :sun_open, :sun_close]},
         { :filter_attributes => [:id, :institution_id, :individual, :family, :male, :female, :min_age, :max_age, :physical_disability, :mental_disability, :veteran, :abuse_victim]} )
     end

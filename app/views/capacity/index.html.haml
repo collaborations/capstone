@@ -8,14 +8,13 @@
 
   - if @max_capacity_prompt
     %p= "It looks like you haven't set your max capacity yet. The tracker will still work though."
-  %div#capacity_view
+  %div#capacity_view{:align => "center"}
   / GRAPH GETS INJECTED HERE
-
 
   %ul#capacity_controls.small-block-grid-2.medium-block-grid-2.large-block-grid-2
     %li
-      = button_tag("Reserved Spot", id: 'reserved')
-      %p= t('capacity.description.reserved')
+      = button_tag embedded_svg("cap_add_button.svg"), class: "add-icon"
+      %p= t('capacity.description.standby')
     %li
       = button_tag("Standby Spot", id: 'standby')
       %p= t('capacity.description.standby')

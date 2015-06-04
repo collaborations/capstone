@@ -188,7 +188,7 @@ class SmsController < ApplicationController
           if institution.present?
             message << institution.name
           end
-        else
+        end
       else
         message = ["Could not find any locationsn for #{zip}"]
       end

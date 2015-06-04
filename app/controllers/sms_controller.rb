@@ -1,6 +1,7 @@
 class SmsController < ApplicationController
   before_action :authenticate_user!, only: [:index, :notify]
   before_action :check_subscribers, only: [:index]
+  skip_before_action :verify_authenticity_token, only: [:reply]
   include HoursHelper
 
   def index

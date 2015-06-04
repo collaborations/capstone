@@ -12,12 +12,13 @@
   / GRAPH GETS INJECTED HERE
 
   %ul#capacity_controls.small-block-grid-2.medium-block-grid-2.large-block-grid-2
-    %li
-      = button_tag embedded_svg("cap_add_button.svg"), class: "add-icon"
-      %p= t('capacity.description.standby')
-    %li
-      = button_tag("Standby Spot", id: 'standby')
-      %p= t('capacity.description.standby')
+    %li.small-2.large-4.columns
+      %div#reserved.svg=embedded_svg "cap_add_button.svg", class: "icon"
+    %li.small-4.large-4.columns
+      %div.svg-label= "Reserved Spots"
+    %li.small-6.large-4.columns
+      %div#reserved-del.svg=embedded_svg "cap_delete_button.svg", class: 'icon delete'
+
 
   %div#remaining-capacity.row
     %div.small-3.columns
@@ -29,7 +30,9 @@
 
   %ul#capacity_controls_del.small-block-grid-2.medium-block-grid-2.large-block-grid-2
     %li
-      = button_tag("Delete Reserved Spot", id: 'reserved-del', class: 'delete')
+      %div#standby.svg=embedded_svg "cap_add_button.svg", class: "icon"
     %li
-      = button_tag("Delete Standby Spot", id: 'standby-del', class: 'delete')
-
+      %div#svg-label= "Standby Spot"
+    %li
+      %div#standby-del.svg=embedded_svg "cap_delete_button.svg", class: 'icon delete'
+    

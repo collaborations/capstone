@@ -1,9 +1,15 @@
-.add-icon {
-	height: 12%;
-	width: 12%;
-}
+#capacity_index {
+	.icon {
+		height: 100%;
+		width: 100%;
+		transition: color 0.5s linear;
+		-webkit-transition: background-color 0.5s linear;
+		border-radius: 100%;
+		&:hover {
+			background-color:lightgray;
+			cursor: pointer;
+		}
+	}
 
-#reserved {
-	width: 12%;
-	height: 12%;
+
 }

@@ -7,9 +7,12 @@ class CapacityController < ApplicationController
   before_action :set_total_capacity, only: [:index, :update]
 
   def index
+    @institution = Institution.find(@id)
+    @max = @total
     gon.push({
       :capacity => @total
     })
+    puts "!!!!#{@total}"
   end
 
   def get

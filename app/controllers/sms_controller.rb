@@ -23,7 +23,7 @@ class SmsController < ApplicationController
     number = params[:From][2..-1]
     Rails.logger.info "Received from: " + params[:From]
     Rails.logger.info "Message: " + message
-    if message.downcase.starts_with?("unsubscribe")
+    if message.downcase.starts_with?("stop")
       unsubscribe(number)
     elsif message.downcase.starts_with?("subscribe")
       institutions = message.scan(/\d+/)
@@ -32,11 +32,11 @@ class SmsController < ApplicationController
       zip = params[:FromZip]
       locations = Location.where(zip: zip)
       locations.each do |l|
-        puts "near me -> " + l.to_json
+        Rails.logger.info "near me -> " + l.to_json
       end
     elsif message.downcase.match(/near \d{5}/)
       zip = message.downcase.scan(/\d{5}/)
-      puts zip
+      Rails.logger.info zip
     end
     head :ok, content_type: "text/html"
   end
@@ -158,7 +158,7 @@ class SmsController < ApplicationController
 
     def subscribe_to_institutions(number, institutions)
       message = []
-      instructions.each do |num|
+      institutions.each do |num|
         if Institution.where(id: num).nil?
           message << "Institution #{num} doesn't exist. Can't subscribe."
         else

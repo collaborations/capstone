@@ -10,9 +10,13 @@ Rails.application.routes.draw do
   match '/capacity/get/ids' => 'capacity#getByID', via: :post
   match '/capacity/update' => 'capacity#update', via: :post
 
+  match '/institution/email' => 'institutions#email', via: :post
+
   match '/sms/info' => 'sms#info', via: :post
   match '/sms/notify' => 'sms#notify', via: :post
+  match '/sms/reply' => 'sms#reply', via: :post
   match '/sms/subscribe' => 'sms#subscribe', via: :post
+
 
   get '/about' => 'about#index'
 
@@ -23,7 +27,7 @@ Rails.application.routes.draw do
   get '/institution/:id' => 'institutions#show'
   get '/institution/:id/print' => 'institutions#print', as: 'institution_print'
   
-  get '/sms' => 'sms#index'
+  get '/sms' => 'sms#index', as: 'mass_text'
 
   root "home#index"
   # The priority is based upon order of creation: first created -> highest priority.

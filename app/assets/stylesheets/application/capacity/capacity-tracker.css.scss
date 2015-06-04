@@ -1,7 +1,17 @@
+<<<<<<< HEAD
 #capacity_index {
 	.icon {
 		height: 100%;
 		width: 100%;
+=======
+$capacity-font-size: 34pt;
+$capacity-small-size: 20pt;
+
+#capacity_index {
+	.icon {
+		height: 25%;
+		width: 25%;
+>>>>>>> 46bdcae289263c4ece6e8162e57f7c0457eb81f5
 		transition: color 0.5s linear;
 		-webkit-transition: background-color 0.5s linear;
 		border-radius: 100%;
@@ -10,6 +20,47 @@
 			cursor: pointer;
 		}
 	}
+<<<<<<< HEAD
 
+=======
+	#svg-label-res {
+		font-size: 2rem;
+		background-color: #EF7B5C;		
+	}
+	#svg-label-stdby{
+		font-size: 2rem;
+		background-color: #66CFC3;
+	}
+	#reserved-del {
+		text-align: right;
+	}
+	#standby-del {
+		text-align: right;
+	}
+
+	#reserved {
+		text-align: left;	
+	}
+	
+	#standby {
+		text-align: left;
+	}
+
+	#remaining-label {
+		text-align: center;
+	}
+
+	.inside {
+		font-size: $capacity-font-size;
+	}
+	.data {
+		font-size: $capacity-small-size;
+	}
+
+	.label {
+		border-radius: 5%;
+		margin-top:7%;
+	}
+>>>>>>> 46bdcae289263c4ece6e8162e57f7c0457eb81f5
 
 }

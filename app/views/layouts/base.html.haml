@@ -22,13 +22,13 @@
   = csrf_meta_tags
 
 %body
-  = render 'shared/nav' unless params[:controller] == "home"
+  = if params[:controller] != "home" then render 'shared/nav' else render 'home/nav'end
   = render 'shared/flash'
   %div{id: params[:controller] + '_' + params[:action]}
     = yield
 
   
-  = javascript_include_tag "application"
   - if @load_google_maps
     = javascript_include_tag "maps"
 
+  = javascript_include_tag "application"

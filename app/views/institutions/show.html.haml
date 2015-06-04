@@ -17,7 +17,7 @@
 
 - getHours
 %div.row
-  %div#institution-info.columns.small-12.large-10
+  %div#institution-info.columns.small-12.large-9
     %div#institution-details.columns.small-12.large-8
       %p.row
         %span.columns.small-4.large-3= "Phone:"
@@ -79,7 +79,7 @@
       %h4.has-tip{ data: { tooltip: true}, aria: { haspopup: true }, title: t('sms.subscribe.description')}= t('sms.subscribe.title')
       %div.row
         = form_tag('/sms/subscribe', id: "sms-subscribe-form", data: { remote: true, abide: true } ) do
-          = telephone_field_tag "number", nil, required: true, pattern: "\\d{10}"
+          = telephone_field_tag "number", nil, required: true, pattern: "\\d{10}", placeholder: "(206)317-5753"
           %small.error= "Please enter your 10 digit phone number (including area code)."
           = hidden_field_tag "id", @institution.id
           = submit_tag "Opt In", { class: "button", id: "opt-in" }

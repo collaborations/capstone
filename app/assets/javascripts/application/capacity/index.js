@@ -47,12 +47,7 @@ function initializeCapacityTracker(){
     "url": "/capacity/get",
     "success": function(temp){
       temp.forEach(function(d){
-        data[d.type] = d.value;
-        if(d.type == "available"){
-          $("#remaining")[0].innerHTML = d.value;
-        }
-        data[d.type] = d.value;
-          
+        data[d.type] = d.value;          
       });
     }
   });
@@ -86,7 +81,6 @@ function add(event){
   } else {
     $("#capacity-warning").hide();
   }
-  $("#remaining")[0].innerHTML = data["available"];
   updateServer();
 }
 
@@ -100,7 +94,17 @@ function updateGraph(){
   params = {}
   dataCall.post(params, function(error, data){
     data = JSON.parse(data.response);
-
+    if (data[2]) {
+      svg.append("text")
+        .style("text-anchor", "middle")
+        .attr("class", "inside")
+        .text(function(d) { return data[2].value; });
+      svg.append("text")
+        .attr("dy", "2em")
+        .style("text-anchor", "middle")
+        .attr("class", "data")
+        .text(function(d) { return 'Spots Remaining'; });
+    }
     data.forEach(function(d){
       data[d.type] = d.value;
     });
@@ -141,6 +145,7 @@ function updateServer(){
     }
   });
   $(".arc").remove();
+  $(".inside").remove();
   updateGraph();
 }
 

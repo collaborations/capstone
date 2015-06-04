@@ -8,13 +8,23 @@ class InstitutionsController < ApplicationController
   # GET /institutions
   # GET /institutions.json
   def index
-    @institutions = Institution.search(params[:search])
+    filters = filter(true)
+    if filters.nil?
+      @institutions = Institution.search(params[:search])
+    else  
+      @institutions = filters
+    end
     set_locations()
   end
 
   # GET /amenity/1
   def amenity
-    @institutions = Amenity.find(params[:id]).institutions
+    filters = filter(false)
+    if filters.nil?
+      @institutions = Amenity.find(params[:id]).institutions
+    else  
+      @institutions = filters
+    end
     set_locations()
     render 'index'
   end
@@ -80,6 +90,21 @@ class InstitutionsController < ApplicationController
       format.html { redirect_to institutions_url, notice: 'Institution was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  def email
+    id = params.require(:institution_id)
+    email = params.require(:email)
+    
+    options = Hash.new
+    options[:phone] = true if params[:phone].present?
+    options[:hours] = true if params[:hours].present?
+    options[:address] = true if params[:address].present?
+    options[:amenities] = true if params[:amenities].present?
+    options[:restrictions] = true if params[:restrictions].present?
+
+    InfoMailer.new(id, email, options).deliver_now!
+    head :ok, content_type: "text/html"
   end
 
   def print
@@ -152,7 +177,7 @@ class InstitutionsController < ApplicationController
         end
         lat += loc.lat
         long += loc.long
-        gon.markers << [i.id, i.name, loc.lat, loc.long]
+        gon.markers << [i.id, ActionController::Base.helpers.link_to(i.name, institution_path(i.id)), loc.lat, loc.long]
       end
       unless lat == 0 and long == 0
         gon.push({
@@ -191,6 +216,34 @@ class InstitutionsController < ApplicationController
       end
       if contact.website.present?
         @contact << { label: "Website: ", info: contact.website }
+      end
+    end
+
+    def filt_inst(term, result)
+      if term
+        @institutions = Institution.joins(:amenities, :filter).search(params[:search]).where(result)
+      else
+        @institutions = Institution.joins(:amenities, :filter).where("amenity_id = ?", params[:id]).where(result)
+      end
+      return @institutions
+    end
+
+    def filter(term)
+      respond_to do |format|
+        format.html {}
+        format.json {
+          result = ""
+          if params[:age] and not params[:age].empty?
+            result = "min_age <= #{params[:age]} and max_age >= #{params[:age]} and "
+          end
+          if params[:filter]
+            params[:filter].each do |f|
+              result = result + f + "=true and "
+            end
+          end
+          result = result.gsub!(/and $/, "")
+          @institutions = filt_inst(term, result) #Institution.joins(:amenities, :filter).where("amenity_id = ?", params[:id]).where(result)
+        }
       end
     end
 end

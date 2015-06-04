@@ -47,6 +47,10 @@ gem 'nokogiri'
 # https://github.com/Casecommons/pg_search
 gem 'pg_search'
 
+# Use skrollr for parallax
+# https://github.com/reed/skrollr-rails
+gem 'skrollr-rails'
+
 # Rails config: easiest way to add multi-environment yaml settings to Rails 3 or 4
 # https://github.com/railsconfig/rails_config
 gem 'rails_config'

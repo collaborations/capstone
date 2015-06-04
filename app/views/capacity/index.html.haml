@@ -1,4 +1,4 @@
-%h2= "Shelter Name"
+%h2= @institution.name
 %div#tracker
   %div#capacity_header
     %h3= "Capacity Tracker"
@@ -11,6 +11,7 @@
   %div#capacity_view{:align => "center"}
   / GRAPH GETS INJECTED HERE
 
+<<<<<<< HEAD
   %ul#capacity_controls.small-block-grid-2.medium-block-grid-2.large-block-grid-2
     %li.small-2.large-4.columns
       %div#reserved.svg=embedded_svg "cap_add_button.svg", class: "icon"
@@ -27,12 +28,35 @@
     %div.small-3.columns
       %h3#remaining= @total
     %div.small-3.columns
+=======
 
-  %ul#capacity_controls_del.small-block-grid-2.medium-block-grid-2.large-block-grid-2
+  %ul#capacity_controls.small-block-grid-3.medium-block-grid-3.large-block-grid-3
     %li
+      %div#reserved-del.svg=embedded_svg "cap_del_button.svg", class: "icon delete"
+    %li
+      %div.label#svg-label-res= "Reserved Spot"
+    %li
+      %div#reserved.svg=embedded_svg "cap_add_button.svg", class: 'icon'
+>>>>>>> 46bdcae289263c4ece6e8162e57f7c0457eb81f5
+
+  %ul#capacity_controls_del.small-block-grid-3.medium-block-grid-3.large-block-grid-3
+    %li
+<<<<<<< HEAD
       %div#standby.svg=embedded_svg "cap_add_button.svg", class: "icon"
     %li
       %div#svg-label= "Standby Spot"
     %li
       %div#standby-del.svg=embedded_svg "cap_delete_button.svg", class: 'icon delete'
     
+=======
+      %div#standby-del.svg=embedded_svg "cap_del_button.svg", class: "icon delete"
+    %li
+      %div.label#svg-label-stdby= "Standby Spot"
+    %li
+      %div#standby.svg=embedded_svg "cap_add_button.svg", class: 'icon'
+
+  %div#remaining-capacity.row
+    %div.small-12.columns
+      %h3#remaining-label= "Maximum Capacty set to: #{@total}"
+
+>>>>>>> 46bdcae289263c4ece6e8162e57f7c0457eb81f5

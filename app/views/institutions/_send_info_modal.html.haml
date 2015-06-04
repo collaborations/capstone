@@ -1,36 +1,33 @@
-%div#institution-modal.reveal-modal{ :data => { :reveal => true }}
+%div#institution-modal.reveal-modal.tiny{ :data => { :reveal => true }}
   %span.modal-close-button= "x"
-  %h4= "What information do you want to send?"
-  %div.row
-    %div#notify-buttons.columns.small-12.large-3
-      %button#select-all-options= "Select All"
-      %button#remove-all-options= "Deselect All"
-    %div#notify-options.columns.small-12.large-9
+  %div.small-block-grid-3
+    %div#send-email
+      = label_tag "What email should we send it to?"
+      = email_field_tag :email, nil, { placeholder: "name@example.com", pattern: "email" }
+      %small.error= "You must have a valid email for us to email you."
+    %div#send-text
+      = label_tag "What number should we send it to?"
+      = telephone_field_tag :sms, nil, { placeholder: "0123456789", pattern: "^\\d{10}$" }
+      %small.error= "Please enter your 10 digit phone number (including area code)."
+    %div#notify-options
       = form_tag('/sms/info', id: "institution-modal-form", data: { remote: true, abide: true } ) do
         = hidden_field_tag :message_type
         = hidden_field_tag :institution_id, @institution.id
-        %ul.small-block-grid-3.large-block-grid-5#customization-options
+        %h5= "What information do you want to send?"
+        %ul
           %li
-            = check_box_tag :address
+            = check_box_tag :address, "", true
             = label_tag "Address"
           %li
-            = check_box_tag :phone
+            = check_box_tag :phone, "", true
             = label_tag "Phone Number"
           %li
-            = check_box_tag :amenities
+            = check_box_tag :amenities, "", true
             = label_tag "Amenities"
           %li
-            = check_box_tag :restrictions
+            = check_box_tag :restrictions, "", true
             = label_tag "Restrictions"
           %li
-            = check_box_tag :hours
+            = check_box_tag :hours, "", true
             = label_tag "Hours"
-        %div#send-email
-          = label_tag "What email should we send it to?"
-          = email_field_tag :email, nil, { placeholder: "name@example.com", pattern: "email" }
-          %small.error= "You must have a valid email for us to email you."
-        %div#send-text
-          = label_tag "What number should we send it to?"
-          = telephone_field_tag :sms, nil, { placeholder: "0123456789", pattern: "^\\d{10}$" }
-          %small.error= "Please enter your 10 digit phone number (including area code)."
-        %button#send-information{ type: "submit" }= "Send Information"
+    %button#send-information{ type: "submit" }= "Send Information"

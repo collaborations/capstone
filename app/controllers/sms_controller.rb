@@ -1,6 +1,8 @@
 class SmsController < ApplicationController
   before_action :authenticate_user!, only: [:index, :notify]
   before_action :check_subscribers, only: [:index]
+  skip_before_action :verify_authenticity_token, only: [:reply]
+  include HoursHelper
 
   def index
   end
@@ -13,7 +15,11 @@ class SmsController < ApplicationController
     head :ok, content_type: "text/html"
   end
 
-  def retrieve_messages
+  # This is hit by Twilio every time we receive a text
+  def reply
+    Rails.logger.info params
+    head :ok, content_type: "text/html"
+
   end
 
   def info
@@ -27,20 +33,23 @@ class SmsController < ApplicationController
         contact = Contact.where(institution_id: id)
         if contact.present? and contact.first.phone.present?
           phone = contact.first.phone.split("-")
-          message << sprintf("Phone: (%s)%s-%s", phone[0], phone[1], phone[2])
+          message << sprintf("\nPhone: (%s)%s-%s", phone[0], phone[1], phone[2])
         end
       end
 
       if params[:hours].present?
-        # details = InstitutionDetails.where(institution_id: id)
-        # details = details.first if details.present? and details.hours.present?
-        message << "Hours: MF"
+        days = Date::DAYNAMES
+        hours = getHours(id)
+        message << "\nHours"
+        hours.each_with_index do |h, i|
+          message << "#{days[i]} - #{h}"
+        end
       end
 
       if params[:address].present?
         address = Location.where(institution_id: id)
         address = address.first if address.present?
-        message << "Address:"
+        message << "\nAddress:"
         message << address.streetLine1
         message << address.streetLine2 if address.streetLine2.present?
         message << sprintf("%s, %s %s", address.city, address.state, address.zip)
@@ -48,16 +57,15 @@ class SmsController < ApplicationController
 
       if params[:amenities].present?
         amenities = InstitutionHasAmenity.joins(:amenity, :institution).where(institution_id: id).map(&:amenity)
-        message << "Amenity".pluralize(amenities.size) + ":" if amenities.present?
+        message << "\nAmenity".pluralize(amenities.size) + ":" if amenities.present?
         amenities.each do |a|
           message << "- " + a.name.capitalize
         end
       end
 
       if params[:restrictions].present?
-        message << "Restrictions"
+        message << "\nRestrictions"
         message << institution.instructions
-        
       end
 
       send_message([number], message.join("\n"))

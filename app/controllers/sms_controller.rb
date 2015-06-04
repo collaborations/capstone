@@ -159,7 +159,7 @@ class SmsController < ApplicationController
     end
 
     def subscribe_to_institutions(phone, institutions)
-      message = []
+      message = ""
       institutions.each do |id|
         if Institution.where(id: id).nil?
           message << "Institution #{id} doesn't exist. Can't subscribe."
@@ -175,11 +175,11 @@ class SmsController < ApplicationController
           end
         end
       end
-      send_message(phone, message.join("\n"))
+      send_message(phone, message)
     end
 
     def nearZip(zip)
-      loctions = Location.where(zip: zip)
+      locations = Location.where(zip: zip)
       if locations.present?
         message = ["Locations near zip: #{zip}"]
         institutions = []

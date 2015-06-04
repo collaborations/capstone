@@ -172,6 +172,7 @@ class SmsController < ApplicationController
           message << "No capacity logged today for #{institution.name}"
         else
           message << "Could not find institution with id #{id}"
+        end
       end
       return message.join("\n")
     end
@@ -188,11 +189,20 @@ class SmsController < ApplicationController
       @client = Twilio::REST::Client.new Settings.twilio.sid, Settings.twilio.auth
       numbers.each do |num|
         begin
-          @client.account.messages.create({
-            :from => Settings.twilio.number,
-            :to => num,
-            :body => message
-          })
+          if message.length > 1000
+            m = message[0...1000]
+            @client.account.messages.create({
+              :from => Settings.twilio.number,
+              :to => num,
+              :body => message
+            })
+          else
+            @client.account.messages.create({
+              :from => Settings.twilio.number,
+              :to => num,
+              :body => message
+            })
+          end
         rescue Twilio::REST::RequestError => e
           puts e.message
         end

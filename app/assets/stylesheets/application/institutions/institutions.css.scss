@@ -145,6 +145,8 @@ ul.breadcrumbs{
     button {
       margin-bottom: 0px;
       width: 100%;
+      background-color: $nav-bg;
+
     }
   }
 
@@ -164,9 +166,14 @@ ul.breadcrumbs{
       border-bottom: solid 1px $border-color;
       text-align: center;
     }
+    .row {
+      border-radius: 3%
+    }
 
     .save-icon {
       width: 50px;
+      height: 50px;
+
     }
 
     .label {
@@ -179,6 +186,8 @@ ul.breadcrumbs{
       border-top: solid 1px $border-color;
       .button {
         width: 100%;
+        border-radius: 3%;
+
       }
     }
   }

@@ -61,17 +61,17 @@
   %div#get-info.columns.small-12.large-2
     %div#save
       %h4= "Save Information"
-      %div.row
+      %div.row.collapse
         %button.small-12.large-12{ name: "email", "data-reveal-id" => "institution-modal" }
           %div= embedded_svg("email.svg", { class: "save-icon", alt: "Email me this!"})
           %span= "Email"
-      %div.row
+      %div.row.collapse
         %button.small-12.large-12{ name: "text", "data-reveal-id" => "institution-modal" }
           %div= embedded_svg("sms.svg", { class: "save-icon", alt: "Text this to me!"})
           %span= "Text"
-      %div.row
+      %div.row.collapse
         = link_to(institution_print_path, { class: "columns small-12 large-12 button label" }) do
-          %div= embedded_svg("printer.svg", { class: "save-icon", alt: "Print this for me!"})
+          %div= embedded_svg("print.svg", { class: "save-icon", alt: "Print this for me!"})
           %span= "Print"
 
     %div#subscribe

@@ -16,7 +16,7 @@ class SmsController < ApplicationController
 
   # This is hit by Twilio every time we receive a text
   def reply
-    puts params
+    Rails.logger.info params
   end
 
   def info

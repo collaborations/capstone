@@ -25,7 +25,6 @@ function init(fullpath) {
   });
 }
 function filter(data) {
-  console.log(data);
   $("#institutions_list").html(allInst);
   var sorted = [];
   sel = ".institution-name";
@@ -35,16 +34,13 @@ function filter(data) {
     filt[data[i].id] = true;
   }
   var tempMarkers = gon.markers;
-  console.log(tempMarkers.length);
-  console.log(tempMarkers.typeof);
-  console.log(tempMarkers[0][0] + " " + tempMarkers[1][0] + " " + tempMarkers[2][0] + " " + tempMarkers[3][0] + " " + tempMarkers[4][0]);
-  for (var i = tempMarkers.length - 1; i >= 0; i--) {
-    console.log(tempMarkers[i][0]);
-    if (!filt[tempMarkers[i][0]]) {
-      tempMarkers = tempMarkers.pop();
+  var temp = []
+  for (mark in tempMarkers) {
+    if (filt[tempMarkers[mark][0]]) {
+      temp.push(tempMarkers[mark])
     }
   }
-  console.log(tempMarkers);
+  gon.markers = temp;
   initializeMaps();
   $.each($(".institution"), function(k, v){
     var name = $(v).find(sel)[0].innerHTML;
@@ -68,7 +64,6 @@ function callAjax(data, filt, age) {
 
 function getFilters(button, x, age) {
   gon.markers = deepCopy(originalMarkers);
-  console.log(gon.markers);
   filt = [];
   btn = $(button);
   id = btn.parent()[0].id.split('-')[1];

@@ -70,9 +70,10 @@
           %div= embedded_svg("sms.svg", { class: "save-icon", alt: "Text this to me!"})
           %span= "Text"
       %div.row
-        = link_to(institution_print_path, { class: "columns small-12 large-12 button label print" }) do
-          %div= embedded_svg("printer.svg", { class: "save-icon", alt: "Print this for me!"})
-          %span= "Print"
+        = link_to(institution_print_path) do
+          %button.columns.small-12.large-12
+            %div= embedded_svg("printer.svg", { class: "save-icon", alt: "Print this for me!"})
+            %span= "Print"
 
     %div#subscribe
       %h4.has-tip{ data: { tooltip: true}, aria: { haspopup: true }, title: t('sms.subscribe.description')}= t('sms.subscribe.title')

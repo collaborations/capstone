@@ -25,6 +25,7 @@ function init(fullpath) {
   });
 }
 function filter(data) {
+  console.log(data);
   $("#institutions_list").html(allInst);
   var sorted = [];
   sel = ".institution-name";
@@ -34,11 +35,16 @@ function filter(data) {
     filt[data[i].id] = true;
   }
   var tempMarkers = gon.markers;
-  for (mark in tempMarkers) {
-    if (!filt[tempMarkers[mark][0]]) {
-      tempMarkers = tempMarkers.splice(mark);
+  console.log(tempMarkers.length);
+  console.log(tempMarkers.typeof);
+  console.log(tempMarkers[0][0] + " " + tempMarkers[1][0] + " " + tempMarkers[2][0] + " " + tempMarkers[3][0] + " " + tempMarkers[4][0]);
+  for (var i = tempMarkers.length - 1; i >= 0; i--) {
+    console.log(tempMarkers[i][0]);
+    if (!filt[tempMarkers[i][0]]) {
+      tempMarkers = tempMarkers.pop();
     }
   }
+  console.log(tempMarkers);
   initializeMaps();
   $.each($(".institution"), function(k, v){
     var name = $(v).find(sel)[0].innerHTML;
@@ -62,6 +68,7 @@ function callAjax(data, filt, age) {
 
 function getFilters(button, x, age) {
   gon.markers = deepCopy(originalMarkers);
+  console.log(gon.markers);
   filt = [];
   btn = $(button);
   id = btn.parent()[0].id.split('-')[1];
@@ -81,12 +88,19 @@ function getFilters(button, x, age) {
 } 
 
 function openFilter() {
-  var button = $("div.open");
+  gon.markers = deepCopy(originalMarkers);
+  var buttons = $("div.open");
+  var data = []
+  for (var i = 0; i < buttons.length; i++) {
+    var temp = buttons[i].innerHTML.split("-")
+    data[i] = {"id": temp[0], "name": temp[1]};
+  }
+  filter(data);
 }
 
 function deepCopy(array) {
   var result = new Array();
-  for (i in array) {
+  for (var i = 0; i < array.length; i++) {
     result[i] = array[i];
   }
   return result;

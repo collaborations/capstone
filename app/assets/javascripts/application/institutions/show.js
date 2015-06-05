@@ -15,6 +15,7 @@ function initializeInstitution(){
     $("#message_type")[0].value = "email";
     $("#institution-modal-form")[0].action = "/institution/email"
     $("#sms").attr("aria-invalid", false);
+    $("input[type=checkbox]").prop('checked', true)
   });
 
   $("button[name='text']").on("click", function(){
@@ -25,7 +26,9 @@ function initializeInstitution(){
     $("#message_type")[0].value = "text";
     $("#institution-modal-form")[0].action = "/sms/info"
     $("#email").attr("aria-invalid", false);
+    $("input[type=checkbox]").prop('checked', true)
   });
+
 
   $(".modal-close-button").on('click', function(){ $("#institution-modal").foundation('reveal', 'close'); });
 

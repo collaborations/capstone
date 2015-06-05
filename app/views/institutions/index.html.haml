@@ -50,7 +50,7 @@
         - dropdown_id = "hours-dropdown-#{institution.id}"
         %div.institution.row
           - if @open
-            %div.open.hide
+            %div.open.hide="#{institution.id}-#{institution.name}"
           %div.small-12.large-6.columns
             =link_to institution.name, institution_path(institution), class: "row small-12 large-12 institution-name"
             %div.row.small-12.large-12

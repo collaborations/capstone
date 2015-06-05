@@ -8,19 +8,20 @@ var allInst;
 var originalMarkers;
 
 function init(fullpath) {
-  $(document).ready(function() {
-    mapping = new Array();
-    originalMarkers = deepCopy(gon.markers);
-    allInst = $("#institutions_list").html();
-    var x = fullpath;
-    var age = $("li.toggle > input#btn-age");
-    age.on('blur', function() {
-      getFilters(this, x, this.value);
-    });
-    filters = $("li.toggle > button");
-    filters.on('click', function () {
-      getFilters(this, x);      
-    });
+  mapping = new Array();
+  originalMarkers = deepCopy(gon.markers);
+  allInst = $("#institutions_list").html();
+  var x = fullpath;
+  var age = $("li.toggle > input#btn-age");
+  age.on('blur', function() {
+    getFilters(this, x, this.value);
+  });
+  filters = $("li.toggle > button");
+  filters.on('click', function () {
+    getFilters(this, x);      
+  });
+  $("#btn-opennow").on('click', function (){
+    openFilter();
   });
 }
 function filter(data) {
@@ -33,11 +34,13 @@ function filter(data) {
     filt[data[i].id] = true;
   }
   var tempMarkers = gon.markers;
+  var temp = []
   for (mark in tempMarkers) {
-    if (!filt[tempMarkers[mark][0]]) {
-      tempMarkers = tempMarkers.splice(mark);
+    if (filt[tempMarkers[mark][0]]) {
+      temp.push(tempMarkers[mark])
     }
   }
+  gon.markers = temp;
   initializeMaps();
   $.each($(".institution"), function(k, v){
     var name = $(v).find(sel)[0].innerHTML;
@@ -79,9 +82,20 @@ function getFilters(button, x, age) {
   callAjax(x, filt, age);
 } 
 
+function openFilter() {
+  gon.markers = deepCopy(originalMarkers);
+  var buttons = $("div.open");
+  var data = []
+  for (var i = 0; i < buttons.length; i++) {
+    var temp = buttons[i].innerHTML.split("-")
+    data[i] = {"id": temp[0], "name": temp[1]};
+  }
+  filter(data);
+}
+
 function deepCopy(array) {
   var result = new Array();
-  for (i in array) {
+  for (var i = 0; i < array.length; i++) {
     result[i] = array[i];
   }
   return result;

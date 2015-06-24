@@ -74,6 +74,7 @@ gem 'thin'
 
 group :production do
   gem 'execjs'
+  gem 'rails_12factor'
 end
 
 group :development do

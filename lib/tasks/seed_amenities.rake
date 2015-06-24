@@ -8,8 +8,7 @@ amenities = [
   { name: "Hygiene", img: "categories/hygiene.svg", desc: "Provides a shower"},
   { name: "Medical", img: "categories/medical.svg", desc: "Has some amount of medical assistance"},
   { name: "Hotline", img: "categories/hotline.svg", desc: "Number to call for help for various reasons"},
-  { name: "Employment", img: "categories/employment.svg", desc: "A place that offers assistance getting employed"},
-  { name: "Test", img: "categories/employment.svg", desc: "A place that offers assistance getting employed"}
+  { name: "Employment", img: "categories/employment.svg", desc: "A place that offers assistance getting employed"}
 ]
 
 namespace :db do

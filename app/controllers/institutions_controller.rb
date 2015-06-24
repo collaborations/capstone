@@ -1,7 +1,7 @@
 class InstitutionsController < ApplicationController
   before_action :set_amenity, only: [:edit, :update, :new]
   before_action :set_institution, only: [:show, :update, :destroy, :print]
-  before_action :authenticate_user!, only: [:edit, :update]
+  before_action :authenticate_user!, only: [:new, :edit, :update]
   before_action :load_google_maps, only: [:amenity, :index, :show]
   before_action :get_amenity_from_referrer, only: [:show]
 

@@ -72,6 +72,9 @@ gem 'business_time'
 # https://github.com/macournoyer/thin/
 gem 'thin'
 
+# Use New Relic for monitoring
+gem 'newrelic_rpm'
+
 group :production do
   gem 'execjs'
   gem 'rails_12factor'

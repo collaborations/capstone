@@ -195,6 +195,7 @@ class InstitutionsController < ApplicationController
         address << location.city + ", " + location.state + " " + location.zip.to_s
         url = Settings.google.geocode.url + "api_key=" + Settings.google.token + "&address=" + address.sub(/\s/, "+")
         response = JSON.parse(Faraday.get(url).body)['results']
+        Rails.logger.debug response
         data = response[0]['geometry']['location']
         location.lat = data['lat']
         location.long = data['lng']

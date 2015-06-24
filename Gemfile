@@ -81,9 +81,6 @@ group :development do
   # Use Thin for a web server
   # https://github.com/macournoyer/thin/
   gem 'thin'
-
-  # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
-  gem 'spring'
 end
 
 

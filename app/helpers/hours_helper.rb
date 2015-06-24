@@ -45,7 +45,6 @@ module HoursHelper
     end
     BusinessTime::Config.new
     BusinessTime::Config.work_hours = work_days
-    puts BusinessTime::Config.work_hours.to_s
 
     # Whether the institution is currently open
     if @hours_present

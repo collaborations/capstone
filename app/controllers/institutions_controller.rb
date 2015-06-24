@@ -125,7 +125,7 @@ class InstitutionsController < ApplicationController
 
       # @restrictions = Restrictions.where(institution_id: id)
     rescue ActionController::ParameterMissing => e
-      puts e.message
+      Rails.logger.warn e.message
     end
   end
 

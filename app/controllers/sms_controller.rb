@@ -113,7 +113,7 @@ class SmsController < ApplicationController
 
       send_message([number], message.join("\n"))
     rescue ActionController::ParameterMissing => e
-      puts e.message
+      Rails.logger.warn e.message
       head :bad_request, content_type: "text/html"
     end
     head :ok, content_type: "text/html"
@@ -139,7 +139,7 @@ class SmsController < ApplicationController
       end
       redirect_to '/institution/' + id.to_s
     rescue => e
-      puts e
+      Rails.logger.warn e.message
     end
     if message.present?
       send_message([number], message)
@@ -154,7 +154,7 @@ class SmsController < ApplicationController
       numbers.destroy_all()
       send_message([phone], "You have unsubscribed from #{total} #{"institution".pluralize(total)}")
     rescue => e
-      puts e
+      Rails.logger.warn e.message
     end
   end
 
@@ -204,7 +204,7 @@ class SmsController < ApplicationController
             })
           end
         rescue Twilio::REST::RequestError => e
-          puts e.message
+          Rails.logger.warn e.message
         end
       end
     end

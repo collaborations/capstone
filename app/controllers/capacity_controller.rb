@@ -12,7 +12,6 @@ class CapacityController < ApplicationController
     gon.push({
       :capacity => @total
     })
-    puts "!!!!#{@total}"
   end
 
   def get
@@ -36,7 +35,6 @@ class CapacityController < ApplicationController
           allData << { id: cap, data: data }
         end
       end
-      puts allData.to_json
       render json: allData
     else
       head :bad_request
@@ -62,7 +60,6 @@ class CapacityController < ApplicationController
         @data << { type: "available", value: capacity.available }
         if last_update
           @data << { type: "last_update", value: capacity.updated_at.strftime("%l:%M %p") }
-          puts Time.zone.to_s
         end
       end
       @data

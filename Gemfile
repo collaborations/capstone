@@ -66,6 +66,10 @@ gem 'faraday'
 # Use business_time to do our time management.
 gem 'business_time'
 
+# Use Thin for a web server
+# https://github.com/macournoyer/thin/
+gem 'thin'
+
 group :production do
   gem 'execjs'
 end
@@ -77,10 +81,6 @@ group :development do
   gem 'capistrano-passenger'
   gem 'capistrano-rails'
   gem 'capistrano-rvm'
-
-  # Use Thin for a web server
-  # https://github.com/macournoyer/thin/
-  gem 'thin'
 end
 
 

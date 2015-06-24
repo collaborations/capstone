@@ -1,3 +1,6 @@
+airbrake:
+  token:
+
 twilio:
   sid: 
   auth: 
@@ -5,10 +8,10 @@ twilio:
 
 google:
   token:
-  maps:
-    url: https://maps.googleapis.com/maps/api/js?
   geocode:
     url: http://maps.googleapis.com/maps/api/geocode/json?
+  maps:
+    url: https://maps.googleapis.com/maps/api/js?
 
 google_mail:
   email: 

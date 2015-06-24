@@ -1,3 +1,6 @@
+airbrake:
+  token: ENV['AIRBRAKE_API_KEY']
+
 twilio:
   sid: ACe51b23e01c259f75a395eb3cfb50a9ec
   auth: ENV['TWILIO_AUTH'] 

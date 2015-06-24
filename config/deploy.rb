@@ -38,3 +38,6 @@ namespace :deploy do
   after :publishing, 'deploy:restart'
   after :finishing, 'deploy:cleanup'
 end
+
+require 'airbrake/capistrano3'
+after "deploy:finished", "airbrake:deploy"

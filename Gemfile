@@ -75,6 +75,9 @@ gem 'thin'
 # Use New Relic for monitoring
 gem 'newrelic_rpm'
 
+# Use Airbrake for error monitoring
+gem 'airbrake'
+
 group :production do
   gem 'execjs'
   gem 'rails_12factor'

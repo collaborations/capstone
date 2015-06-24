@@ -33,13 +33,13 @@ class SmsController < ApplicationController
       # Near me | Nearby
       zip = params[:FromZip]
       m = nearZip(zip)
-      send_message([phone], m)
+      reply_handler(m)
     elsif message.downcase.starts_with?("near")
       # Near [zipcode]
       zips = message.downcase.scan(/\d{5}/)
       zips.each do |zip|
         m = nearZip(zip)
-        send_message([phone], m)
+        reply_handler(m)
       end
     elsif message.downcase.starts_with?("capacity")
       # Capacity [id]
@@ -49,7 +49,7 @@ class SmsController < ApplicationController
       else
         m = "It appears you're missing an id. Example: 'capacity 10'"
       end
-      send_message([phone], m)
+      reply_handler(m)
     else
       m = []
       m << "Unfortunately I don't understand how to process: "
@@ -60,7 +60,7 @@ class SmsController < ApplicationController
       m << "capacity [id] - Shows the current capacity of the given institution"
       m << "add [id] - Subscribes to the institution with that ID"
       m << "remove - Removes you from all subscriptions"
-      send_message([phone], m.join("\n\n"))
+      reply_handler(m.join("\n\n"))
     end
     head :ok, content_type: "text/html"
   end
@@ -184,6 +184,12 @@ class SmsController < ApplicationController
       end
     end
 
+    def reply_handler(message)
+      twiml = Twilio::TwiML::Response.new do |r|
+        r.Message message
+      end
+      twiml.text
+    end
 
     def send_message(numbers, message)
       @client = Twilio::REST::Client.new Settings.twilio.sid, Settings.twilio.auth

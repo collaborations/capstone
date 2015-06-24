@@ -9,7 +9,7 @@ twilio:
 google:
   token: "<%= ENV['GOOGLE_TOKEN'] %>"
   geocode:
-    url: http://maps.googleapis.com/maps/api/geocode/json?
+    url: https://maps.googleapis.com/maps/api/geocode/json?
   maps:
     url: https://maps.googleapis.com/maps/api/js?
 

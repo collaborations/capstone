@@ -1,26 +1,15 @@
-slack:
-  slackbot: 
-    token:
-    url:
-
 twilio:
   sid: 
   auth: 
   number: 
 
 google:
+  token:
   maps:
-    callback: googleMapsCallback
-    token: 
     url: https://maps.googleapis.com/maps/api/js?
   geocode:
-    token: 
     url: http://maps.googleapis.com/maps/api/geocode/json?
-  api:
-    key: 
-    client_id: 
 
 google_mail:
   email: 
   password: 
-

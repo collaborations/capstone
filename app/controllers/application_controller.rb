@@ -29,8 +29,8 @@ class ApplicationController < ActionController::Base
 
   def load_google_maps
     gon.google_maps_url = Settings.google.maps.url + 
-                          "key=" + Settings.google.maps.token +
-                          "&callback=" + Settings.google.maps.callback
+                          "key=" + Settings.google.token +
+                          "&callback=initializeMaps"
     @load_google_maps = true
   end
 end

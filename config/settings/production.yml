@@ -1,13 +1,13 @@
 airbrake:
-  token: ENV['AIRBRAKE_API_KEY']
+  token: "<%= ENV['AIRBRAKE_API_KEY'] %>"
 
 twilio:
   sid: ACe51b23e01c259f75a395eb3cfb50a9ec
-  auth: ENV['TWILIO_AUTH'] 
+  auth: "<%= ENV['TWILIO_AUTH'] %>"
   number: +12063175753
 
 google:
-  token: ENV['GOOGLE_TOKEN']
+  token: "<%= ENV['GOOGLE_TOKEN'] %>"
   geocode:
     url: http://maps.googleapis.com/maps/api/geocode/json?
   maps:
@@ -15,4 +15,4 @@ google:
 
 google_mail:
   email: stepstoneservice@gmail.com
-  password: ENV['GMAIL_PASSWORD']
+  password: "<%= ENV['GMAIL_PASSWORD'] %>"

@@ -175,8 +175,8 @@ class InstitutionsController < ApplicationController
           # Update data with current database values
           loc = i.locations.first
         end
-        lat += loc.lat
-        long += loc.long
+        lat += loc.lat if loc.lat.present?
+        long += loc.long if loc.long.present?
         gon.markers << [i.id, ActionController::Base.helpers.link_to(i.name, institution_path(i.id)), loc.lat, loc.long]
       end
       unless lat == 0 and long == 0

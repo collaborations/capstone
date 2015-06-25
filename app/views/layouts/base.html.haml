@@ -16,19 +16,15 @@
   %meta{ :name => "viewport", :content => "width=device-width, initial-scale=1.0" }
   %title= content_for?(:title) ? yield(:title) : t('defaults.title') + " - " + params[:controller].to_s.titleize
 
-  = include_gon(init: true)
-  = stylesheet_link_tag "application"
-  = javascript_include_tag "vendor/modernizr"
-  = csrf_meta_tags
+  = yield :header
 
 %body
-  = if params[:controller] != "home" then render 'shared/nav' else render 'home/nav'end
+  = if params[:controller] != "home" then render 'shared/nav' else render 'home/nav' end
+
   = render 'shared/flash'
-  %div{id: params[:controller] + '_' + params[:action]}
-    = yield
-
   
-  - if @load_google_maps
-    = javascript_include_tag "maps"
+  %div{id: params[:controller] + '_' + params[:action]}
+    = content_for?(:content) ? yield(:content) : yield
 
-  = javascript_include_tag "application"
+  = yield :javascript
+  

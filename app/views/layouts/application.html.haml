@@ -1,4 +1,4 @@
-- if params[:action] == "print"
-  = render :template => 'layouts/print'
-- else
-  = render :template => 'layouts/base'
+= render :template => 'layouts/base'
+
+- content_for :content do
+  = content_for?(:content) ? yield(:content) : yield

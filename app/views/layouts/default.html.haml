@@ -1,0 +1,10 @@
+- content_for :header do
+  = include_gon(init: true)
+  = stylesheet_link_tag "application"
+  = javascript_include_tag "vendor/modernizr"
+  = csrf_meta_tags
+
+- content_for :javascripts do
+  - if @load_google_maps
+    = javascript_include_tag "maps"
+  = javascript_include_tag "application"

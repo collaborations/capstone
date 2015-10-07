@@ -33,7 +33,7 @@
 
     - Create `config/settings/database.yml` based on `config/settings/database.example.yml` and fill in db config
     - Set `secret_key_base` for development in `config/secrets.yml`
-    - Obtain tokens for `config/settings.yml` from Gino
+    - Obtain tokens from Gino and place them in `config/settings.local.yml` (`config/settings.yml` can be used as a template) 
 
 6. Create and seed databases
 
@@ -41,6 +41,7 @@
     rake db:create
     rake db:migrate
     rake db:seed
+    rake db:seed:amenities
     ```
 
 ## Server Setup

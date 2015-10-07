@@ -163,63 +163,6 @@ class InstitutionsController < ApplicationController
         { :filter_attributes => [:id, :institution_id, :individual, :family, :male, :female, :min_age, :max_age, :physical_disability, :mental_disability, :veteran, :abuse_victim]} )
     end
 
-    def set_locations
-      lat = 0
-      long = 0
-      gon.markers = []
-      institutions = @institution.present? ? [@institution] : @institutions
-      institutions.each do |i|
-        loc = i.locations.first
-        if !loc.lat.present? or !loc.long.present?
-          getLatLong(i)
-          # Update data with current database values
-          loc = i.locations.first
-        end
-        lat += loc.lat if loc.lat.present?
-        long += loc.long if loc.long.present?
-        gon.markers << [i.id, ActionController::Base.helpers.link_to(i.name, institution_path(i.id)), loc.lat, loc.long]
-      end
-      unless lat == 0 and long == 0
-        gon.push({
-          :latitude => lat/gon.markers.length,
-          :longitude => long/gon.markers.length
-        })
-      end
-    end
-
-    def getLatLong(institution)
-      begin
-        location = institution.locations.first
-        address = location.streetLine1 + " "
-        address << location.streetLine2 + " " if location.streetLine2.present?
-        address << location.city + ", " + location.state + " " + location.zip.to_s
-        url = Settings.google.geocode.url + "api_key=" + Settings.google.token + "&address=" + address.sub(/\s/, "+")
-        response = JSON.parse(Faraday.get(url).body)['results']
-        Rails.logger.debug response
-        data = response[0]['geometry']['location']
-        location.lat = data['lat']
-        location.long = data['lng']
-        location.save
-      rescue NoMethodError => e
-        Rails.logger.error e
-      end
-    end
-
-    def load_contact_info
-      contact = Contact.where(institution_id: @institution.id)
-      contact = contact.first if contact.present?
-      @contact = []
-      if contact.email.present?
-        @contact << { label: "Email: ", info: contact.email }
-      end
-      if contact.phone.present?
-        @contact << { label: "Phone: ", info: contact.phone }
-      end
-      if contact.website.present?
-        @contact << { label: "Website: ", info: contact.website }
-      end
-    end
-
     def filt_inst(term, result)
       if term
         @institutions = Institution.joins(:amenities, :filter).search(params[:search]).where(result)

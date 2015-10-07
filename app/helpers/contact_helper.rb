@@ -25,4 +25,20 @@ module ContactHelper
 
     return t('contact.website.missing')
   end
+
+  def load_contact_info
+    contact = Contact.where(institution_id: @institution.id)
+    contact = contact.first if contact.present?
+    @contact = []
+    if contact.email.present?
+      @contact << { label: "Email: ", info: contact.email }
+    end
+    if contact.phone.present?
+      @contact << { label: "Phone: ", info: contact.phone }
+    end
+    if contact.website.present?
+      @contact << { label: "Website: ", info: contact.website }
+    end
+  end
+  
 end

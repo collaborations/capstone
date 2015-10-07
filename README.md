@@ -31,9 +31,9 @@
 
 5. Configure settings
 
-    a. Create `config/settings/database.yml` based on `config/settings/database.example.yml` and fill in db config
-    b. Set `secret_key_base` for development in `config/secrets.yml`
-    c. Obtain tokens for `config/settings.yml` from Gino
+    - Create `config/settings/database.yml` based on `config/settings/database.example.yml` and fill in db config
+    - Set `secret_key_base` for development in `config/secrets.yml`
+    - Obtain tokens for `config/settings.yml` from Gino
 
 6. Create and seed databases
 

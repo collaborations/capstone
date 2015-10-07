@@ -4,7 +4,7 @@
 
 [Check out our site!](http://step-stone.me)
 
-## Setup
+## Dev Setup
 
 1. Install Postgres
     * For debian based linux distros this should be:
@@ -43,4 +43,6 @@
     rake db:seed
     ```
 
+## Server Setup
 
+ TODO. Talk to Gino.

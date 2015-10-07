@@ -9,7 +9,7 @@
 1. Install Postgres
     * For debian based linux distros this should be:
 
-        `sudo apt-get install postgresql`
+        `sudo apt-get install postgresql postgresql-contrib libpq-dev`
 2. Install RVM
 
     ```
@@ -29,14 +29,16 @@
     bundle
     ```
 
-    * If it errors when installing pg, you may need to install libpq-dev:
+5. Configure settings
+    a. Create `config/settings/database.yml` based on `config/settings/database.example.yml` and fill in db config
+    b. Set `secret_key_base` for development in `config/secrets.yml`
+    c. Obtain tokens for `config/settings.yml` from Gino
 
-    `sudo apt-get install libpq-dev`
-
-5. Create and seed databases
+6. Create and seed databases
 
     ```
     rake db:create
+    rake db:migrate
     rake db:seed
     ```
 
